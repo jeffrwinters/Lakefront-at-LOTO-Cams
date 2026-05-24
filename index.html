@@ -8,16 +8,16 @@
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 <style>
   :root {
-    --bg: #08111b;
-    --surface: #0f1c2b;
-    --card: #14263a;
-    --border: #22384f;
+    --bg: #04070c;
+    --surface: #0b1020;
+    --card: #101935;
+    --border: #1a2750;
 
-    --accent: #6ea8d9;
-    --accent2: #d9a441;
+    --accent: #1f33cc;
+    --accent2: #9fa8d6;
 
-    --text: #eef4fb;
-    --muted: #8aa0b8;
+    --text: #eef2ff;
+    --muted: #7f8db8;
     --live: #ff4d4d;
   }
 
@@ -54,7 +54,7 @@
     backdrop-filter: blur(12px);
   }
 
-  .logo { display: flex; align-items: baseline; gap: 10px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
 
   .logo-main {
     font-family: 'Bebas Neue', sans-serif;
@@ -75,15 +75,19 @@
   .header-controls { display: flex; align-items: center; gap: 12px; }
 
   #castBtn {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    width: 40px; height: 40px;
-    border-radius: 8px;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
     cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.2s;
-    font-size: 18px;
+    font-size: 15px;
+    font-weight: 700;
+    min-height: 44px;
   }
   #castBtn:hover { border-color: var(--accent); color: var(--accent); }
   #castBtn.casting { border-color: var(--accent); color: var(--accent); background: rgba(0,196,255,0.1); }
@@ -544,10 +548,10 @@
 <header>
   <div class="logo">
     <span class="logo-main">Lakefront at LOTO Cams</span>
-    <span class="logo-sub">Midwest Boat Party Live Cameras</span>
+    
   </div>
   <div class="header-controls">
-    <button id="castBtn" title="Cast to TV">📺</button>
+    <button id="castBtn" title="Cast Auto-Cycle to TV">📺 Cast</button>
   </div>
 </header>
 
@@ -1044,11 +1048,40 @@ function castCam(cam) {
   });
 }
 
-document.getElementById('castBtn').addEventListener('click', () => {
+document.getElementById('castBtn').addEventListener('click', async () => {
+  const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    showToast('Use your browser or device screen-casting feature for best results while cycling cams');
+    alert(
+      'For the smoothest auto-cycle experience:
+
+' +
+      '• Android: Use Chrome > Cast Screen
+' +
+      '• iPhone/iPad: Use Screen Mirroring / AirPlay
+
+' +
+      'This keeps camera cycling working continuously on your TV.'
+    );
+    return;
+  }
+
   if (typeof cast !== 'undefined' && cast.framework) {
+    showToast('Starting cast session...');
     cast.framework.CastContext.getInstance().requestSession();
   } else {
-    showToast('⚠️ Cast only works in Chrome on desktop');
+    alert(
+      'Best experience:
+
+' +
+      'Use Google Chrome desktop browser and use:
+' +
+      'Menu > Cast > Cast Tab
+
+' +
+      'This allows auto-cycle to continue on the TV.'
+    );
   }
 });
 
