@@ -29,7 +29,6 @@
     overflow-x: hidden;
   }
 
-  /* Subtle water-like background */
   body::before {
     content: '';
     position: fixed;
@@ -53,11 +52,7 @@
     backdrop-filter: blur(12px);
   }
 
-  .logo {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
+  .logo { display: flex; align-items: baseline; gap: 10px; }
 
   .logo-main {
     font-family: 'Bebas Neue', sans-serif;
@@ -75,32 +70,16 @@
     color: var(--muted);
   }
 
-  .header-controls {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  /* Cast button */
-  google-cast-launcher {
-    --connected-color: var(--accent);
-    --disconnected-color: var(--muted);
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-  }
+  .header-controls { display: flex; align-items: center; gap: 12px; }
 
   #castBtn {
     background: var(--card);
     border: 1px solid var(--border);
     color: var(--muted);
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     border-radius: 8px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
     font-size: 18px;
   }
@@ -115,7 +94,6 @@
     padding: 24px 20px;
   }
 
-  /* Player */
   .player-section {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -140,19 +118,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
+    padding: 10px 16px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .cam-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .cam-label { display: flex; align-items: center; gap: 10px; min-width: 0; }
 
   .live-dot {
-    width: 8px; height: 8px;
+    width: 8px; height: 8px; flex-shrink: 0;
     background: var(--live);
     border-radius: 50%;
     animation: pulse 1.5s ease-in-out infinite;
@@ -165,21 +141,17 @@
 
   .cam-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     letter-spacing: 1px;
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  .cam-index {
-    font-size: 11px;
-    color: var(--muted);
-    font-weight: 300;
-  }
+  .cam-index { font-size: 11px; color: var(--muted); font-weight: 300; flex-shrink: 0; }
 
-  .player-actions {
-    display: flex;
-    gap: 8px;
-  }
+  .player-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .btn {
     background: var(--card);
@@ -192,15 +164,14 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
     white-space: nowrap;
   }
   .btn:hover { border-color: var(--accent); color: var(--accent); }
   .btn.active { background: rgba(0,196,255,0.15); border-color: var(--accent); color: var(--accent); }
   .btn.accent { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
   .btn.accent:hover { background: #00e0ff; }
+  .btn.danger { background: rgba(255,59,59,0.15); border-color: rgba(255,59,59,0.5); color: #ff6b6b; }
 
   .player-frame {
     position: relative;
@@ -212,25 +183,21 @@
   #twitchFrame {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border: none;
   }
 
   .player-footer {
-    padding: 12px 16px;
+    padding: 10px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: var(--surface);
     border-top: 1px solid var(--border);
+    gap: 10px;
   }
 
-  .nav-controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
+  .nav-controls { display: flex; gap: 8px; align-items: center; }
 
   .nav-btn {
     background: var(--card);
@@ -245,15 +212,8 @@
   }
   .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-  .auto-cycle-label {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  /* Timer bar */
   .timer-bar-wrap {
     flex: 1;
-    margin: 0 16px;
     height: 3px;
     background: var(--border);
     border-radius: 2px;
@@ -264,16 +224,13 @@
     height: 100%;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
     width: 0%;
-    transition: width 0.5s linear;
     border-radius: 2px;
   }
 
-  /* Sidebar */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  .auto-cycle-label { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  /* ── Sidebar ── */
+  .sidebar { display: flex; flex-direction: column; gap: 4px; }
 
   .sidebar-header {
     font-family: 'Bebas Neue', sans-serif;
@@ -293,50 +250,201 @@
     flex-direction: column;
     gap: 2px;
   }
-
   .cam-list::-webkit-scrollbar { width: 4px; }
   .cam-list::-webkit-scrollbar-track { background: transparent; }
   .cam-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
   .cam-item {
-    padding: 9px 12px;
+    padding: 8px 10px;
     border-radius: 8px;
     cursor: pointer;
     border: 1px solid transparent;
     transition: all 0.15s;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
   .cam-item:hover { background: var(--card); border-color: var(--border); }
-  .cam-item.active {
-    background: rgba(0,196,255,0.1);
-    border-color: rgba(0,196,255,0.4);
-  }
+  .cam-item.active { background: rgba(0,196,255,0.1); border-color: rgba(0,196,255,0.4); }
 
-  .cam-item-num {
+  .cam-item-check {
+    width: 16px; height: 16px; flex-shrink: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
     font-size: 10px;
+    transition: all 0.15s;
+    background: transparent;
+  }
+  .cam-item.in-cycle .cam-item-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+
+  .cam-item-num { font-size: 10px; color: var(--muted); width: 18px; text-align: right; flex-shrink: 0; }
+
+  .cam-item-name { font-size: 12px; font-weight: 500; line-height: 1.3; flex: 1; }
+  .cam-item.active .cam-item-name { color: var(--accent); }
+  .cam-item-sub { font-size: 10px; color: var(--muted); font-weight: 300; }
+
+  /* ── Cycle Settings Panel ── */
+  .cycle-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .cycle-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .panel-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  .panel-title span { color: var(--accent); }
+
+  .cycle-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .time-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+  }
+
+  .time-input-wrap label {
+    font-size: 11px;
     color: var(--muted);
-    width: 22px;
-    text-align: right;
-    flex-shrink: 0;
+    white-space: nowrap;
   }
 
-  .cam-item-name {
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.3;
-    flex: 1;
+  .time-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+  }
+  .time-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(0,196,255,0.5);
   }
 
-  .cam-item.active .cam-item-name {
+  .time-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
     color: var(--accent);
+    min-width: 36px;
+    text-align: center;
   }
 
-  /* Bottom cam grid (mobile / extra view) */
-  .cam-grid-section {
-    margin-top: 8px;
+  .cycle-queue-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 10px;
   }
+
+  .cycle-queue-label span { color: var(--accent); font-weight: 600; }
+
+  /* Quick-select venue buttons */
+  .venue-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .venue-tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .venue-tag:hover { border-color: var(--accent); color: var(--accent); }
+  .venue-tag.all-on { background: rgba(0,196,255,0.15); border-color: var(--accent); color: var(--accent); }
+
+  /* Cam selection grid inside panel */
+  .cam-select-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .cam-select-grid::-webkit-scrollbar { width: 4px; }
+  .cam-select-grid::-webkit-scrollbar-track { background: transparent; }
+  .cam-select-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .cam-select-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .cam-select-item:hover { border-color: var(--muted); }
+  .cam-select-item.selected {
+    border-color: var(--accent);
+    background: rgba(0,196,255,0.08);
+  }
+
+  .cam-select-check {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    transition: all 0.15s;
+  }
+  .cam-select-item.selected .cam-select-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+
+  .cam-select-text { flex: 1; min-width: 0; }
+  .cam-select-venue { font-size: 10px; color: var(--accent2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cam-select-name { font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* ── Bottom grid ── */
+  .cam-grid-section { margin-top: 8px; }
 
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -359,33 +467,22 @@
     padding: 12px;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    display: flex; flex-direction: column; gap: 3px;
+    position: relative;
   }
   .cam-card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .cam-card.active { border-color: var(--accent); background: rgba(0,196,255,0.07); }
-
-  .cam-card-venue {
+  .cam-card.in-cycle::after {
+    content: '✓';
+    position: absolute;
+    top: 6px; right: 8px;
     font-size: 10px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--accent2);
+    color: var(--accent);
   }
 
-  .cam-card-name {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.3;
-  }
-
-  .cam-card-ch {
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+  .cam-card-venue { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); }
+  .cam-card-name { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .cam-card-ch { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
   /* Cast overlay */
   #castOverlay {
@@ -393,34 +490,18 @@
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,0.85);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 20;
+    align-items: center; justify-content: center; flex-direction: column;
+    gap: 12px; z-index: 20;
   }
-
   #castOverlay.visible { display: flex; }
-
   .cast-icon { font-size: 48px; }
-
-  .cast-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
-    letter-spacing: 2px;
-    color: var(--accent);
-  }
-
-  .cast-sub {
-    font-size: 13px;
-    color: var(--muted);
-  }
+  .cast-text { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--accent); }
+  .cast-sub { font-size: 13px; color: var(--muted); }
 
   /* Toast */
   #toast {
     position: fixed;
-    bottom: 24px;
-    left: 50%;
+    bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
     background: var(--surface);
     border: 1px solid var(--accent);
@@ -432,22 +513,7 @@
     z-index: 100;
     pointer-events: none;
   }
-
   #toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* Speed selector */
-  select {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 10px;
-    border-radius: 7px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    outline: none;
-  }
-  select:focus { border-color: var(--accent); }
 </style>
 </head>
 <body>
@@ -463,6 +529,7 @@
 </header>
 
 <main>
+  <!-- Player + sidebar -->
   <div class="player-section">
     <div class="player-wrap">
       <div class="player-top-bar">
@@ -472,16 +539,8 @@
           <span class="cam-index" id="camIndex"></span>
         </div>
         <div class="player-actions">
-          <select id="speedSelect" title="Auto-cycle interval">
-            <option value="0">Manual</option>
-            <option value="20000">20s</option>
-            <option value="30000" selected>30s</option>
-            <option value="60000">1m</option>
-            <option value="120000">2m</option>
-            <option value="300000">5m</option>
-          </select>
           <button class="btn" id="cycleBtn" onclick="toggleCycle()">▶ Auto-Cycle</button>
-          <button class="btn" onclick="openDirect()" title="Open on SpyderNetwork.com">↗ Site</button>
+          <button class="btn" onclick="openDirect()">↗ Site</button>
         </div>
       </div>
       <div class="player-frame">
@@ -502,10 +561,8 @@
           <button class="nav-btn" onclick="prevCam()" title="Previous">◀</button>
           <button class="nav-btn" onclick="nextCam()" title="Next">▶</button>
         </div>
-        <div class="timer-bar-wrap">
-          <div id="timerBar"></div>
-        </div>
-        <span class="auto-cycle-label" id="cycleStatus">Auto-cycle off</span>
+        <div class="timer-bar-wrap"><div id="timerBar"></div></div>
+        <span class="auto-cycle-label" id="cycleStatus">Off</span>
       </div>
     </div>
 
@@ -516,7 +573,31 @@
     </div>
   </div>
 
-  <!-- Grid of all cams -->
+  <!-- Cycle Settings Panel -->
+  <div class="cycle-panel">
+    <div class="cycle-panel-header">
+      <div class="panel-title">Cycle Settings — <span id="selectedCount">0</span> cams selected</div>
+      <div class="cycle-controls">
+        <!-- Timer slider -->
+        <div class="time-input-wrap">
+          <label>Interval</label>
+          <input type="range" class="time-slider" id="timeSlider" min="5" max="300" value="30" step="5" oninput="updateTimeDisplay()">
+          <span class="time-display" id="timeDisplay">30s</span>
+        </div>
+        <button class="btn" id="cycleBtnPanel" onclick="toggleCycle()">▶ Start Cycle</button>
+        <button class="btn" onclick="selectAll()">☑ All</button>
+        <button class="btn" onclick="selectNone()">☐ None</button>
+      </div>
+    </div>
+
+    <!-- Venue quick-filter tags -->
+    <div class="venue-filters" id="venueFilters"></div>
+
+    <!-- Cam selection grid -->
+    <div class="cam-select-grid" id="camSelectGrid"></div>
+  </div>
+
+  <!-- Browse all -->
   <div class="cam-grid-section">
     <div class="section-title">Browse All Cameras</div>
     <div class="cam-grid" id="camGrid"></div>
@@ -526,126 +607,130 @@
 <div id="toast"></div>
 
 <script>
-// ─── Camera Data ───────────────────────────────────────────────────────────────
-// Twitch channels extracted from SpyderNetwork pages
-// Format: { name, channel, venue, slug }
+// ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
 const CAMS = [
-  // Alhonna Resort
-  { name: "Indoor Pool", venue: "Alhonna Resort & Marina", channel: "spydernetwork47", slug: "alhonna-resort-marina-indoor-pool" },
-  { name: "Outdoor Pool", venue: "Alhonna Resort & Marina", channel: "spydernetwork48", slug: "alhonna-resort-marina-outdoor-pool" },
-  // Alley Cats
-  { name: "North", venue: "Alley Cats On The Strip", channel: "spydernetwork50", slug: "alley-cats-north" },
-  { name: "South", venue: "Alley Cats On The Strip", channel: "spydernetwork51", slug: "alley-cats-south" },
+  // Alhonna Resort & Marina
+  { name: "Indoor Pool",          venue: "Alhonna Resort & Marina",    channel: "spydernetwork47", slug: "alhonna-resort-marina-indoor-pool" },
+  { name: "Outdoor Pool",         venue: "Alhonna Resort & Marina",    channel: "spydernetwork61", slug: "alhonna-resort-marina-outdoor-pool" },
+  // Alley Cats On The Strip
+  { name: "North",                venue: "Alley Cats On The Strip",    channel: "spydernetwork43", slug: "alley-cats-north" },
+  { name: "South",                venue: "Alley Cats On The Strip",    channel: "spydernetwork42", slug: "alley-cats-south" },
+  // Angels Mexican Restaurant
+  { name: "Lake View",            venue: "Angels Mexican Restaurant",  channel: "spydernetwork72", slug: "angels-mexican-restaurant-lake-view-lake-ozarks" },
+  // Annamarie Hopkins Real Estate
+  { name: "Real Estate",          venue: "Annamarie Hopkins",          channel: "spydernetwork73", slug: "annamarie-hopkins-smarter-move-real-estate" },
   // Backwater Jacks
-  { name: "Pool", venue: "Backwater Jacks", channel: "spydernetwork3", slug: "backwater-jacks-pool" },
-  { name: "Stage", venue: "Backwater Jacks", channel: "spydernetwork4", slug: "backwater-jacks-stage" },
-  { name: "Dock 1", venue: "Backwater Jacks", channel: "spydernetwork5", slug: "backwater-jacks-dock-1" },
-  { name: "Dock 2", venue: "Backwater Jacks", channel: "spydernetwork6", slug: "backwater-jacks-dock" },
-  { name: "Level Five", venue: "Backwater Jacks", channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
-  // Bridgeview
-  { name: "Marina", venue: "Bridgeview Marina", channel: "spydernetwork20", slug: "bridgeview-marina" },
+  { name: "Pool",                 venue: "Backwater Jacks",            channel: "spydernetwork3",  slug: "backwater-jacks-pool" },
+  { name: "Stage",                venue: "Backwater Jacks",            channel: "spydernetwork5",  slug: "backwater-jacks-stage" },
+  { name: "Dock 1",               venue: "Backwater Jacks",            channel: "spydernetwork4",  slug: "backwater-jacks-dock-1" },
+  { name: "Dock 2",               venue: "Backwater Jacks",            channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
+  { name: "Level Five",           venue: "Backwater Jacks",            channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
+  // Bridgeview Marina
+  { name: "Marina",               venue: "Bridgeview Marina",          channel: "spydernetwork20", slug: "bridgeview-marina" },
   // Camdenton Glass
-  { name: "North View", venue: "Camdenton Glass", channel: "spydernetwork41", slug: "camdenton-glass-north" },
-  { name: "South View", venue: "Camdenton Glass", channel: "spydernetwork42", slug: "camdenton-glass-south" },
+  { name: "North View",           venue: "Camdenton Glass",            channel: "spydernetwork41", slug: "camdenton-glass-north" },
+  { name: "South View",           venue: "Camdenton Glass",            channel: "spydernetwork42", slug: "camdenton-glass-south" },
   // Dock Glide
-  { name: "Cam", venue: "Dock Glide", channel: "spydernetwork60", slug: "dock-glide" },
+  { name: "Cam",                  venue: "Dock Glide",                 channel: "spydernetwork60", slug: "dock-glide" },
   // Dog Days
-  { name: "Pool", venue: "Dog Days", channel: "spydernetwork31", slug: "dog-days-pool" },
-  { name: "Stage", venue: "Dog Days", channel: "spydernetwork32", slug: "dog-days-stage" },
-  { name: "Dock 1", venue: "Dog Days", channel: "spydernetwork33", slug: "dog-days-dock-1" },
-  { name: "Dock 2", venue: "Dog Days", channel: "spydernetwork34", slug: "dog-days-dock" },
+  { name: "Pool",                 venue: "Dog Days",                   channel: "spydernetwork31", slug: "dog-days-pool" },
+  { name: "Stage",                venue: "Dog Days",                   channel: "spydernetwork32", slug: "dog-days-stage" },
+  { name: "Dock 1",               venue: "Dog Days",                   channel: "spydernetwork33", slug: "dog-days-dock-1" },
+  { name: "Dock 2",               venue: "Dog Days",                   channel: "spydernetwork34", slug: "dog-days-dock" },
   // Dogwood Animal Shelter
-  { name: "Cam", venue: "Dogwood Animal Shelter", channel: "spydernetwork55", slug: "dogwood-animal-shelter" },
-  // Double D's
-  { name: "Bar", venue: "Double D's Roadhouse", channel: "spydernetwork56", slug: "double-ds-roadhouse" },
-  { name: "Game Room", venue: "Double D's Roadhouse", channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
+  { name: "Shelter",              venue: "Dogwood Animal Shelter",     channel: "spydernetwork55", slug: "dogwood-animal-shelter" },
+  // Double D's Roadhouse
+  { name: "Bar",                  venue: "Double D's Roadhouse",       channel: "spydernetwork56", slug: "double-ds-roadhouse" },
+  { name: "Game Room",            venue: "Double D's Roadhouse",       channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
   // Ellerman
-  { name: "Lake View MM 17", venue: "Ellerman", channel: "spydernetwork70", slug: "ellerman" },
-  // Encore
-  { name: "Pool", venue: "Encore Lakeside Grill", channel: "spydernetwork14", slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Pool Bar", venue: "Encore Lakeside Grill", channel: "spydernetwork15", slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Stage", venue: "Encore Lakeside Grill", channel: "spydernetwork16", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Lake View MM 17",      venue: "Ellerman VRBO",              channel: "spydernetwork70", slug: "ellerman" },
+  // Encore Lakeside Grill
+  { name: "Pool",                 venue: "Encore Lakeside Grill",      channel: "spydernetwork9",  slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Pool Bar",             venue: "Encore Lakeside Grill",      channel: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Stage",                venue: "Encore Lakeside Grill",      channel: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
   // Fish and Company
-  { name: "\"Dale Blue\" Stage", venue: "Fish and Company", channel: "spydernetwork21", slug: "fish-and-company-stage" },
-  { name: "Patio", venue: "Fish and Company", channel: "spydernetwork22", slug: "fish-and-company-patio" },
-  { name: "Dock 1", venue: "Fish and Company", channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
-  { name: "Jet Ski Dock", venue: "Fish and Company", channel: "spydernetwork24", slug: "fish-and-company" },
-  // KRMS
-  { name: "Studio", venue: "KRMS Radio", channel: "spydernetwork80", slug: "krms-radio" },
-  { name: "North", venue: "KRMS Radio", channel: "spydernetwork81", slug: "krms-radio-north" },
-  { name: "East", venue: "KRMS Radio", channel: "spydernetwork82", slug: "krms-radio-east" },
-  { name: "South East", venue: "KRMS Radio", channel: "spydernetwork83", slug: "krms-radio-south-east" },
-  // Lake Billiards
-  { name: "Sports Bar", venue: "Lake Billiards", channel: "spydernetwork61", slug: "lake-billiards" },
-  // Lake & Land
-  { name: "Inside", venue: "Lake & Land Trading Company", channel: "spydernetwork62", slug: "lake-land-trading-company" },
-  { name: "Lot", venue: "Lake & Land Trading Company", channel: "spydernetwork63", slug: "lake-land-trading-company-lot" },
+  { name: "Dale Blue Stage",      venue: "Fish and Company",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
+  { name: "Patio",                venue: "Fish and Company",           channel: "spydernetwork22", slug: "fish-and-company-patio" },
+  { name: "Dock 1",               venue: "Fish and Company",           channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
+  { name: "Jet Ski Dock",         venue: "Fish and Company",           channel: "spydernetwork24", slug: "fish-and-company" },
+  // KRMS Radio
+  { name: "Studio",               venue: "KRMS Radio",                 channel: "spydernetwork80", slug: "krms-radio" },
+  { name: "North",                venue: "KRMS Radio",                 channel: "spydernetwork81", slug: "krms-radio-north" },
+  { name: "East",                 venue: "KRMS Radio",                 channel: "spydernetwork82", slug: "krms-radio-east" },
+  { name: "South East",           venue: "KRMS Radio",                 channel: "spydernetwork83", slug: "krms-radio-south-east" },
+  // Lake Billiards Sports Bar & Grill
+  { name: "Sports Bar",           venue: "Lake Billiards",             channel: "spydernetwork61", slug: "lake-billiards" },
+  // Lake & Land Trading Company
+  { name: "Inside",               venue: "Lake & Land Trading Co.",    channel: "spydernetwork62", slug: "lake-land-trading-company" },
+  { name: "Lot",                  venue: "Lake & Land Trading Co.",    channel: "spydernetwork63", slug: "lake-land-trading-company-lot" },
   // Lazy Gators
-  { name: "Stage", venue: "Lazy Gators", channel: "spydernetwork7", slug: "lazy-gators-stage" },
-  { name: "View", venue: "Lazy Gators", channel: "spydernetwork8", slug: "lazy-gators-view" },
-  { name: "Pool", venue: "Lazy Gators", channel: "spydernetwork9", slug: "lazy-gators-pool" },
-  { name: "Main Stage", venue: "Lazy Gators", channel: "spydernetwork10", slug: "lazy-gators" },
-  { name: "Dock 1", venue: "Lazy Gators", channel: "spydernetwork11", slug: "lazy-gators-dock-1" },
-  { name: "Dock 2", venue: "Lazy Gators", channel: "spydernetwork12", slug: "lazy-gators-dock-2" },
+  { name: "Stage (Cam 1)",        venue: "Lazy Gators",                channel: "spydernetwork7",  slug: "lazy-gators-stage" },
+  { name: "View",                 venue: "Lazy Gators",                channel: "spydernetwork46", slug: "lazy-gators" },
+  { name: "Pool",                 venue: "Lazy Gators",                channel: "spydernetwork11", slug: "lazy-gators-pool" },
+  { name: "Dock 1",               venue: "Lazy Gators",                channel: "spydernetwork12", slug: "lazy-gators-dock-1" },
+  { name: "Dock 2",               venue: "Lazy Gators",                channel: "spydernetwork13", slug: "lazy-gators-dock-2" },
   // Linn Creek Cove
-  { name: "Dock", venue: "Linn Creek Cove", channel: "spydernetwork90", slug: "spydernetwork-dock" },
-  // Lucy's
-  { name: "At the Lake", venue: "Lucy's", channel: "spydernetwork64", slug: "lucys-at-the-lake" },
-  // Marty Byrd's
-  { name: "Outside", venue: "Marty Byrd's", channel: "spydernetwork43", slug: "marty-byrds-outside" },
-  { name: "Inside", venue: "Marty Byrd's", channel: "spydernetwork44", slug: "marty-byrds" },
+  { name: "Dock",                 venue: "Linn Creek Cove",            channel: "spydernetwork90", slug: "spydernetwork-dock" },
+  // Lucy's at the Lake
+  { name: "At the Lake",          venue: "Lucy's",                     channel: "spydernetwork64", slug: "lucys-at-the-lake" },
+  // Marty Byrde's
+  { name: "Outside / Street",     venue: "Marty Byrde's",              channel: "spydernetwork44", slug: "marty-byrds-outside" },
+  { name: "Inside / Bar",         venue: "Marty Byrde's",              channel: "spydernetwork45", slug: "marty-byrds" },
   // Michael's Steak Chalet
-  { name: "View", venue: "Michael's Steak Chalet", channel: "spydernetwork45", slug: "michaels-steak-chalet-view" },
-  { name: "Inside", venue: "Michael's Steak Chalet", channel: "spydernetwork46", slug: "michaels-steak-chalet" },
+  { name: "View",                 venue: "Michael's Steak Chalet",     channel: "spydernetwork48", slug: "michaels-steak-chalet-view" },
+  { name: "Inside",               venue: "Michael's Steak Chalet",     channel: "spydernetwork49", slug: "michaels-steak-chalet" },
   // Neon Taco
-  { name: "Lakeside Bar", venue: "Neon Taco", channel: "spydernetwork25", slug: "neon-taco-bar" },
-  { name: "Stage", venue: "Neon Taco", channel: "spydernetwork26", slug: "neon-taco-stage" },
-  { name: "Docks", venue: "Neon Taco", channel: "spydernetwork27", slug: "neon-taco-docks" },
-  // Outlaws
-  { name: "Men's Outpost", venue: "Outlaws", channel: "spydernetwork65", slug: "outlaws-mens-outpost" },
+  { name: "Lakeside Bar",         venue: "Neon Taco",                  channel: "spydernetwork25", slug: "neon-taco-bar" },
+  { name: "Stage",                venue: "Neon Taco",                  channel: "spydernetwork26", slug: "neon-taco-stage" },
+  { name: "Docks",                venue: "Neon Taco",                  channel: "spydernetwork27", slug: "neon-taco-docks" },
+  // Outlaws Men's Outpost
+  { name: "Men's Outpost",        venue: "Outlaws",                    channel: "spydernetwork65", slug: "outlaws-mens-outpost" },
   // Paradise
-  { name: "Bar", venue: "Paradise", channel: "spydernetwork28", slug: "paradise-restaurant-bar" },
-  { name: "View 2", venue: "Paradise", channel: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
-  // Split Arrow
-  { name: "Boutique", venue: "Split Arrow", channel: "spydernetwork67", slug: "split-arrow-boutique-3" },
-  // The Cactus Blossom
-  { name: "Boutique", venue: "The Cactus Blossom", channel: "spydernetwork68", slug: "the-cactus-blossom-boutique" },
-  // The Hatch
-  { name: "At Miller's Landing", venue: "The Hatch", channel: "spydernetwork69", slug: "the-hatch" },
-  // Topsider
-  { name: "& Phylicia Carson Bridge", venue: "Topsider Condos", channel: "spydernetwork71", slug: "topsiders-condos" },
-  // Tuckers
-  { name: "North", venue: "Tuckers On The Strip", channel: "spydernetwork35", slug: "tucker-shuckers-north" },
-  { name: "South", venue: "Tuckers On The Strip", channel: "spydernetwork36", slug: "tucker-shuckers-south" },
-  // Wicked Willies
-  { name: "Bar", venue: "Wicked Willies", channel: "spydernetwork37", slug: "wicked-willies-bar" },
-  { name: "Lounge", venue: "Wicked Willies", channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
-  { name: "Patio", venue: "Wicked Willies", channel: "spydernetwork39", slug: "wicked-willies-patio" },
-  // Angels
-  { name: "Lake View", venue: "Angels Mexican Restaurant", channel: "spydernetwork72", slug: "angels-mexican-restaurant-lake-view-lake-ozarks" },
-  // Annamarie Hopkins
-  { name: "Real Estate", venue: "Annamarie Hopkins", channel: "spydernetwork73", slug: "annamarie-hopkins-smarter-move-real-estate" },
+  { name: "Bar",                  venue: "Paradise",                   channel: "spydernetwork28", slug: "paradise-restaurant-bar" },
+  { name: "View 2",               venue: "Paradise",                   channel: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
+  // Split Arrow Boutique
+  { name: "Boutique",             venue: "Split Arrow",                channel: "spydernetwork67", slug: "split-arrow-boutique-3" },
+  // The Cactus Blossom Boutique
+  { name: "Boutique",             venue: "The Cactus Blossom",         channel: "spydernetwork68", slug: "the-cactus-blossom-boutique" },
+  // The Hatch at Miller's Landing
+  { name: "Miller's Landing",     venue: "The Hatch",                  channel: "spydernetwork69", slug: "the-hatch" },
+  // Topsider Condos
+  { name: "& Phylicia Carson Bridge", venue: "Topsider Condos",        channel: "spydernetwork71", slug: "topsiders-condos" },
+  // Tucker's Shuckers / Tuckers On The Strip
+  { name: "North",                venue: "Tucker's Shuckers",          channel: "spydernetwork35", slug: "tucker-shuckers-north" },
+  { name: "South",                venue: "Tucker's Shuckers",          channel: "spydernetwork36", slug: "tucker-shuckers-south" },
+  // Wicked Willie's
+  { name: "Bar",                  venue: "Wicked Willie's",            channel: "spydernetwork37", slug: "wicked-willies-bar" },
+  { name: "Lounge",               venue: "Wicked Willie's",            channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
+  { name: "Patio",                venue: "Wicked Willie's",            channel: "spydernetwork39", slug: "wicked-willies-patio" },
 ];
 
-// ─── State ─────────────────────────────────────────────────────────────────────
+// ─── State ────────────────────────────────────────────────────────────────────
 let currentIdx = 0;
-let cycleInterval = null;
+let cycleQueue = [];       // indices of cams in cycle
+let cycleQueuePos = 0;     // position within cycleQueue
+let selectedCams = new Set(CAMS.map((_, i) => i)); // all selected by default
 let timerTimeout = null;
 let timerStart = null;
-let timerDuration = 30000;
 let isCycling = false;
 let castSession = null;
 
-// ─── Init ──────────────────────────────────────────────────────────────────────
+function timerMs() {
+  return parseInt(document.getElementById('timeSlider').value) * 1000;
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
   buildSidebar();
   buildGrid();
+  buildCyclePanel();
+  updateSelectedCount();
   loadCam(0);
   setupCastListeners();
 }
 
-// ─── Load Cam ──────────────────────────────────────────────────────────────────
+// ─── Load Cam ─────────────────────────────────────────────────────────────────
 function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
   const cam = CAMS[currentIdx];
@@ -653,7 +738,6 @@ function loadCam(idx) {
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
-  // Use actual host dynamically — works on GitHub Pages, Netlify, or anywhere
   const host = window.location.hostname || 'jeffrwinters.github.io';
   const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=${host}&parent=jeffrwinters.github.io&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
@@ -665,37 +749,49 @@ function loadCam(idx) {
   });
 
   // Update grid
-  document.querySelectorAll('.cam-card').forEach((el, i) => {
-    el.classList.toggle('active', i === currentIdx);
-  });
+  document.querySelectorAll('.cam-card').forEach((el, i) => el.classList.toggle('active', i === currentIdx));
 
-  // If casting, tell the receiver
-  if (castSession) {
-    castCam(cam);
-  }
-
+  if (castSession) castCam(cam);
   resetTimerBar();
 }
 
-// ─── Navigation ────────────────────────────────────────────────────────────────
-function nextCam() { loadCam(currentIdx + 1); }
-function prevCam() { loadCam(currentIdx - 1); }
+// ─── Navigation ───────────────────────────────────────────────────────────────
+function nextCam() {
+  if (isCycling && cycleQueue.length > 0) {
+    cycleQueuePos = (cycleQueuePos + 1) % cycleQueue.length;
+    loadCam(cycleQueue[cycleQueuePos]);
+  } else {
+    loadCam(currentIdx + 1);
+  }
+}
 
-// ─── Auto Cycle ────────────────────────────────────────────────────────────────
+function prevCam() {
+  if (isCycling && cycleQueue.length > 0) {
+    cycleQueuePos = (cycleQueuePos - 1 + cycleQueue.length) % cycleQueue.length;
+    loadCam(cycleQueue[cycleQueuePos]);
+  } else {
+    loadCam(currentIdx - 1);
+  }
+}
+
+// ─── Auto Cycle ───────────────────────────────────────────────────────────────
 function toggleCycle() {
   if (isCycling) stopCycle();
   else startCycle();
 }
 
 function startCycle() {
-  const sel = document.getElementById('speedSelect');
-  const ms = parseInt(sel.value);
-  if (!ms) { showToast('Select an interval first'); return; }
-  timerDuration = ms;
+  cycleQueue = [...selectedCams].sort((a, b) => a - b);
+  if (cycleQueue.length === 0) { showToast('Select at least one cam to cycle'); return; }
+  // Find position of current cam in queue, or start from 0
+  const pos = cycleQueue.indexOf(currentIdx);
+  cycleQueuePos = pos >= 0 ? pos : 0;
   isCycling = true;
   document.getElementById('cycleBtn').classList.add('active');
-  document.getElementById('cycleBtn').textContent = '⏸ Auto-Cycle';
-  document.getElementById('cycleStatus').textContent = `Cycling every ${formatMs(ms)}`;
+  document.getElementById('cycleBtn').textContent = '⏸ Cycling';
+  document.getElementById('cycleBtnPanel').classList.add('active');
+  document.getElementById('cycleBtnPanel').textContent = '⏸ Stop Cycle';
+  document.getElementById('cycleStatus').textContent = `Cycling ${cycleQueue.length} cams`;
   scheduleTick();
 }
 
@@ -705,7 +801,9 @@ function stopCycle() {
   timerTimeout = null;
   document.getElementById('cycleBtn').classList.remove('active');
   document.getElementById('cycleBtn').textContent = '▶ Auto-Cycle';
-  document.getElementById('cycleStatus').textContent = 'Auto-cycle off';
+  document.getElementById('cycleBtnPanel').classList.remove('active');
+  document.getElementById('cycleBtnPanel').textContent = '▶ Start Cycle';
+  document.getElementById('cycleStatus').textContent = 'Off';
   document.getElementById('timerBar').style.width = '0%';
 }
 
@@ -714,51 +812,105 @@ function scheduleTick() {
   timerStart = Date.now();
   animateTimer();
   timerTimeout = setTimeout(() => {
-    nextCam();
-    if (isCycling) scheduleTick();
-  }, timerDuration);
+    if (!isCycling) return;
+    cycleQueuePos = (cycleQueuePos + 1) % cycleQueue.length;
+    loadCam(cycleQueue[cycleQueuePos]);
+    scheduleTick();
+  }, timerMs());
 }
 
 function resetTimerBar() {
-  if (isCycling) {
-    clearTimeout(timerTimeout);
-    scheduleTick();
-  } else {
-    document.getElementById('timerBar').style.width = '0%';
-  }
+  if (isCycling) { clearTimeout(timerTimeout); scheduleTick(); }
+  else document.getElementById('timerBar').style.width = '0%';
 }
 
 function animateTimer() {
   if (!isCycling || !timerStart) return;
-  const elapsed = Date.now() - timerStart;
-  const pct = Math.min((elapsed / timerDuration) * 100, 100);
+  const pct = Math.min(((Date.now() - timerStart) / timerMs()) * 100, 100);
   document.getElementById('timerBar').style.width = pct + '%';
   if (pct < 100) requestAnimationFrame(animateTimer);
 }
 
-document.getElementById('speedSelect').addEventListener('change', () => {
-  if (isCycling) {
-    stopCycle();
-    startCycle();
-  }
-});
-
-function formatMs(ms) {
-  if (ms < 60000) return (ms / 1000) + 's';
-  return (ms / 60000) + 'm';
+// ─── Time slider ──────────────────────────────────────────────────────────────
+function updateTimeDisplay() {
+  const val = parseInt(document.getElementById('timeSlider').value);
+  const disp = val < 60 ? val + 's' : (val / 60) % 1 === 0 ? (val / 60) + 'm' : (val / 60).toFixed(1) + 'm';
+  document.getElementById('timeDisplay').textContent = disp;
+  if (isCycling) { clearTimeout(timerTimeout); scheduleTick(); }
 }
 
-// ─── Build UI ──────────────────────────────────────────────────────────────────
+// ─── Cam Selection ────────────────────────────────────────────────────────────
+function toggleCamSelection(idx) {
+  if (selectedCams.has(idx)) selectedCams.delete(idx);
+  else selectedCams.add(idx);
+  updateSelectionUI(idx);
+  updateSelectedCount();
+}
+
+function updateSelectionUI(idx) {
+  const inCycle = selectedCams.has(idx);
+  // panel grid
+  const panelItem = document.querySelector(`.cam-select-item[data-idx="${idx}"]`);
+  if (panelItem) {
+    panelItem.classList.toggle('selected', inCycle);
+    panelItem.querySelector('.cam-select-check').textContent = inCycle ? '✓' : '';
+  }
+  // sidebar
+  const sideItem = document.querySelector(`.cam-item[data-idx="${idx}"]`);
+  if (sideItem) {
+    sideItem.classList.toggle('in-cycle', inCycle);
+    sideItem.querySelector('.cam-item-check').textContent = inCycle ? '✓' : '';
+  }
+  // grid card
+  const card = document.querySelector(`.cam-card[data-idx="${idx}"]`);
+  if (card) card.classList.toggle('in-cycle', inCycle);
+}
+
+function updateSelectedCount() {
+  document.getElementById('selectedCount').textContent = selectedCams.size;
+}
+
+function selectAll() {
+  CAMS.forEach((_, i) => selectedCams.add(i));
+  CAMS.forEach((_, i) => updateSelectionUI(i));
+  updateSelectedCount();
+}
+
+function selectNone() {
+  selectedCams.clear();
+  CAMS.forEach((_, i) => updateSelectionUI(i));
+  updateSelectedCount();
+}
+
+function selectVenue(venue) {
+  CAMS.forEach((cam, i) => {
+    if (cam.venue === venue) selectedCams.add(i);
+    else selectedCams.delete(i);
+  });
+  CAMS.forEach((_, i) => updateSelectionUI(i));
+  updateSelectedCount();
+}
+
+// ─── Build UI ─────────────────────────────────────────────────────────────────
 function buildSidebar() {
   const list = document.getElementById('camList');
   CAMS.forEach((cam, i) => {
     const el = document.createElement('div');
-    el.className = 'cam-item';
+    el.className = 'cam-item in-cycle'; // all selected by default
+    el.dataset.idx = i;
     el.innerHTML = `
+      <div class="cam-item-check">✓</div>
       <span class="cam-item-num">${i + 1}</span>
-      <span class="cam-item-name">${cam.venue}<br><span style="color:var(--muted);font-weight:300">${cam.name}</span></span>
+      <span class="cam-item-name">${cam.venue}<br><span class="cam-item-sub">${cam.name}</span></span>
     `;
-    el.onclick = () => loadCam(i);
+    el.addEventListener('click', (e) => {
+      // Right-click or long-press area toggles selection; left click loads cam
+      loadCam(i);
+    });
+    el.querySelector('.cam-item-check').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleCamSelection(i);
+    });
     list.appendChild(el);
   });
 }
@@ -767,7 +919,8 @@ function buildGrid() {
   const grid = document.getElementById('camGrid');
   CAMS.forEach((cam, i) => {
     const el = document.createElement('div');
-    el.className = 'cam-card';
+    el.className = 'cam-card in-cycle';
+    el.dataset.idx = i;
     el.innerHTML = `
       <div class="cam-card-venue">${cam.venue}</div>
       <div class="cam-card-name">${cam.name}</div>
@@ -778,15 +931,57 @@ function buildGrid() {
   });
 }
 
-// ─── Open Direct Link ──────────────────────────────────────────────────────────
-function openDirect() {
-  const cam = CAMS[currentIdx];
-  window.open(`https://www.spydernetwork.com/${cam.slug}/`, '_blank');
+function buildCyclePanel() {
+  // Venue filter tags
+  const venues = [...new Set(CAMS.map(c => c.venue))];
+  const filterDiv = document.getElementById('venueFilters');
+
+  // "All" tag
+  const allTag = document.createElement('div');
+  allTag.className = 'venue-tag all-on';
+  allTag.textContent = '☑ All';
+  allTag.onclick = selectAll;
+  filterDiv.appendChild(allTag);
+
+  // "None" tag
+  const noneTag = document.createElement('div');
+  noneTag.className = 'venue-tag';
+  noneTag.textContent = '☐ None';
+  noneTag.onclick = selectNone;
+  filterDiv.appendChild(noneTag);
+
+  venues.forEach(venue => {
+    const tag = document.createElement('div');
+    tag.className = 'venue-tag';
+    tag.textContent = venue;
+    tag.onclick = () => selectVenue(venue);
+    filterDiv.appendChild(tag);
+  });
+
+  // Cam selection grid
+  const grid = document.getElementById('camSelectGrid');
+  CAMS.forEach((cam, i) => {
+    const el = document.createElement('div');
+    el.className = 'cam-select-item selected';
+    el.dataset.idx = i;
+    el.innerHTML = `
+      <div class="cam-select-check">✓</div>
+      <div class="cam-select-text">
+        <div class="cam-select-venue">${cam.venue}</div>
+        <div class="cam-select-name">${cam.name}</div>
+      </div>
+    `;
+    el.onclick = () => toggleCamSelection(i);
+    grid.appendChild(el);
+  });
 }
 
-// ─── Chromecast ────────────────────────────────────────────────────────────────
-const CAST_APP_ID = chrome && chrome.cast ? chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID : null;
+// ─── Direct Link ──────────────────────────────────────────────────────────────
+function openDirect() {
+  window.open(`https://www.spydernetwork.com/${CAMS[currentIdx].slug}/`, '_blank');
+}
 
+// ─── Chromecast ───────────────────────────────────────────────────────────────
 function setupCastListeners() {
   window['__onGCastApiAvailable'] = function(isAvailable) {
     if (!isAvailable) return;
@@ -795,11 +990,9 @@ function setupCastListeners() {
       receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
       autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
     });
-
     ctx.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, (e) => {
       const state = e.sessionState;
-      if (state === cast.framework.SessionState.SESSION_STARTED ||
-          state === cast.framework.SessionState.SESSION_RESUMED) {
+      if (state === cast.framework.SessionState.SESSION_STARTED || state === cast.framework.SessionState.SESSION_RESUMED) {
         castSession = ctx.getCurrentSession();
         const deviceName = castSession.getCastDevice().friendlyName;
         document.getElementById('castDeviceName').textContent = `Casting to: ${deviceName}`;
@@ -819,15 +1012,12 @@ function setupCastListeners() {
 
 function castCam(cam) {
   if (!castSession) return;
-  const twitchUrl = `https://www.twitch.tv/${cam.channel}`;
-  const mediaInfo = new chrome.cast.media.MediaInfo(twitchUrl, 'video/mp4');
+  const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.channel}`, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
   mediaInfo.metadata.title = `${cam.venue} — ${cam.name}`;
   mediaInfo.metadata.subtitle = 'SpyderNetwork • Lake of the Ozarks LIVE';
-  const req = new chrome.cast.media.LoadRequest(mediaInfo);
-  castSession.loadMedia(req).catch(() => {
-    // Fallback: try to cast the SpyderNetwork page
-    showToast('Stream cast started — check your TV');
+  castSession.loadMedia(new chrome.cast.media.LoadRequest(mediaInfo)).catch(() => {
+    showToast('Stream sent to TV');
   });
 }
 
@@ -835,7 +1025,7 @@ document.getElementById('castBtn').addEventListener('click', () => {
   if (typeof cast !== 'undefined' && cast.framework) {
     cast.framework.CastContext.getInstance().requestSession();
   } else {
-    showToast('⚠️ Cast SDK not available — open in Chrome on a desktop');
+    showToast('⚠️ Cast only works in Chrome on desktop');
   }
 });
 
@@ -843,7 +1033,7 @@ function stopCast() {
   if (castSession) castSession.endSession(true);
 }
 
-// ─── Toast ─────────────────────────────────────────────────────────────────────
+// ─── Toast ────────────────────────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -851,14 +1041,14 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ─── Keyboard Shortcuts ────────────────────────────────────────────────────────
+// ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
 document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextCam(); }
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevCam(); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); prevCam(); }
   if (e.key === ' ') { e.preventDefault(); toggleCycle(); }
 });
 
-// ─── Start ─────────────────────────────────────────────────────────────────────
 init();
 </script>
 </body>
