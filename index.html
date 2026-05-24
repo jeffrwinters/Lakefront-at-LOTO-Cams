@@ -88,10 +88,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
     transition: all 0.2s;
     font-size: 15px;
     font-weight: 700;
     min-height: 44px;
+  }
+
+  #castBtn svg {
+    flex-shrink: 0;
   }
   #castBtn:hover { border-color: #3f63ff; color: #3f63ff; }
   #castBtn.casting { border-color: #3f63ff; color: #3f63ff; background: rgba(0,196,255,0.1); }
@@ -599,7 +604,15 @@
     
   </div>
   <div class="header-controls">
-    <button id="castBtn" title="Cast Auto-Cycle to TV">📺 Cast</button>
+    <button id="castBtn" title="Cast Auto-Cycle to TV">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+  <path d="M2 18.5C3.93 18.5 5.5 20.07 5.5 22H2V18.5Z" fill="currentColor"/>
+  <path d="M2 14C6.42 14 10 17.58 10 22H7C7 19.24 4.76 17 2 17V14Z" fill="currentColor"/>
+  <path d="M2 9.5C9.18 9.5 15 15.32 15 22H12C12 16.98 7.93 12.9 2.9 12.9H2V9.5Z" fill="currentColor"/>
+  <path d="M21 3H3C1.9 3 1 3.9 1 5V8H3V5H21V19H14V21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3Z" fill="currentColor"/>
+</svg>
+<span>Cast</span>
+</button>
   </div>
 </header>
 
