@@ -42,61 +42,85 @@
     z-index: 0;
   }
 
-  header {
+  
+  header.app-header {
     position: relative;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 28px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(8,12,28,0.96);
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(0, 140, 255, 0.18);
+    background:
+      linear-gradient(
+        180deg,
+        #021233 0%,
+        #000814 100%
+      );
     backdrop-filter: blur(12px);
   }
 
-  .logo { display: flex; align-items: center; gap: 10px; }
-
-  
-  .header-logo {
-    width: 92px;
-    height: 56px;
+  .header-left {
     display: flex;
     align-items: center;
-    justify-content: center;
-    filter:
-      drop-shadow(0 0 10px rgba(0,196,255,0.18))
-      drop-shadow(0 0 20px rgba(49,87,255,0.12));
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .header-logo {
+    width: 210px;
+    max-width: 32vw;
+    height: auto;
+    object-fit: contain;
     flex-shrink: 0;
+    filter:
+      drop-shadow(0 0 10px rgba(0, 170, 255, 0.18))
+      drop-shadow(0 0 18px rgba(0, 120, 255, 0.12));
   }
 
-  .header-logo svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+  .header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-
-.logo-main {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
+  .header-title {
+    margin: 0;
+    font-size: 2rem;
     font-weight: 700;
-    letter-spacing: 2px;
-    color: #3f63ff;
-    -webkit-text-stroke: 0.5px rgba(255,255,255,0.7);
-    text-shadow:
-      0 0 10px rgba(0,196,255,0.15),
-      0 0 2px rgba(255,255,255,0.12);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #f5f8ff;
+    font-family: 'Bebas Neue', sans-serif;
   }
 
-  .logo-sub {
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
+  .header-subtitle {
+    margin-top: 6px;
+    color: #6da8ff;
+    font-size: 1rem;
+    letter-spacing: 1px;
   }
 
   .header-controls { display: flex; align-items: center; gap: 12px; }
+
+  @media (max-width: 768px) {
+    header.app-header {
+      padding: 14px 16px;
+    }
+
+    .header-logo {
+      width: 140px;
+    }
+
+    .header-title {
+      font-size: 1.3rem;
+    }
+
+    .header-subtitle {
+      font-size: 0.9rem;
+    }
+  }
+
 
   #castBtn {
     background: var(--accent);
@@ -618,11 +642,19 @@
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <span class="logo-main">Lakefront at LOTO Cams</span>
-    
+
+<header class="app-header">
+  <div class="header-left">
+    <img
+      src="./assets/1000011283.png"
+      alt="Lakefront at LOTO Cams"
+      class="header-logo"
+    />
+
+    <div class="header-text">
+      <h1 class="header-title">Lakefront at LOTO Cams</h1></div>
   </div>
+
   <div class="header-controls">
     <button id="castBtn" title="Cast Auto-Cycle to TV">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -635,6 +667,7 @@
 </button>
   </div>
 </header>
+
 
 <main>
   <!-- Player + sidebar -->
@@ -674,6 +707,10 @@
       </div>
     </div>
 
+    <!-- Sidebar cam list -->
+    <div class="sidebar">
+      <div class="sidebar-header">All Cams — <span id="camCount"></span></div>
+      <div class="cam-list" id="camList"></div>
     </div>
   </div>
 
@@ -879,6 +916,8 @@ function timerMs() {
 // ─── Init ─────────────────────────────────────────────────────────────────────
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
+  buildSidebar();
+  buildGrid();
   buildCyclePanel();
   updateSelectedCount();
   loadCam(0);
@@ -1046,9 +1085,44 @@ function selectVenue(venue) {
 }
 
 // ─── Build UI ─────────────────────────────────────────────────────────────────
-function buildSidebar() {}
+function buildSidebar() {
+  const list = document.getElementById('camList');
+  CAMS.forEach((cam, i) => {
+    const el = document.createElement('div');
+    el.className = 'cam-item in-cycle'; // all selected by default
+    el.dataset.idx = i;
+    el.innerHTML = `
+      <div class="cam-item-switch"></div>
+      <span class="cam-item-num">${i + 1}</span>
+      <span class="cam-item-name">${cam.venue}<br><span class="cam-item-sub">${cam.name}</span></span>
+    `;
+    el.addEventListener('click', (e) => {
+      // Right-click or long-press area toggles selection; left click loads cam
+      loadCam(i);
+    });
+    el.querySelector('.cam-item-switch').addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleCamSelection(i);
+    });
+    list.appendChild(el);
+  });
+}
 
-function buildGrid() {}
+function buildGrid() {
+  const grid = document.getElementById('camGrid');
+  CAMS.forEach((cam, i) => {
+    const el = document.createElement('div');
+    el.className = 'cam-card in-cycle';
+    el.dataset.idx = i;
+    el.innerHTML = `
+      <div class="cam-card-venue">${cam.venue}</div>
+      <div class="cam-card-name">${cam.name}</div>
+      <div class="cam-card-ch">${cam.channel}</div>
+    `;
+    el.onclick = () => { loadCam(i); };
+    grid.appendChild(el);
+  });
+}
 
 function buildCyclePanel() {
   // Venue filter tags
