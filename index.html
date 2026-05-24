@@ -180,7 +180,34 @@
       padding: 12px;
     }
 
-    .cam-list {
+  
+  .cam-search-wrap {
+    padding: 6px 4px 10px;
+  }
+
+  .cam-search {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.18s ease;
+  }
+
+  .cam-search:focus {
+    border-color: #3f63ff;
+    box-shadow: 0 0 0 2px rgba(63,99,255,0.15);
+  }
+
+  .cam-search::placeholder {
+    color: var(--muted);
+  }
+
+
+  .cam-list {
       max-height: 220px;
       width: 100%;
     }
@@ -329,6 +356,33 @@
     border-bottom: 1px solid var(--border);
     margin-bottom: 4px;
   }
+
+
+  .cam-search-wrap {
+    padding: 6px 4px 10px;
+  }
+
+  .cam-search {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.18s ease;
+  }
+
+  .cam-search:focus {
+    border-color: #3f63ff;
+    box-shadow: 0 0 0 2px rgba(63,99,255,0.15);
+  }
+
+  .cam-search::placeholder {
+    color: var(--muted);
+  }
+
 
   .cam-list {
     overflow-y: auto;
@@ -1296,6 +1350,26 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+
+// ─── Cam Search ───────────────────────────────────────────────────────────────
+function filterCams() {
+  const val = document
+    .getElementById('camSearch')
+    .value
+    .toLowerCase()
+    .trim();
+
+  document.querySelectorAll('.cam-item').forEach((el, i) => {
+    const cam = CAMS[i];
+
+    const text =
+      `${cam.venue} ${cam.name} ${cam.channel}`.toLowerCase();
+
+    el.style.display = text.includes(val) ? 'flex' : 'none';
+  });
+}
+
 
 // ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
 document.addEventListener('keydown', (e) => {
