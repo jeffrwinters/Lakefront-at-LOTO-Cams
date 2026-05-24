@@ -653,9 +653,9 @@ function loadCam(idx) {
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
-  // Detect the actual host so Twitch parent= always matches
-  const host = window.location.hostname || 'htmlpreview.github.io';
-  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=${host}&parent=spydernetwork.com&autoplay=true&muted=false`;
+  // Use actual host dynamically — works on GitHub Pages, Netlify, or anywhere
+  const host = window.location.hostname || 'jeffrwinters.github.io';
+  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=${host}&parent=jeffrwinters.github.io&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
