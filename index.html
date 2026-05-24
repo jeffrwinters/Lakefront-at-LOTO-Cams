@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SpyderNetwork — Lake of the Ozarks Live Cams</title>
+<title>Lakefront at LOTO Cams</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 <style>
   :root {
-    --bg: #050a0f;
-    --surface: #0b1520;
-    --card: #0f1e2e;
-    --border: #1a3048;
-    --accent: #00c4ff;
-    --accent2: #ff6b00;
-    --text: #e8f4ff;
-    --muted: #5a7a99;
-    --live: #ff3b3b;
+    --bg: #08111b;
+    --surface: #0f1c2b;
+    --card: #14263a;
+    --border: #22384f;
+
+    --accent: #6ea8d9;
+    --accent2: #d9a441;
+
+    --text: #eef4fb;
+    --muted: #8aa0b8;
+    --live: #ff4d4d;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -325,11 +327,13 @@
   .time-input-wrap {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 14px;
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 12px;
+    border-radius: 12px;
+    padding: 14px 16px;
+    width: 100%;
+    justify-content: space-between;
   }
 
   .time-input-wrap label {
@@ -341,10 +345,12 @@
   .time-slider {
     -webkit-appearance: none;
     appearance: none;
-    width: 120px;
-    height: 4px;
+    flex: 1;
+    width: 100%;
+    min-width: 140px;
+    height: 6px;
     background: var(--border);
-    border-radius: 2px;
+    border-radius: 4px;
     outline: none;
   }
   .time-slider::-webkit-slider-thumb {
@@ -358,9 +364,9 @@
 
   .time-display {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
+    font-size: 24px;
     color: var(--accent);
-    min-width: 36px;
+    min-width: 52px;
     text-align: center;
   }
 
@@ -443,6 +449,23 @@
   .cam-select-venue { font-size: 10px; color: var(--accent2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
   .cam-select-name { font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+
+  @media (max-width: 768px) {
+    .cycle-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .time-input-wrap {
+      order: -1;
+    }
+
+    .btn {
+      justify-content: center;
+    }
+  }
+
+
   /* ── Bottom grid ── */
   .cam-grid-section { margin-top: 8px; }
 
@@ -520,8 +543,8 @@
 
 <header>
   <div class="logo">
-    <span class="logo-main">SpyderNetwork</span>
-    <span class="logo-sub">Lake of the Ozarks · Live Cams</span>
+    <span class="logo-main">Lakefront at LOTO Cams</span>
+    <span class="logo-sub">Midwest Boat Party Live Cameras</span>
   </div>
   <div class="header-controls">
     <button id="castBtn" title="Cast to TV">📺</button>
@@ -622,8 +645,8 @@ const CAMS = [
   // Backwater Jacks
   { name: "Pool",                 venue: "Backwater Jacks",            channel: "spydernetwork3",  slug: "backwater-jacks-pool" },
   { name: "Stage",                venue: "Backwater Jacks",            channel: "spydernetwork5",  slug: "backwater-jacks-stage" },
-  { name: "Dock 1",               venue: "Backwater Jacks",            channel: "spydernetwork4",  slug: "backwater-jacks-dock-1" },
-  { name: "Dock 2",               venue: "Backwater Jacks",            channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
+  { name: "Dock",               venue: "Backwater Jacks",            channel: "spydernetwork4",  slug: "backwater-jacks-dock-1" },
+  { name: "Docks",               venue: "Backwater Jacks",            channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
   { name: "Level Five",           venue: "Backwater Jacks",            channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
   // Bridgeview Marina
   { name: "Marina",               venue: "Bridgeview Marina",          channel: "spydernetwork20", slug: "bridgeview-marina" },
@@ -635,8 +658,8 @@ const CAMS = [
   // Dog Days
   { name: "Pool",                 venue: "Dog Days",                   channel: "spydernetwork31", slug: "dog-days-pool" },
   { name: "Stage",                venue: "Dog Days",                   channel: "spydernetwork32", slug: "dog-days-stage" },
-  { name: "Dock 1",               venue: "Dog Days",                   channel: "spydernetwork33", slug: "dog-days-dock-1" },
-  { name: "Dock 2",               venue: "Dog Days",                   channel: "spydernetwork34", slug: "dog-days-dock" },
+  { name: "Dock",               venue: "Dog Days",                   channel: "spydernetwork33", slug: "dog-days-dock-1" },
+  { name: "Docks",               venue: "Dog Days",                   channel: "spydernetwork34", slug: "dog-days-dock" },
   // Dogwood Animal Shelter
   { name: "Shelter",              venue: "Dogwood Animal Shelter",     channel: "spydernetwork55", slug: "dogwood-animal-shelter" },
   // Double D's Roadhouse
@@ -646,12 +669,12 @@ const CAMS = [
   { name: "Lake View MM 17",      venue: "Ellerman VRBO",              channel: "spydernetwork70", slug: "ellerman" },
   // Encore Lakeside Grill
   { name: "Pool",                 venue: "Encore Lakeside Grill",      channel: "spydernetwork9",  slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Pool Bar",             venue: "Encore Lakeside Grill",      channel: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Sky Bar",             venue: "Encore Lakeside Grill",      channel: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
   { name: "Stage",                venue: "Encore Lakeside Grill",      channel: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
   // Fish and Company
   { name: "Dale Blue Stage",      venue: "Fish and Company",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
   { name: "Patio",                venue: "Fish and Company",           channel: "spydernetwork22", slug: "fish-and-company-patio" },
-  { name: "Dock 1",               venue: "Fish and Company",           channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
+  { name: "Dock",               venue: "Fish and Company",           channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
   { name: "Jet Ski Dock",         venue: "Fish and Company",           channel: "spydernetwork24", slug: "fish-and-company" },
   // KRMS Radio
   { name: "Studio",               venue: "KRMS Radio",                 channel: "spydernetwork80", slug: "krms-radio" },
@@ -664,11 +687,11 @@ const CAMS = [
   { name: "Inside",               venue: "Lake & Land Trading Co.",    channel: "spydernetwork62", slug: "lake-land-trading-company" },
   { name: "Lot",                  venue: "Lake & Land Trading Co.",    channel: "spydernetwork63", slug: "lake-land-trading-company-lot" },
   // Lazy Gators
-  { name: "Stage (Cam 1)",        venue: "Lazy Gators",                channel: "spydernetwork7",  slug: "lazy-gators-stage" },
+  { name: "Stage",        venue: "Lazy Gators",                channel: "spydernetwork7",  slug: "lazy-gators-stage" },
   { name: "View",                 venue: "Lazy Gators",                channel: "spydernetwork46", slug: "lazy-gators" },
   { name: "Pool",                 venue: "Lazy Gators",                channel: "spydernetwork11", slug: "lazy-gators-pool" },
-  { name: "Dock 1",               venue: "Lazy Gators",                channel: "spydernetwork12", slug: "lazy-gators-dock-1" },
-  { name: "Dock 2",               venue: "Lazy Gators",                channel: "spydernetwork13", slug: "lazy-gators-dock-2" },
+  { name: "Dock",               venue: "Lazy Gators",                channel: "spydernetwork12", slug: "lazy-gators-dock-1" },
+  { name: "Docks",               venue: "Lazy Gators",                channel: "spydernetwork13", slug: "lazy-gators-dock-2" },
   // Linn Creek Cove
   { name: "Dock",                 venue: "Linn Creek Cove",            channel: "spydernetwork90", slug: "spydernetwork-dock" },
   // Lucy's at the Lake
@@ -696,12 +719,12 @@ const CAMS = [
   { name: "Miller's Landing",     venue: "The Hatch",                  channel: "spydernetwork69", slug: "the-hatch" },
   // Topsider Condos
   { name: "& Phylicia Carson Bridge", venue: "Topsider Condos",        channel: "spydernetwork71", slug: "topsiders-condos" },
-  // Tucker's Shuckers / Tuckers On The Strip
-  { name: "North",                venue: "Tucker's Shuckers",          channel: "spydernetwork35", slug: "tucker-shuckers-north" },
-  { name: "South",                venue: "Tucker's Shuckers",          channel: "spydernetwork36", slug: "tucker-shuckers-south" },
+  // Tuckers On The Strip / Tuckers On The Strip
+  { name: "North",                venue: "Tuckers On The Strip",          channel: "spydernetwork35", slug: "tucker-shuckers-north" },
+  { name: "South",                venue: "Tuckers On The Strip",          channel: "spydernetwork36", slug: "tucker-shuckers-south" },
   // Wicked Willie's
   { name: "Bar",                  venue: "Wicked Willie's",            channel: "spydernetwork37", slug: "wicked-willies-bar" },
-  { name: "Lounge",               venue: "Wicked Willie's",            channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
+  { name: "Dining",               venue: "Wicked Willie's",            channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
   { name: "Patio",                venue: "Wicked Willie's",            channel: "spydernetwork39", slug: "wicked-willies-patio" },
 ];
 
@@ -745,7 +768,7 @@ function loadCam(idx) {
   // Update sidebar
   document.querySelectorAll('.cam-item').forEach((el, i) => {
     el.classList.toggle('active', i === currentIdx);
-    if (i === currentIdx) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    // removed automatic sidebar scroll behavior
   });
 
   // Update grid
@@ -926,7 +949,7 @@ function buildGrid() {
       <div class="cam-card-name">${cam.name}</div>
       <div class="cam-card-ch">${cam.channel}</div>
     `;
-    el.onclick = () => { loadCam(i); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    el.onclick = () => { loadCam(i); };
     grid.appendChild(el);
   });
 }
