@@ -654,10 +654,6 @@
       </div>
     </div>
 
-    <!-- Sidebar cam list -->
-    <div class="sidebar">
-      <div class="sidebar-header">All Cams — <span id="camCount"></span></div>
-      <div class="cam-list" id="camList"></div>
     </div>
   </div>
 
@@ -685,12 +681,7 @@
     <div class="cam-select-grid" id="camSelectGrid"></div>
   </div>
 
-  <!-- Browse all -->
-  <div class="cam-grid-section">
-    <div class="section-title">Browse All Cameras</div>
-    <div class="cam-grid" id="camGrid"></div>
-  </div>
-</main>
+  </main>
 
 <div id="toast"></div>
 
@@ -868,8 +859,6 @@ function timerMs() {
 // ─── Init ─────────────────────────────────────────────────────────────────────
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
-  buildSidebar();
-  buildGrid();
   buildCyclePanel();
   updateSelectedCount();
   loadCam(0);
@@ -1037,44 +1026,9 @@ function selectVenue(venue) {
 }
 
 // ─── Build UI ─────────────────────────────────────────────────────────────────
-function buildSidebar() {
-  const list = document.getElementById('camList');
-  CAMS.forEach((cam, i) => {
-    const el = document.createElement('div');
-    el.className = 'cam-item in-cycle'; // all selected by default
-    el.dataset.idx = i;
-    el.innerHTML = `
-      <div class="cam-item-switch"></div>
-      <span class="cam-item-num">${i + 1}</span>
-      <span class="cam-item-name">${cam.venue}<br><span class="cam-item-sub">${cam.name}</span></span>
-    `;
-    el.addEventListener('click', (e) => {
-      // Right-click or long-press area toggles selection; left click loads cam
-      loadCam(i);
-    });
-    el.querySelector('.cam-item-switch').addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleCamSelection(i);
-    });
-    list.appendChild(el);
-  });
-}
+function buildSidebar() {}
 
-function buildGrid() {
-  const grid = document.getElementById('camGrid');
-  CAMS.forEach((cam, i) => {
-    const el = document.createElement('div');
-    el.className = 'cam-card in-cycle';
-    el.dataset.idx = i;
-    el.innerHTML = `
-      <div class="cam-card-venue">${cam.venue}</div>
-      <div class="cam-card-name">${cam.name}</div>
-      <div class="cam-card-ch">${cam.channel}</div>
-    `;
-    el.onclick = () => { loadCam(i); };
-    grid.appendChild(el);
-  });
-}
+function buildGrid() {}
 
 function buildCyclePanel() {
   // Venue filter tags
