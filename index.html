@@ -790,8 +790,7 @@ function loadCam(idx) {
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
-  const host = window.location.hostname || 'jeffrwinters.github.io';
-  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=${host}&parent=jeffrwinters.github.io&autoplay=true&muted=false`;
+  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=jeffrwinters.github.io&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
@@ -1035,30 +1034,70 @@ function openDirect() {
 
 // ─── Chromecast ───────────────────────────────────────────────────────────────
 function setupCastListeners() {
+  if (typeof cast === 'undefined' || !cast.framework) {
+    console.log('Cast framework unavailable');
+    return;
+  }
+
   window['__onGCastApiAvailable'] = function(isAvailable) {
     if (!isAvailable) return;
-    const ctx = cast.framework.CastContext.getInstance();
-    ctx.setOptions({
-      receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-      autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
-    });
-    ctx.addEventListener(cast.framework.CastContextEventType.SESSION_STATE_CHANGED, (e) => {
-      const state = e.sessionState;
-      if (state === cast.framework.SessionState.SESSION_STARTED || state === cast.framework.SessionState.SESSION_RESUMED) {
-        castSession = ctx.getCurrentSession();
-        const deviceName = castSession.getCastDevice().friendlyName;
-        document.getElementById('castDeviceName').textContent = `Casting to: ${deviceName}`;
-        document.getElementById('castOverlay').classList.add('visible');
-        document.getElementById('castBtn').classList.add('casting');
-        castCam(CAMS[currentIdx]);
-        showToast(`🎬 Casting to ${deviceName}`);
-      } else if (state === cast.framework.SessionState.SESSION_ENDED) {
-        castSession = null;
-        document.getElementById('castOverlay').classList.remove('visible');
-        document.getElementById('castBtn').classList.remove('casting');
-        showToast('Casting stopped');
-      }
-    });
+
+    try {
+      const ctx = cast.framework.CastContext.getInstance();
+
+      ctx.setOptions({
+        receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+      });
+
+      ctx.addEventListener(
+        cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
+        (e) => {
+          const state = e.sessionState;
+
+          if (
+            state === cast.framework.SessionState.SESSION_STARTED ||
+            state === cast.framework.SessionState.SESSION_RESUMED
+          ) {
+            castSession = ctx.getCurrentSession();
+
+            const deviceName =
+              castSession.getCastDevice().friendlyName;
+
+            document.getElementById('castDeviceName').textContent =
+              `Casting to: ${deviceName}`;
+
+            document
+              .getElementById('castOverlay')
+              .classList.add('visible');
+
+            document
+              .getElementById('castBtn')
+              .classList.add('casting');
+
+            castCam(CAMS[currentIdx]);
+
+            showToast(`🎬 Casting to ${deviceName}`);
+          } else if (
+            state === cast.framework.SessionState.SESSION_ENDED
+          ) {
+            castSession = null;
+
+            document
+              .getElementById('castOverlay')
+              .classList.remove('visible');
+
+            document
+              .getElementById('castBtn')
+              .classList.remove('casting');
+
+            showToast('Casting stopped');
+          }
+        }
+      );
+    } catch (err) {
+      console.error('Cast setup failed:', err);
+    }
   };
 }
 
@@ -1130,7 +1169,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === ' ') { e.preventDefault(); toggleCycle(); }
 });
 
-init();
+try {
+  init();
+} catch (err) {
+  console.error('App init failed:', err);
+}
 </script>
 </body>
 </html>
