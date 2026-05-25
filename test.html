@@ -1,0 +1,1374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lakefront at LOTO</title>
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<style>
+
+body {
+  margin: 0;
+  background: #070b18;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(13,20,48,0.96);
+}
+
+.title {
+  font-size: 30px;
+  margin: 0;
+}
+
+.subtitle {
+  color: #b6c2ff;
+  margin-top: 6px;
+}
+
+.map-shell {
+  padding: 16px;
+}
+
+#lakeMap {
+  width: 100%;
+  height: calc(100vh - 140px);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255,255,255,0.05);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: rgba(63,99,255,0.25);
+  border-color: #3f63ff;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #101933;
+  color: white;
+  border-radius: 14px;
+}
+
+.leaflet-popup-tip {
+  background: #101933;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1 class="title">Lakefront at LOTO</h1>
+  <div class="subtitle">
+    Explore boating destinations and marinas at LOTO.
+  </div>
+</div>
+
+<div class="map-shell">
+
+  <div class="toolbar">
+    <button class="filter-btn active" data-layer="all">All</button>
+    <button class="filter-btn" data-layer="food">Food</button>
+    <button class="filter-btn" data-layer="fuel">Fuel</button>
+    <button class="filter-btn" data-layer="markers">Mile Markers</button>
+  </div>
+
+  <div id="lakeMap"></div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+
+<script>
+const RESTAURANTS = [
+  {
+    "name": "Neon Taco",
+    "lat": 38.2012622,
+    "lng": -92.6310779,
+    "description": "Tacos, margaritas and the coldest cervezas on the strip.",
+    "type": "restaurant"
+  },
+  {
+    "name": "L.O. Cafe",
+    "lat": 38.1999625,
+    "lng": -92.6454735,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Buddy's Lounge Bar & Pizzeria",
+    "lat": 38.2019317,
+    "lng": -92.6697619,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Boat House Bar & Grill",
+    "lat": 38.2276626,
+    "lng": -92.6736099,
+    "description": "Tiki bar, swimming pool, ship store, 24 hour gas dock",
+    "type": "restaurant"
+  },
+  {
+    "name": "Docknockers",
+    "lat": 38.2134345,
+    "lng": -92.7005768,
+    "description": "Open again, at the original location!",
+    "type": "restaurant"
+  },
+  {
+    "name": "Coconuts",
+    "lat": 38.290676,
+    "lng": -92.798851,
+    "description": "Lakefront Bar, Restaurant, & Family Beach.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Hillbilly Yacht Club Bar & Grill",
+    "lat": 38.290829,
+    "lng": -92.80278,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Daddio\u2019s Soda Shop",
+    "lat": 38.2863754,
+    "lng": -92.7926299,
+    "description": "Combination ice cream shop, burger joint, old-school boardwalk and classic American Dive Bar",
+    "type": "restaurant"
+  },
+  {
+    "name": "Maggies on the Lake",
+    "lat": 38.3039684,
+    "lng": -92.7966783,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Jolly Rogers",
+    "lat": 38.270668,
+    "lng": -92.766472,
+    "description": "Voted best restaurant on the water five years.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Lake Burger",
+    "lat": 38.2555272,
+    "lng": -92.7680093,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Millstone Pizza & Wings",
+    "lat": 38.2234208,
+    "lng": -92.7513027,
+    "description": "https://millstonemarinas.com/restaurant/",
+    "type": "restaurant"
+  },
+  {
+    "name": "Tap & Grill",
+    "lat": 38.2200938,
+    "lng": -92.7510238,
+    "description": "Over 60 beers to choose from!",
+    "type": "restaurant"
+  },
+  {
+    "name": "Lazy Gators",
+    "lat": 38.2082669,
+    "lng": -92.7485991,
+    "description": "Enjoy the party lakefront with your own private cabana at Lazy Gators.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Shady Gators Bar & Grill",
+    "lat": 38.207298,
+    "lng": -92.748001,
+    "description": "Live music on the water, great food, cold drinks, tons of boat slips.",
+    "type": "restaurant"
+  },
+  {
+    "name": "H. Toad's Bar & Grill",
+    "lat": 38.2063696,
+    "lng": -92.7475936,
+    "description": "Wide-ranging American fare & live music in an upscale setting within Camden on the Lake resort.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Bobber's Restaurant at Alhonna Resort",
+    "lat": 38.199223,
+    "lng": -92.752266,
+    "description": "Homemade food and a comfortable atmosphere.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Outer Limits Gas Dock and C-store",
+    "lat": 38.2061619,
+    "lng": -92.7875066,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Franky & Louie's",
+    "lat": 38.1596775,
+    "lng": -92.7564244,
+    "description": "Keywest in the Midwest.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Lakehouse 13",
+    "lat": 38.1690973,
+    "lng": -92.7087307,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "The Encore",
+    "lat": 38.1766509,
+    "lng": -92.6264993,
+    "description": "Pool bar, grill, stage, and skybar. Upscale food.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Backwater Jack's",
+    "lat": 38.154064,
+    "lng": -92.62487,
+    "description": "Combines the styles and ingredients of South Florida and the Caribbean with traditional favorites of the Midwest.",
+    "type": "restaurant"
+  },
+  {
+    "name": "1932 Reserve",
+    "lat": 38.1538145,
+    "lng": -92.6274521,
+    "description": "Osage Beach\u2019s oldest hotel and tavern has been renovated into the most upscale lodging and dining experience at The Lake of the Ozarks.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Dog Days",
+    "lat": 38.13979,
+    "lng": -92.648796,
+    "description": "Lakefront watering hole with an expansive deck, with drinks, pub eats, live music & events.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Shorty Pants",
+    "lat": 38.142925,
+    "lng": -92.690308,
+    "description": "The Lake's favorite Cajun restaurant.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Redhead Restaurant & Pool Bar",
+    "lat": 38.1410036,
+    "lng": -92.6971864,
+    "description": "Premier destination on the lake and specializing in performance boat sales.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Paradise Restaurant",
+    "lat": 38.148159,
+    "lng": -92.741608,
+    "description": "Come by to relax and take in the view of the boats and the water.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Papa Chubby's Food & Booze",
+    "lat": 38.1172041,
+    "lng": -92.7373338,
+    "description": "Home of the mini shootout.",
+    "type": "restaurant"
+  },
+  {
+    "name": "LandShark Bar & Grill",
+    "lat": 38.126909,
+    "lng": -92.7169692,
+    "description": "...and more at\u00a0Margaritaville Lake Resort!JB\u2019s Boathouse GrillFrank & Lola\u2019s PizzeriaThe Tiki Hut Pool BarWindrose Marker 26 Lakeside DiningLandShark Bar & Grill",
+    "type": "restaurant"
+  },
+  {
+    "name": "The Hatch",
+    "lat": 38.096672,
+    "lng": -92.705727,
+    "description": "Dine inside or outside on our LARGE deck and enjoy the best sunset on the lake.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Fish & Company",
+    "lat": 38.066372,
+    "lng": -92.746521,
+    "description": "Home of Dale Blue, the barefoot entertainer.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Closed 2026? Larry's on the Lake",
+    "lat": 38.076813,
+    "lng": -92.765167,
+    "description": "The only floating tiki bar at the lake.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Motor Boaters Park",
+    "lat": 38.0861529,
+    "lng": -92.8025853,
+    "description": "Rotating food trucks, a large beer selection, and a full bar",
+    "type": "restaurant"
+  },
+  {
+    "name": "The Cave Bar & Grill",
+    "lat": 38.0862305,
+    "lng": -92.8056232,
+    "description": "Now open. A swim up bar inside a cave... only at LOTO! Family friendly atmosphere.",
+    "type": "restaurant"
+  },
+  {
+    "name": "NautiFish Rum Bar",
+    "lat": 38.0796831,
+    "lng": -92.8220272,
+    "description": "Come check out our infused rum bar.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Pebble Bay Club",
+    "lat": 38.006029,
+    "lng": -92.7978913,
+    "description": "Pool, bar, upscale food",
+    "type": "restaurant"
+  },
+  {
+    "name": "Bulldog's Beach House",
+    "lat": 38.101349,
+    "lng": -92.790977,
+    "description": "Enjoy great food, live music, and flowing drinks. \u00a0Stuffed Burgers, Prime Rib French Dip, and the lowest priced beer on the water.",
+    "type": "restaurant"
+  },
+  {
+    "name": "The Hookup",
+    "lat": 38.1006633,
+    "lng": -92.7966115,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Stewart's",
+    "lat": 38.1021609,
+    "lng": -92.7919006,
+    "description": "Breakfast coming 2021",
+    "type": "restaurant"
+  },
+  {
+    "name": "Captain Ron's Bar & Grill",
+    "lat": 38.128345,
+    "lng": -92.791817,
+    "description": "Home of The Shootout.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Hurricane Dolly's",
+    "lat": 38.1323498,
+    "lng": -92.7996415,
+    "description": "Dive bar with awesome prime rib and crab legs.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Bear Bottom Resort",
+    "lat": 38.172523,
+    "lng": -92.791687,
+    "description": "58 acre resort features lakefront rental units, two restaurants, three bars, two water slides and more.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Sharkbite Bar and Grill",
+    "lat": 38.1739598,
+    "lng": -92.9040974,
+    "description": "The perfect place to come and relax with a cold beverage and delicious meal. Kids will love that they can see our live dwarf shark mascot, Norman Bites.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Big Dicks",
+    "lat": 38.185711,
+    "lng": -92.936157,
+    "description": "Home of the world famous Minnow Shot. We feature good food, good friends and great fun!",
+    "type": "restaurant"
+  },
+  {
+    "name": "Boondockz Bar & Restaurant",
+    "lat": 38.173608,
+    "lng": -92.904138,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Red Fox Bar & Grille",
+    "lat": 38.180584,
+    "lng": -92.973175,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Moonies",
+    "lat": 38.182556,
+    "lng": -92.993965,
+    "description": "Enjoy the finest lake food around.",
+    "type": "restaurant"
+  },
+  {
+    "name": "The Wet Spot",
+    "lat": 38.1913114,
+    "lng": -92.9934311,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Patriot Point Marina",
+    "lat": 38.1910226,
+    "lng": -93.0065109,
+    "description": "Marketplace and Fuel",
+    "type": "restaurant"
+  },
+  {
+    "name": "Bottom's Up",
+    "lat": 38.236284,
+    "lng": -93.0172491,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "BuckNaked Restaurant and Bar",
+    "lat": 38.2562789,
+    "lng": -93.158167,
+    "description": "Wood smoked BBQ, tasty hamburgers, and southern fried catfish. Sit inside or sit outside and have fun on outdoor dance floor complete with a brass dance pole.",
+    "type": "restaurant"
+  },
+  {
+    "name": "Old Oar House Restaurant",
+    "lat": 38.2649475,
+    "lng": -93.2293729,
+    "description": "Try our hand-battered onion rings or fresh cut-to-order curly fries. Breakfast, lunch, and dinner. Keep the kids busy with Big Buck Hunter, or treat yourself to a game of pool or darts.",
+    "type": "restaurant"
+  },
+  {
+    "name": "White Branch Marina Restaurant and Lounge",
+    "lat": 38.2367359,
+    "lng": -93.3547609,
+    "description": "Great food, best ever steaks grilled outside, and two waterfront decks",
+    "type": "restaurant"
+  },
+  {
+    "name": "Roadhouse Bar Grill & Marina",
+    "lat": 38.2359385,
+    "lng": -93.358072,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Dam Lounge",
+    "lat": 38.2409441,
+    "lng": -93.3648205,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Buffalo Creek Winery",
+    "lat": 38.2734451,
+    "lng": -93.0692146,
+    "description": "",
+    "type": "restaurant"
+  },
+  {
+    "name": "Shooters 81",
+    "lat": 38.2800751,
+    "lng": -93.2165893,
+    "description": "",
+    "type": "restaurant"
+  }
+];
+
+const MARINAS = [
+  {
+    "name": "Ozark Yacht Club Fuel",
+    "lat": 38.1994903,
+    "lng": -92.6457524,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Sunny's Marina",
+    "lat": 38.1945066,
+    "lng": -92.6491387,
+    "description": "Restaurant coming???",
+    "type": "marina"
+  },
+  {
+    "name": "Aqua Moon Marina Fuel",
+    "lat": 38.2244324,
+    "lng": -92.6664913,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Village Fuel (24hr)",
+    "lat": 38.228736,
+    "lng": -92.6734388,
+    "description": "24 hour fuel",
+    "type": "marina"
+  },
+  {
+    "name": "Angry Dragon",
+    "lat": 38.2224632,
+    "lng": -92.6913455,
+    "description": "Drop off access only from boat. There is a pier but not slips (as of 2024).",
+    "type": "marina"
+  },
+  {
+    "name": "Big Thunder at Glencove Marina Fuel",
+    "lat": 38.2080477,
+    "lng": -92.6810932,
+    "description": "Boat sales, rentals, gas, c-store573-365-4001",
+    "type": "marina"
+  },
+  {
+    "name": "Scooters Gas",
+    "lat": 38.2139229,
+    "lng": -92.6943248,
+    "description": "Gas and snacks",
+    "type": "marina"
+  },
+  {
+    "name": "Adventure Boat Rentals Fuel",
+    "lat": 38.2297527,
+    "lng": -92.6758146,
+    "description": "Gas and C-store",
+    "type": "marina"
+  },
+  {
+    "name": "Millstone Marina Fuel & C-store\u00a0(24hr)",
+    "lat": 38.2211969,
+    "lng": -92.7489317,
+    "description": "24 hour fuelMake sure to visit the fully stocked Convenience Store with all you could need for a day, or weekend, at the beautiful Lake of the Ozarks!",
+    "type": "marina"
+  },
+  {
+    "name": "Gas Hole Fuel",
+    "lat": 38.2764114,
+    "lng": -92.7998614,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "The Jerk Shack Fuel",
+    "lat": 38.2737245,
+    "lng": -92.8057086,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Millstone Thunder",
+    "lat": 38.2063363,
+    "lng": -92.7864933,
+    "description": "Coming soon",
+    "type": "marina"
+  },
+  {
+    "name": "Rock Harbor Gas",
+    "lat": 38.1936303,
+    "lng": -92.7768052,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Franky & Louie's Fuel",
+    "lat": 38.1602738,
+    "lng": -92.7561039,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Dogwood Acres Fuel",
+    "lat": 38.1672099,
+    "lng": -92.749967,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Bikini Pier Fuel",
+    "lat": 38.1734274,
+    "lng": -92.7248146,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Point Oasis Fuel",
+    "lat": 38.1677983,
+    "lng": -92.7083445,
+    "description": "Best fuel dock on the lake!",
+    "type": "marina"
+  },
+  {
+    "name": "Sunset Beach Resort Fuel",
+    "lat": 38.1550098,
+    "lng": -92.6251827,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Surdyke",
+    "lat": 38.1407842,
+    "lng": -92.6669794,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Coffman Bend Fuel",
+    "lat": 38.1877613,
+    "lng": -92.9688084,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Coconuts Fuel",
+    "lat": 38.2901661,
+    "lng": -92.7989642,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Miller's Landing Fuel",
+    "lat": 38.0972302,
+    "lng": -92.7061102,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "(closed?) Iguana Fuel",
+    "lat": 38.2349504,
+    "lng": -92.7139985,
+    "description": "Not sure if the gas dock is still open or not.",
+    "type": "marina"
+  },
+  {
+    "name": "Margaritaville Fuel",
+    "lat": 38.126286,
+    "lng": -92.71689,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Mimosa Beach Fuel",
+    "lat": 38.1594007,
+    "lng": -92.9075682,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "5-65 Marina Fuel",
+    "lat": 38.0998222,
+    "lng": -92.7885774,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Horny Toad's Fuel (24hr)",
+    "lat": 38.206409,
+    "lng": -92.7485856,
+    "description": "24 hour fuel",
+    "type": "marina"
+  },
+  {
+    "name": "Pier 31 Fuel",
+    "lat": 38.0809446,
+    "lng": -92.7530073,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Pirates Point",
+    "lat": 38.1258653,
+    "lng": -92.8003352,
+    "description": "(573) 374-1260\u00a0 C store and fuel",
+    "type": "marina"
+  },
+  {
+    "name": "Bear Bottom Fuel",
+    "lat": 38.1719819,
+    "lng": -92.7914795,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Premier 54 Fuel",
+    "lat": 38.1417546,
+    "lng": -92.6812756,
+    "description": "Gas dock, marina, ramp",
+    "type": "marina"
+  },
+  {
+    "name": "Shorty Pants Fuel",
+    "lat": 38.1431395,
+    "lng": -92.6895703,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Formula Fuel",
+    "lat": 38.1340671,
+    "lng": -92.6364452,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Bridgeview Marina Fuel",
+    "lat": 38.1316177,
+    "lng": -92.6377004,
+    "description": "24 hour fuel",
+    "type": "marina"
+  },
+  {
+    "name": "38MM Marina & RV Resort",
+    "lat": 38.1656557,
+    "lng": -92.8125644,
+    "description": "Under construction as of early 2022",
+    "type": "marina"
+  },
+  {
+    "name": "Runaway II Resort Fuel",
+    "lat": 38.1743193,
+    "lng": -92.903671,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Rebel Harbor Marina Fuel",
+    "lat": 38.1905694,
+    "lng": -93.0070782,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "BuckNaked Marina Fuel",
+    "lat": 38.2560567,
+    "lng": -93.1588925,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "White Branch Marina Fuel",
+    "lat": 38.2367149,
+    "lng": -93.3542124,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Cave View Marina",
+    "lat": 38.0000973,
+    "lng": -92.7904388,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Marine Max Marina",
+    "lat": 38.1772787,
+    "lng": -92.6243591,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Kelly's Port Marina",
+    "lat": 38.137527,
+    "lng": -92.6589274,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Redhead Yacht Club Marina",
+    "lat": 38.1400586,
+    "lng": -92.6970577,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Pier 31 Marina",
+    "lat": 38.0816424,
+    "lng": -92.7543175,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Formula Boats of Missouri Marina",
+    "lat": 38.1330544,
+    "lng": -92.6364398,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Westport Yacht Club",
+    "lat": 38.2659162,
+    "lng": -92.7794337,
+    "description": "Marina and RV park.\u00a0 Pool and swim-up bar possibly in the future.",
+    "type": "marina"
+  },
+  {
+    "name": "Village Marina",
+    "lat": 38.2279955,
+    "lng": -92.6739102,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Ramond's Marina",
+    "lat": 38.3104891,
+    "lng": -92.8216302,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Bridgeview Marina",
+    "lat": 38.1309109,
+    "lng": -92.6372659,
+    "description": "",
+    "type": "marina"
+  },
+  {
+    "name": "Something coming in 2025?",
+    "lat": 38.1759226,
+    "lng": -92.7245161,
+    "description": "Prewitt Development",
+    "type": "marina"
+  }
+];
+
+const MILEMARKERS = [
+  {
+    "name": "2 MM",
+    "lat": 38.2151213,
+    "lng": -92.6563309,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "4 MM",
+    "lat": 38.2182889,
+    "lng": -92.6919511,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "6 MM",
+    "lat": 38.2228739,
+    "lng": -92.73336,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "8 MM",
+    "lat": 38.2004367,
+    "lng": -92.7608555,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "10 MM",
+    "lat": 38.1807367,
+    "lng": -92.7494745,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "12 MM",
+    "lat": 38.1801293,
+    "lng": -92.7141166,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "14 MM",
+    "lat": 38.1839244,
+    "lng": -92.6777673,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "16 MM",
+    "lat": 38.1850965,
+    "lng": -92.6490783,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "18 MM",
+    "lat": 38.1576079,
+    "lng": -92.636869,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "20 MM",
+    "lat": 38.1451888,
+    "lng": -92.6655579,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "22 MM",
+    "lat": 38.1514662,
+    "lng": -92.6992893,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "24 MM",
+    "lat": 38.1506225,
+    "lng": -92.7361536,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "26 MM",
+    "lat": 38.1258471,
+    "lng": -92.728343,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "28 MM",
+    "lat": 38.1053859,
+    "lng": -92.7058554,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "30 MM",
+    "lat": 38.0964365,
+    "lng": -92.7442646,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "32 MM",
+    "lat": 38.0983954,
+    "lng": -92.774992,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "34 MM",
+    "lat": 38.1198376,
+    "lng": -92.7944756,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "36 MM",
+    "lat": 38.1453576,
+    "lng": -92.8064918,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "38 MM",
+    "lat": 38.168608,
+    "lng": -92.8029728,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "40 MM",
+    "lat": 38.1507575,
+    "lng": -92.8317261,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "42 MM",
+    "lat": 38.1464038,
+    "lng": -92.8649426,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "44 MM",
+    "lat": 38.1654702,
+    "lng": -92.8847694,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "46 MM",
+    "lat": 38.1830473,
+    "lng": -92.9163981,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "48 MM",
+    "lat": 38.1680345,
+    "lng": -92.94837,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "50 MM",
+    "lat": 38.1733315,
+    "lng": -92.9738188,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "52 MM",
+    "lat": 38.2002492,
+    "lng": -92.9603004,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "54 MM",
+    "lat": 38.2186271,
+    "lng": -92.9332638,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "56 MM",
+    "lat": 38.2251341,
+    "lng": -92.9674673,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "58 MM",
+    "lat": 38.1989676,
+    "lng": -92.9805994,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "60 MM",
+    "lat": 38.188748,
+    "lng": -93.006692,
+    "description": "Osage Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "2 MM Gravois",
+    "lat": 38.2375734,
+    "lng": -92.7511311,
+    "description": "Gravois Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "4 MM Gravois",
+    "lat": 38.264063,
+    "lng": -92.7580404,
+    "description": "Gravois Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "6 MM Gravois",
+    "lat": 38.2784833,
+    "lng": -92.7808285,
+    "description": "Gravois Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "8 MM Gravois",
+    "lat": 38.2990306,
+    "lng": -92.7937031,
+    "description": "Gravois Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "10 MM Gravois Arm",
+    "lat": 38.3124338,
+    "lng": -92.8159332,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "2 MM Niangua",
+    "lat": 38.0847838,
+    "lng": -92.7984238,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "4 MM Niangua",
+    "lat": 38.0672507,
+    "lng": -92.8134013,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "6 MM Niangua",
+    "lat": 38.0470772,
+    "lng": -92.8257179,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "8 MM Niangua",
+    "lat": 38.0240585,
+    "lng": -92.8295374,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "10 MM Niangua",
+    "lat": 38.0276419,
+    "lng": -92.7968788,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "12 MM Niangua",
+    "lat": 38.007187,
+    "lng": -92.7875233,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "14 MM Niangua",
+    "lat": 37.9847984,
+    "lng": -92.7788115,
+    "description": "Niangua Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "2 MM Grand Glaize",
+    "lat": 38.1192975,
+    "lng": -92.6453018,
+    "description": "Grand Glaize Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "4 MM Grand Glaize",
+    "lat": 38.1094719,
+    "lng": -92.6498079,
+    "description": "Grand Glaize Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "6 MM Grand Glaize",
+    "lat": 38.0938022,
+    "lng": -92.622385,
+    "description": "Grand Glaize Arm",
+    "type": "milemarker"
+  },
+  {
+    "name": "Raccoon Hollow Cove",
+    "lat": 38.2374385,
+    "lng": -92.7335572,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Dry Branch Cove",
+    "lat": 38.2984075,
+    "lng": -92.7680075,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Golf Ball Cove",
+    "lat": 38.1778606,
+    "lng": -92.6579082,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Party Cove",
+    "lat": 38.0958624,
+    "lng": -92.6576185,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "5 Finger Cove",
+    "lat": 38.1518717,
+    "lng": -92.6659011,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Evergreen Cove",
+    "lat": 38.164188,
+    "lng": -92.6470613,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Ha Ha Tonka",
+    "lat": 37.975809,
+    "lng": -92.7718484,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Proctor Creek Cove",
+    "lat": 38.2434383,
+    "lng": -92.936461,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Cliff",
+    "lat": 38.232788,
+    "lng": -92.946739,
+    "description": "",
+    "type": "milemarker"
+  },
+  {
+    "name": "Cliff - Pirates Peak",
+    "lat": 38.1627037,
+    "lng": -92.8774673,
+    "description": "Cliff jumping with marked heights",
+    "type": "milemarker"
+  },
+  {
+    "name": "Cliff jumping",
+    "lat": 38.0991151,
+    "lng": -92.6411828,
+    "description": "Cliffs with marked heights",
+    "type": "milemarker"
+  }
+];
+
+
+const map = L.map('lakeMap', {
+  zoomControl: false,
+  attributionControl: false
+}).setView([38.19, -92.72], 11);
+
+L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  {
+    subdomains: 'abcd',
+    maxZoom: 20
+  }
+).addTo(map);
+
+L.control.zoom({
+  position: 'bottomright'
+}).addTo(map);
+
+const restaurantLayer = L.layerGroup().addTo(map);
+const marinaLayer = L.layerGroup().addTo(map);
+const markerLayer = L.layerGroup().addTo(map);
+
+async function loadLayer(url, layer, color, radius=7) {
+  const response = await fetch(url);
+  const data = await response.json();
+
+  data.forEach(item => {
+    const marker = L.circleMarker(
+      [item.lat, item.lng],
+      {
+        radius,
+        color,
+        fillColor: color,
+        fillOpacity: 0.9,
+        weight: 2
+      }
+    );
+
+    marker.bindPopup(`
+      <div>
+        <h3>${item.name}</h3>
+        <p>${item.description || ''}</p>
+      </div>
+    `);
+
+    marker.addTo(layer);
+  });
+}
+
+async function loadMileMarkers() {
+  const response = Promise.resolve({ json: async () => MILEMARKERS });
+  const data = await response.json();
+
+  data.forEach(item => {
+    const label = L.marker(
+      [item.lat, item.lng],
+      {
+        icon: L.divIcon({
+          className: '',
+          html: `<div style="
+            color: rgba(255,255,255,0.75);
+            font-size: 11px;
+            font-weight: 700;
+          ">${item.name}</div>`
+        })
+      }
+    );
+
+    label.addTo(markerLayer);
+  });
+}
+
+loadLayer('./assets/maps/restaurants.json', restaurantLayer, '#ff884d');
+loadLayer('./assets/maps/marinas.json', marinaLayer, '#4da3ff');
+loadMileMarkers();
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    document.querySelectorAll('.filter-btn')
+      .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    const layer = btn.dataset.layer;
+
+    restaurantLayer.remove();
+    marinaLayer.remove();
+    markerLayer.remove();
+
+    if (layer === 'all') {
+      restaurantLayer.addTo(map);
+      marinaLayer.addTo(map);
+      markerLayer.addTo(map);
+    }
+
+    if (layer === 'food') {
+      restaurantLayer.addTo(map);
+    }
+
+    if (layer === 'fuel') {
+      marinaLayer.addTo(map);
+    }
+
+    if (layer === 'markers') {
+      markerLayer.addTo(map);
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
