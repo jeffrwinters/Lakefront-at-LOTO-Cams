@@ -809,6 +809,49 @@
     color: #b8c5ff;
   }
 
+
+  .cam-search-container {
+    position: relative;
+  }
+
+  .clear-search-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    color: var(--muted);
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+    transition: all 0.18s ease;
+  }
+
+  .clear-search-btn:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+
+
+  .sidebar-header.panel-title,
+  .lake-card-title.panel-title {
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .sidebar-header.panel-title span {
+    color: #3f63ff;
+  }
+
 </style>
 </head>
 <body>
@@ -880,15 +923,26 @@
 
     <!-- Sidebar cam list -->
     <div class="sidebar">
-      <div class="sidebar-header">All Cams — <span id="camCount"></span></div>
+      <div class="panel-title sidebar-header">All Cams — <span id="camCount"></span></div>
       <div class="cam-search-wrap">
-        <input
-          type="text"
-          id="camSearch"
-          class="cam-search"
-          placeholder="Find a camera..."
-          oninput="filterCams()"
-        />
+        <div class="cam-search-container">
+          <input
+            type="text"
+            id="camSearch"
+            class="cam-search"
+            placeholder="Find a camera..."
+            oninput="filterCams()"
+          />
+
+          <button
+            id="clearSearchBtn"
+            class="clear-search-btn"
+            onclick="clearCamSearch()"
+            aria-label="Clear search"
+          >
+            ×
+          </button>
+        </div>
       </div>
       <div class="cam-list" id="camList"></div>
     </div>
@@ -917,7 +971,7 @@
   <!-- Lake Conditions -->
   <section class="lake-status">
     <div class="lake-card unified">
-      <div class="lake-card-title">Current Lake Conditions</div>
+      <div class="panel-title lake-card-title">Current Lake Conditions</div>
 
       <div class="lake-stats">
         <div class="lake-stat">
@@ -1320,11 +1374,15 @@ function showToast(msg) {
 
 // ─── Cam Search ───────────────────────────────────────────────────────────────
 function filterCams() {
-  const val = document
-    .getElementById('camSearch')
-    .value
+  const input = document.getElementById('camSearch');
+
+  const val = input.value
     .toLowerCase()
     .trim();
+
+  const clearBtn = document.getElementById('clearSearchBtn');
+
+  clearBtn.style.display = val ? 'flex' : 'none';
 
   document.querySelectorAll('.cam-item').forEach((el, i) => {
     const cam = CAMS[i];
@@ -1334,6 +1392,16 @@ function filterCams() {
 
     el.style.display = text.includes(val) ? 'flex' : 'none';
   });
+}
+
+function clearCamSearch() {
+  const input = document.getElementById('camSearch');
+
+  input.value = '';
+
+  filterCams();
+
+  input.focus();
 }
 
 
