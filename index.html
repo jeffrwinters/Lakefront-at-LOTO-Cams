@@ -936,6 +936,46 @@
   }
 
 
+
+.leaflet-container {
+  background: #0b1226;
+}
+
+.leaflet-container img,
+.leaflet-tile {
+  max-width: none !important;
+}
+
+.leaflet-control-container .leaflet-control {
+  z-index: 800;
+}
+
+
+.locate-btn {
+  background: rgba(13,20,48,0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.28);
+  transition: all 0.18s ease;
+}
+
+.locate-btn:hover {
+  border-color:#3f63ff;
+  color:#8ea2ff;
+}
+
+.locate-btn svg {
+  width:20px;
+  height:20px;
+}
+
 </style>
 <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/><style>
 .toolbar {
@@ -1578,6 +1618,13 @@ function showMainTab(tab) {
 
     camsBtn.classList.remove('active');
     mapBtn.classList.add('active');
+
+    setTimeout(() => {
+      if (window.lotoMap) {
+        window.lotoMap.invalidateSize();
+      }
+    }, 120);
+
   } else {
     mapPanel.classList.remove('active');
     camsPanel.classList.add('active');
@@ -2754,10 +2801,11 @@ const MILEMARKERS = [
 ];
 
 
-const map = L.map('lakeMap', {
+window.lotoMap = L.map('lakeMap', {
   zoomControl: false,
   attributionControl: false
 }).setView([38.19, -92.72], 11);
+const map = window.lotoMap;
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -2766,9 +2814,66 @@ L.tileLayer(
   }
 ).addTo(map);
 
+
 L.control.zoom({
   position: 'bottomright'
 }).addTo(map);
+
+// My Location button
+const LocateControl = L.Control.extend({
+  options: {
+    position: 'topright'
+  },
+
+  onAdd: function () {
+    const container = L.DomUtil.create('button', 'locate-btn');
+
+    container.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v3"></path>
+        <path d="M12 19v3"></path>
+        <path d="M2 12h3"></path>
+        <path d="M19 12h3"></path>
+      </svg>
+    `;
+
+    container.title = 'My Location';
+
+    L.DomEvent.disableClickPropagation(container);
+
+    container.onclick = () => {
+      map.locate({
+        setView: true,
+        maxZoom: 14
+      });
+    };
+
+    return container;
+  }
+});
+
+map.addControl(new LocateControl());
+
+map.on('locationfound', (e) => {
+  if (window.userLocationMarker) {
+    map.removeLayer(window.userLocationMarker);
+  }
+
+  window.userLocationMarker = L.circleMarker(e.latlng, {
+    radius: 8,
+    color: '#3f63ff',
+    fillColor: '#8ea2ff',
+    fillOpacity: 1,
+    weight: 3
+  }).addTo(map);
+
+  window.userLocationMarker.bindPopup('You are here').openPopup();
+});
+
+map.on('locationerror', () => {
+  alert('Unable to access your location.');
+});
 
 const restaurantLayer = L.layerGroup().addTo(map);
 const marinaLayer = L.layerGroup().addTo(map);
