@@ -768,6 +768,15 @@
     <!-- Sidebar cam list -->
     <div class="sidebar">
       <div class="sidebar-header">All Cams — <span id="camCount"></span></div>
+      <div class="cam-search-wrap">
+        <input
+          type="text"
+          id="camSearch"
+          class="cam-search"
+          placeholder="Find a camera..."
+          oninput="filterCams()"
+        />
+      </div>
       <div class="cam-list" id="camList"></div>
     </div>
   </div>
@@ -794,6 +803,12 @@
 
     <!-- Cam selection grid -->
     <div class="cam-select-grid" id="camSelectGrid"></div>
+  </div>
+
+
+  <div class="cam-grid-section">
+    <div class="section-title">Camera Grid</div>
+    <div class="cam-grid" id="camGrid"></div>
   </div>
 
   </main>
@@ -836,7 +851,7 @@ const CAMS = [
   // DISABLED - currently offline
   // { name: "Dock",               venue: "Backwater Jacks",            channel: "spydernetwork4",  slug: "backwater-jacks-dock-1" },
 
-  { name: "Docks",               venue: "Lake Billiards",             channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
+  { name: "Docks",               venue: "Alhonna",             channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
   { name: "Level Five",           venue: "Backwater Jacks",            channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
   // Bridgeview Marina
   { name: "Marina",               venue: "Bridgeview Marina",          channel: "spydernetwork20", slug: "bridgeview-marina" },
@@ -849,11 +864,11 @@ const CAMS = [
   // { name: "South View",           venue: "Camdenton Glass",            channel: "spydernetwork42", slug: "camdenton-glass-south" },
 
   // Dock Glide
-  { name: "Cam",                  venue: "Dock Glide",                 channel: "spydernetwork60", slug: "dock-glide" },
+  { name: "Cam 1",                  venue: "Dock Glide",                 channel: "spydernetwork60", slug: "dock-glide" },
   // Dog Days
   { name: "Pool",                 venue: "Dog Days",                   channel: "spydernetwork31", slug: "dog-days-pool" },
   { name: "Stage",                venue: "Dog Days",                   channel: "spydernetwork32", slug: "dog-days-stage" },
-  { name: "Dock",               venue: "Spyder on the Strip",        channel: "spydernetwork33", slug: "dog-days-dock-1" },
+  { name: "Shoreland",               venue: "Spyder on the Strip",        channel: "spydernetwork33", slug: "dog-days-dock-1" },
   { name: "Docks",               venue: "MM17",                       channel: "spydernetwork34", slug: "dog-days-dock" },
   // Dogwood Animal Shelter
   
@@ -861,7 +876,7 @@ const CAMS = [
   // { name: "Shelter",              venue: "Dogwood Animal Shelter",     channel: "spydernetwork55", slug: "dogwood-animal-shelter" },
 
   // Double D's Roadhouse
-  { name: "Bar",                  venue: "Lake & Land Trading",        channel: "spydernetwork56", slug: "double-ds-roadhouse" },
+  { name: "Floor",                  venue: "Lake & Land Trading",        channel: "spydernetwork56", slug: "double-ds-roadhouse" },
   { name: "Game Room",            venue: "54 Southbound",              channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
   // Ellerman
   
@@ -873,7 +888,7 @@ const CAMS = [
   { name: "Sky Bar",             venue: "Encore Lakeside Grill",      channel: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
   { name: "Stage",                venue: "Encore Lakeside Grill",      channel: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
   // Fish and Company
-  { name: "Dale Blue Stage",      venue: "Fish and Company",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
+  { name: "Cam 1",      venue: "Dock Glide",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
   
   // DISABLED - currently offline
   // { name: "Patio",                venue: "Fish and Company",           channel: "spydernetwork22", slug: "fish-and-company-patio" },
@@ -894,7 +909,7 @@ const CAMS = [
   // { name: "South East",           venue: "KRMS Radio",                 channel: "spydernetwork83", slug: "krms-radio-south-east" },
 
   // Lake Billiards Sports Bar & Grill
-  { name: "Sports Bar",           venue: "Lake Billiards",             channel: "spydernetwork61", slug: "lake-billiards" },
+  { name: "Pool",           venue: "Alhonna",             channel: "spydernetwork61", slug: "lake-billiards" },
   // Lake & Land Trading Company
   
   // DISABLED - currently offline
@@ -917,7 +932,7 @@ const CAMS = [
   // { name: "At the Lake",          venue: "Lucy's",                     channel: "spydernetwork64", slug: "lucys-at-the-lake" },
 
   // Marty Byrde's
-  { name: "Paradise Docks",       venue: "Paradise",              channel: "spydernetwork44", slug: "marty-byrds-outside" },
+  { name: "Docks 1",       venue: "Dog Days",              channel: "spydernetwork44", slug: "marty-byrds-outside" },
   { name: "Paradise Docks 2",     venue: "Paradise",              channel: "spydernetwork45", slug: "marty-byrds" },
   // Michael's Steak Chalet
 //   { name: "View",                 venue: "Michael's Steak Chalet",     channel: "spydernetwork48", slug: "michaels-steak-chalet-view" },
@@ -943,7 +958,7 @@ const CAMS = [
 //   { name: "Boutique",             venue: "The Cactus Blossom",         channel: "spydernetwork68", slug: "the-cactus-blossom-boutique" },
 
   // The Hatch at Miller's Landing
-  { name: "Miller's Landing",     venue: "The Hatch",                  channel: "spydernetwork69", slug: "the-hatch" },
+  { name: "Fuel Dock",     venue: "Bridge view",                  channel: "spydernetwork69", slug: "the-hatch" },
   // Topsider Condos
 //   { name: "& Phylicia Carson Bridge", venue: "Topsider Condos",        channel: "spydernetwork71", slug: "topsiders-condos" },
   // Tuckers On The Strip / Tuckers On The Strip
