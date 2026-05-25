@@ -804,13 +804,6 @@
     <!-- Cam selection grid -->
     <div class="cam-select-grid" id="camSelectGrid"></div>
   </div>
-
-
-  <div class="cam-grid-section">
-    <div class="section-title">Camera Grid</div>
-    <div class="cam-grid" id="camGrid"></div>
-  </div>
-
   </main>
 
 <div id="toast"></div>
@@ -991,7 +984,6 @@ function timerMs() {
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
   buildSidebar();
-  buildGrid();
   buildCyclePanel();
   updateSelectedCount();
   loadCam(0);
@@ -1014,9 +1006,6 @@ function loadCam(idx) {
     el.classList.toggle('active', i === currentIdx);
     // removed automatic sidebar scroll behavior
   });
-
-  // Update grid
-  document.querySelectorAll('.cam-card').forEach((el, i) => el.classList.toggle('active', i === currentIdx));
 
   if (castSession) castCam(cam);
   resetTimerBar();
@@ -1128,9 +1117,6 @@ function updateSelectionUI(idx) {
     sideItem.classList.toggle('in-cycle', inCycle);
 
   }
-  // grid card
-  const card = document.querySelector(`.cam-card[data-idx="${idx}"]`);
-  if (card) card.classList.toggle('in-cycle', inCycle);
 }
 
 function updateSelectedCount() {
@@ -1182,21 +1168,7 @@ function buildSidebar() {
   });
 }
 
-function buildGrid() {
-  const grid = document.getElementById('camGrid');
-  CAMS.forEach((cam, i) => {
-    const el = document.createElement('div');
-    el.className = 'cam-card in-cycle';
-    el.dataset.idx = i;
-    el.innerHTML = `
-      <div class="cam-card-venue">${cam.venue}</div>
-      <div class="cam-card-name">${cam.name}</div>
-      <div class="cam-card-ch">${cam.channel}</div>
-    `;
-    el.onclick = () => { loadCam(i); };
-    grid.appendChild(el);
-  });
-}
+
 
 function buildCyclePanel() {
   // Venue filter tags
