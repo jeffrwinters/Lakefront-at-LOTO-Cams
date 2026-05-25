@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<meta property="og:url" content="https://cams.lakefrontatloto.com/">
+<link rel="canonical" href="https://cams.lakefrontatloto.com/">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lakefront at LOTO Cams</title>
@@ -868,7 +872,7 @@ function loadCam(idx) {
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
-  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=jeffrwinters.github.io&autoplay=true&muted=false`;
+  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=jeffrwinters.github.io&parent=cams.lakefrontatloto.com&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
