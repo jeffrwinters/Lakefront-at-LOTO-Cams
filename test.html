@@ -1280,9 +1280,8 @@ const restaurantLayer = L.layerGroup().addTo(map);
 const marinaLayer = L.layerGroup().addTo(map);
 const markerLayer = L.layerGroup().addTo(map);
 
-async function loadLayer(url, layer, color, radius=7) {
-  const response = await fetch(url);
-  const data = await response.json();
+
+async function loadLayer(data, layer, color, radius=7) {
 
   data.forEach(item => {
     const marker = L.circleMarker(
@@ -1307,6 +1306,7 @@ async function loadLayer(url, layer, color, radius=7) {
   });
 }
 
+
 async function loadMileMarkers() {
   const response = Promise.resolve({ json: async () => MILEMARKERS });
   const data = await response.json();
@@ -1330,8 +1330,8 @@ async function loadMileMarkers() {
   });
 }
 
-loadLayer('./assets/maps/restaurants.json', restaurantLayer, '#ff884d');
-loadLayer('./assets/maps/marinas.json', marinaLayer, '#4da3ff');
+loadLayer(RESTAURANTS, restaurantLayer, '#ff884d');
+loadLayer(MARINAS, marinaLayer, '#4da3ff');
 loadMileMarkers();
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
