@@ -797,12 +797,6 @@
         <button class="btn" onclick="selectNone()">☐ None</button>
       </div>
     </div>
-
-    <!-- Venue quick-filter tags -->
-    <div class="venue-filters" id="venueFilters"></div>
-
-    <!-- Cam selection grid -->
-    <div class="cam-select-grid" id="camSelectGrid"></div>
   </div>
   </main>
 
@@ -984,7 +978,6 @@ function timerMs() {
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
   buildSidebar();
-  buildCyclePanel();
   updateSelectedCount();
   loadCam(0);
   setupCastListeners();
@@ -1105,12 +1098,6 @@ function toggleCamSelection(idx) {
 
 function updateSelectionUI(idx) {
   const inCycle = selectedCams.has(idx);
-  // panel grid
-  const panelItem = document.querySelector(`.cam-select-item[data-idx="${idx}"]`);
-  if (panelItem) {
-    panelItem.classList.toggle('selected', inCycle);
-    panelItem.querySelector('.cam-select-check').textContent = inCycle ? '✓' : '';
-  }
   // sidebar
   const sideItem = document.querySelector(`.cam-item[data-idx="${idx}"]`);
   if (sideItem) {
@@ -1135,14 +1122,7 @@ function selectNone() {
   updateSelectedCount();
 }
 
-function selectVenue(venue) {
-  CAMS.forEach((cam, i) => {
-    if (cam.venue === venue) selectedCams.add(i);
-    else selectedCams.delete(i);
-  });
-  CAMS.forEach((_, i) => updateSelectionUI(i));
-  updateSelectedCount();
-}
+
 
 // ─── Build UI ─────────────────────────────────────────────────────────────────
 function buildSidebar() {
@@ -1170,50 +1150,7 @@ function buildSidebar() {
 
 
 
-function buildCyclePanel() {
-  // Venue filter tags
-  const venues = [...new Set(CAMS.map(c => c.venue))];
-  const filterDiv = document.getElementById('venueFilters');
 
-  // "All" tag
-  const allTag = document.createElement('div');
-  allTag.className = 'venue-tag all-on';
-  allTag.textContent = '☑ All';
-  allTag.onclick = selectAll;
-  filterDiv.appendChild(allTag);
-
-  // "None" tag
-  const noneTag = document.createElement('div');
-  noneTag.className = 'venue-tag';
-  noneTag.textContent = '☐ None';
-  noneTag.onclick = selectNone;
-  filterDiv.appendChild(noneTag);
-
-  venues.forEach(venue => {
-    const tag = document.createElement('div');
-    tag.className = 'venue-tag';
-    tag.textContent = venue;
-    tag.onclick = () => selectVenue(venue);
-    filterDiv.appendChild(tag);
-  });
-
-  // Cam selection grid
-  const grid = document.getElementById('camSelectGrid');
-  CAMS.forEach((cam, i) => {
-    const el = document.createElement('div');
-    el.className = 'cam-select-item selected';
-    el.dataset.idx = i;
-    el.innerHTML = `
-      <div class="cam-select-check">✓</div>
-      <div class="cam-select-text">
-        <div class="cam-select-venue">${cam.venue}</div>
-        <div class="cam-select-name">${cam.name}</div>
-      </div>
-    `;
-    el.onclick = () => toggleCamSelection(i);
-    grid.appendChild(el);
-  });
-}
 
 // ─── Direct Link ──────────────────────────────────────────────────────────────
 function openDirect() {
