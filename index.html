@@ -458,7 +458,7 @@
     background: rgba(13,20,48,0.92);
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 20px;
+    padding: 12px;
     margin-bottom: 24px;
   }
 
@@ -527,7 +527,7 @@
 
   .time-display {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 24px;
+    font-size: 18px;
     color: #3f63ff;
     min-width: 52px;
     text-align: center;
@@ -681,7 +681,7 @@
   }
   #castOverlay.visible { display: flex; }
   .cast-icon { font-size: 48px; }
-  .cast-text { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: #3f63ff; }
+  .cast-text { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #3f63ff; }
   .cast-sub { font-size: 13px; color: var(--muted); }
 
   /* Toast */
@@ -700,6 +700,89 @@
     pointer-events: none;
   }
   #toast.show { transform: translateX(-50%) translateY(0); }
+
+  
+
+
+  
+  /* ── Lake Conditions ── */
+  .lake-status {
+    margin-top: 22px;
+  }
+
+  .lake-card.unified {
+    background: linear-gradient(180deg, rgba(13,20,48,0.96), rgba(8,12,28,0.98));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .lake-card.unified::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at top right, rgba(90,130,255,0.14), transparent 55%);
+    pointer-events: none;
+  }
+
+  .lake-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: #7aa2ff;
+    margin-bottom: 16px;
+  }
+
+  .lake-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .lake-stat {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+  }
+
+  .lake-stat-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .lake-stat-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: #ffffff;
+  }
+
+  @media (max-width: 700px) {
+    .lake-stats {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .lake-stat {
+      padding: 10px;
+    }
+
+    .lake-stat-value {
+      font-size: 22px;
+    }
+  }
+
+
 </style>
 </head>
 <body>
@@ -802,7 +885,35 @@
       </div>
     </div>
   </div>
-  </main>
+  
+  
+  
+  <!-- Lake Conditions -->
+  <section class="lake-status">
+    <div class="lake-card unified">
+      <div class="lake-card-title">Current Lake Conditions</div>
+
+      <div class="lake-stats">
+        <div class="lake-stat">
+          <div class="lake-stat-label">Water</div>
+          <div class="lake-stat-value" id="waterTemp">--°</div>
+        </div>
+
+        <div class="lake-stat">
+          <div class="lake-stat-label">Air</div>
+          <div class="lake-stat-value" id="airTemp">--°</div>
+        </div>
+
+        <div class="lake-stat">
+          <div class="lake-stat-label">Wind</div>
+          <div class="lake-stat-value" id="windSpeed">-- mph</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
 
 <div id="toast"></div>
 
@@ -862,9 +973,11 @@ function init() {
   updateSelectedCount();
   loadCam(0);
   setupCastListeners();
+  loadLakeConditions();
 }
 
 // ─── Load Cam ─────────────────────────────────────────────────────────────────
+// Multiple Twitch parent domains are included so embeds work before DNS propagation.
 function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
   const cam = CAMS[currentIdx];
@@ -872,7 +985,18 @@ function loadCam(idx) {
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
-  const src = `https://player.twitch.tv/?channel=${cam.channel}&parent=jeffrwinters.github.io&parent=cams.lakefrontatloto.com&autoplay=true&muted=false`;
+  const allowedParents = [
+    'jeffrwinters.github.io',
+    'cams.lakefrontatloto.com',
+    'localhost',
+    '127.0.0.1'
+  ];
+
+  const parentParams = allowedParents
+    .map(p => `parent=${p}`)
+    .join('&');
+
+  const src = `https://player.twitch.tv/?channel=${cam.channel}&${parentParams}&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
@@ -1175,6 +1299,46 @@ function filterCams() {
     el.style.display = text.includes(val) ? 'flex' : 'none';
   });
 }
+
+
+
+
+// ─── Lake Conditions ─────────────────────────────────────────────────────────
+async function loadLakeConditions() {
+  try {
+    const url =
+      'https://api.open-meteo.com/v1/forecast?latitude=38.1986&longitude=-92.6385&current=temperature_2m,wind_speed_10m&temperature_unit=fahrenheit&windspeed_unit=mph';
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const air = Math.round(data.current.temperature_2m);
+    const wind = Math.round(data.current.wind_speed_10m);
+
+    // Approximate seasonal lake temp model
+    const month = new Date().getMonth() + 1;
+
+    let waterTemp = 55;
+
+    if (month <= 3) waterTemp = 48;
+    else if (month <= 4) waterTemp = 58;
+    else if (month <= 5) waterTemp = 68;
+    else if (month <= 6) waterTemp = 76;
+    else if (month <= 8) waterTemp = 84;
+    else if (month <= 9) waterTemp = 79;
+    else if (month <= 10) waterTemp = 68;
+    else waterTemp = 58;
+
+    document.getElementById('waterTemp').textContent = waterTemp + '°';
+    document.getElementById('airTemp').textContent = air + '°';
+    document.getElementById('windSpeed').textContent = wind + ' mph';
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+
 
 
 // ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
