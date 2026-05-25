@@ -805,159 +805,36 @@
 <script>
 // ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
 const CAMS = [
-  // Alhonna Resort & Marina
-  
-  // DISABLED - currently offline
-  // { name: "Indoor Pool",          venue: "Alhonna Resort & Marina",    channel: "spydernetwork47", slug: "alhonna-resort-marina-indoor-pool" },
-  
-  // DISABLED - currently offline
-  // { name: "Outdoor Pool",         venue: "Alhonna Resort & Marina",    channel: "spydernetwork61", slug: "alhonna-resort-marina-outdoor-pool" },
-
-  // Alley Cats On The Strip
-  // DISABLED - currently offline
-  
-  // DISABLED - currently offline
-  // { name: "North",                venue: "Alley Cats On The Strip",    channel: "spydernetwork43", slug: "alley-cats-north" },
-  // DISABLED - currently offline
-  // { name: "South",                venue: "Alley Cats On The Strip",    channel: "spydernetwork42", slug: "alley-cats-south" },
-  // Angels Mexican Restaurant
-  // DISABLED - currently offline
-  // { name: "Lake View",            venue: "Angels Mexican Restaurant",  channel: "spydernetwork72", slug: "angels-mexican-restaurant-lake-view-lake-ozarks" },
-
-  // Annamarie Hopkins Real Estate
-  
-  // DISABLED - currently offline
-  // { name: "Real Estate",          venue: "Annamarie Hopkins",          channel: "spydernetwork73", slug: "annamarie-hopkins-smarter-move-real-estate" },
-
-  // Backwater Jacks
-  { name: "Pool",                 venue: "Backwater Jacks",            channel: "spydernetwork3",  slug: "backwater-jacks-pool" },
-  
-  // DISABLED - currently offline
-  // { name: "Stage",                venue: "Backwater Jacks",            channel: "spydernetwork5",  slug: "backwater-jacks-stage" },
-  // DISABLED - currently offline
-  // DISABLED - currently offline
-  // { name: "Dock",               venue: "Backwater Jacks",            channel: "spydernetwork4",  slug: "backwater-jacks-dock-1" },
-
+  { name: "Game Room",            venue: "54 Southbound",              channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
   { name: "Docks",               venue: "Alhonna",             channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
+  { name: "Pool",           venue: "Alhonna",             channel: "spydernetwork61", slug: "lake-billiards" },
+  { name: "Pool",                  venue: "Alohona",                    channel: "spydernetwork65", slug: "outlaws-mens-outpost" },
   { name: "Level Five",           venue: "Backwater Jacks",            channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
-  // Bridgeview Marina
+  { name: "Pool",                 venue: "Backwater Jacks",            channel: "spydernetwork3",  slug: "backwater-jacks-pool" },
+  { name: "Fuel Dock",     venue: "Bridge view",                  channel: "spydernetwork69", slug: "the-hatch" },
   { name: "Marina",               venue: "Bridgeview Marina",          channel: "spydernetwork20", slug: "bridgeview-marina" },
-  // Camdenton Glass
-  
-  // DISABLED - currently offline
-  // { name: "North View",           venue: "Camdenton Glass",            channel: "spydernetwork41", slug: "camdenton-glass-north" },
-  
-  // DISABLED - currently offline
-  // { name: "South View",           venue: "Camdenton Glass",            channel: "spydernetwork42", slug: "camdenton-glass-south" },
-
-  // Dock Glide
   { name: "Cam 1",                  venue: "Dock Glide",                 channel: "spydernetwork60", slug: "dock-glide" },
-  // Dog Days
+  { name: "Cam 1",      venue: "Dock Glide",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
+  { name: "Docks 1",       venue: "Dog Days",              channel: "spydernetwork44", slug: "marty-byrds-outside" },
   { name: "Pool",                 venue: "Dog Days",                   channel: "spydernetwork31", slug: "dog-days-pool" },
   { name: "Stage",                venue: "Dog Days",                   channel: "spydernetwork32", slug: "dog-days-stage" },
-  { name: "Shoreland",               venue: "Spyder on the Strip",        channel: "spydernetwork33", slug: "dog-days-dock-1" },
-  { name: "Docks",               venue: "MM17",                       channel: "spydernetwork34", slug: "dog-days-dock" },
-  // Dogwood Animal Shelter
-  
-  // DISABLED - currently offline
-  // { name: "Shelter",              venue: "Dogwood Animal Shelter",     channel: "spydernetwork55", slug: "dogwood-animal-shelter" },
-
-  // Double D's Roadhouse
-  { name: "Floor",                  venue: "Lake & Land Trading",        channel: "spydernetwork56", slug: "double-ds-roadhouse" },
-  { name: "Game Room",            venue: "54 Southbound",              channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
-  // Ellerman
-  
-  // DISABLED - currently offline
-  // { name: "Lake View MM 17",      venue: "Ellerman VRBO",              channel: "spydernetwork70", slug: "ellerman" },
-
-  // Encore Lakeside Grill
+  { name: "Stage",                venue: "Dog Days",                  channel: "spydernetwork27", slug: "neon-taco-docks" },
   { name: "Pool",                 venue: "Encore Lakeside Grill",      channel: "spydernetwork9",  slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
   { name: "Sky Bar",             venue: "Encore Lakeside Grill",      channel: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
   { name: "Stage",                venue: "Encore Lakeside Grill",      channel: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
-  // Fish and Company
-  { name: "Cam 1",      venue: "Dock Glide",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
-  
-  // DISABLED - currently offline
-  // { name: "Patio",                venue: "Fish and Company",           channel: "spydernetwork22", slug: "fish-and-company-patio" },
-
-  { name: "Dock",               venue: "Fish and Company",           channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
-  { name: "Marty Byrde's",       venue: "Marty Byrde's",           channel: "spydernetwork24", slug: "fish-and-company" },
-  // KRMS Radio
-  
-  // DISABLED - currently offline
-  // { name: "Studio",               venue: "KRMS Radio",                 channel: "spydernetwork80", slug: "krms-radio" },
-
-//   { name: "North",                venue: "KRMS Radio",                 channel: "spydernetwork81", slug: "krms-radio-north" },
-  
-  // DISABLED - currently offline
-  // { name: "East",                 venue: "KRMS Radio",                 channel: "spydernetwork82", slug: "krms-radio-east" },
-  
-  // DISABLED - currently offline
-  // { name: "South East",           venue: "KRMS Radio",                 channel: "spydernetwork83", slug: "krms-radio-south-east" },
-
-  // Lake Billiards Sports Bar & Grill
-  { name: "Pool",           venue: "Alhonna",             channel: "spydernetwork61", slug: "lake-billiards" },
-  // Lake & Land Trading Company
-  
-  // DISABLED - currently offline
-  // { name: "Inside",               venue: "Lake & Land Trading Co.",    channel: "spydernetwork62", slug: "lake-land-trading-company" },
-  //   { name: "Lot",                  venue: "Lake & Land Trading Co.",    channel: "spydernetwork63", slug: "lake-land-trading-company-lot" },
-  // Lazy Gators
-  //   { name: "Stage",        venue: "Lazy Gators",                channel: "spydernetwork7",  slug: "lazy-gators-stage" },
-  
-  // DISABLED - currently offline
-  // { name: "Boutique",             venue: "Split Arrow Boutique",                channel: "spydernetwork46", slug: "lazy-gators" },
-  //   { name: "Patio",                venue: "Fish & Co",                channel: "spydernetwork11", slug: "lazy-gators-pool" },
-  //   { name: "Dock",               venue: "Lazy Gators",                channel: "spydernetwork12", slug: "lazy-gators-dock-1" },
-  //   { name: "Docks",               venue: "Lazy Gators",                channel: "spydernetwork13", slug: "lazy-gators-dock-2" },
-  // Linn Creek Cove
-  //   { name: "Dock",                 venue: "Linn Creek Cove",            channel: "spydernetwork90", slug: "spydernetwork-dock" },
-
-  // Lucy's at the Lake
-  
-  // DISABLED - currently offline
-  // { name: "At the Lake",          venue: "Lucy's",                     channel: "spydernetwork64", slug: "lucys-at-the-lake" },
-
-  // Marty Byrde's
-  { name: "Docks 1",       venue: "Dog Days",              channel: "spydernetwork44", slug: "marty-byrds-outside" },
-  { name: "Paradise Docks 2",     venue: "Paradise",              channel: "spydernetwork45", slug: "marty-byrds" },
-  // Michael's Steak Chalet
-//   { name: "View",                 venue: "Michael's Steak Chalet",     channel: "spydernetwork48", slug: "michaels-steak-chalet-view" },
-
-//   { name: "Inside",               venue: "Michael's Steak Chalet",     channel: "spydernetwork49", slug: "michaels-steak-chalet" },
-
-  // Neon Taco
-  { name: "Inside",               venue: "Marty Byrde's",                  channel: "spydernetwork25", slug: "neon-taco-bar" },
-//   { name: "Stage",                venue: "Neon Taco",                  channel: "spydernetwork26", slug: "neon-taco-stage" },
-  { name: "Stage",                venue: "Dog Days",                  channel: "spydernetwork27", slug: "neon-taco-docks" },
-  // Outlaws Men's Outpost
-  { name: "Pool",                  venue: "Alohona",                    channel: "spydernetwork65", slug: "outlaws-mens-outpost" },
-  // Paradise
-  { name: "Bar",                  venue: "Paradise",                   channel: "spydernetwork28", slug: "paradise-restaurant-bar" },
-  { name: "View 2",               venue: "Paradise",                   channel: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
-  // Split Arrow Boutique
-  // DISABLED - currently offline
-  
-  // DISABLED - currently offline
-  // { name: "Boutique",             venue: "Split Arrow",                channel: "spydernetwork67", slug: "split-arrow-boutique-3" },
-
-  // The Cactus Blossom Boutique
-//   { name: "Boutique",             venue: "The Cactus Blossom",         channel: "spydernetwork68", slug: "the-cactus-blossom-boutique" },
-
-  // The Hatch at Miller's Landing
-  { name: "Fuel Dock",     venue: "Bridge view",                  channel: "spydernetwork69", slug: "the-hatch" },
-  // Topsider Condos
-//   { name: "& Phylicia Carson Bridge", venue: "Topsider Condos",        channel: "spydernetwork71", slug: "topsiders-condos" },
-  // Tuckers On The Strip / Tuckers On The Strip
   { name: "Stage",                venue: "Fish & Co",          channel: "spydernetwork35", slug: "tucker-shuckers-north" },
-
-  { name: "Dining",               venue: "Wicked Willie's",          channel: "spydernetwork36", slug: "tucker-shuckers-south" },
-
-  // Wicked Willie's
-  { name: "Bridge",               venue: "Topsider",            channel: "spydernetwork37", slug: "wicked-willies-bar" },
+  { name: "Dock",               venue: "Fish and Company",           channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
+  { name: "Floor",                  venue: "Lake & Land Trading",        channel: "spydernetwork56", slug: "double-ds-roadhouse" },
+  { name: "Inside",               venue: "Marty Byrde's",                  channel: "spydernetwork25", slug: "neon-taco-bar" },
+  { name: "Marty Byrde's",       venue: "Marty Byrde's",           channel: "spydernetwork24", slug: "fish-and-company" },
   { name: "Patio",               venue: "Michael's Steak Chalet",            channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
-  // DISABLED - currently offline
-  // { name: "View",                venue: "Michael's Steak Chalet",            channel: "spydernetwork39", slug: "wicked-willies-patio" },
+  { name: "Docks",               venue: "MM17",                       channel: "spydernetwork34", slug: "dog-days-dock" },
+  { name: "Bar",                  venue: "Paradise",                   channel: "spydernetwork28", slug: "paradise-restaurant-bar" },
+  { name: "Paradise Docks 2",     venue: "Paradise",              channel: "spydernetwork45", slug: "marty-byrds" },
+  { name: "View 2",               venue: "Paradise",                   channel: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
+  { name: "Shoreland",               venue: "Spyder on the Strip",        channel: "spydernetwork33", slug: "dog-days-dock-1" },
+  { name: "Bridge",               venue: "Topsider",            channel: "spydernetwork37", slug: "wicked-willies-bar" },
+  { name: "Dining",               venue: "Wicked Willie's",          channel: "spydernetwork36", slug: "tucker-shuckers-south" }
 ];
 
 // ─── State ────────────────────────────────────────────────────────────────────
