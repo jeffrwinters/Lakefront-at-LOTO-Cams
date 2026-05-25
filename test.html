@@ -96,7 +96,7 @@ body {
     <button class="filter-btn active" data-layer="all">All</button>
     <button class="filter-btn" data-layer="food">Food</button>
     <button class="filter-btn" data-layer="fuel">Fuel</button>
-    <button class="filter-btn" data-layer="markers">Mile Markers</button>
+    
   </div>
 
   <div id="lakeMap"></div>
@@ -1265,10 +1265,9 @@ const map = L.map('lakeMap', {
 }).setView([38.19, -92.72], 11);
 
 L.tileLayer(
-  'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
-    subdomains: 'abcd',
-    maxZoom: 20
+    maxZoom: 19
   }
 ).addTo(map);
 
@@ -1318,7 +1317,7 @@ async function loadMileMarkers() {
         icon: L.divIcon({
           className: '',
           html: `<div style="
-            color: rgba(255,255,255,0.75);
+            color: rgba(30,30,30,0.82);
             font-size: 11px;
             font-weight: 700;
           ">${item.name}</div>`
@@ -1346,12 +1345,13 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
     restaurantLayer.remove();
     marinaLayer.remove();
-    markerLayer.remove();
+    // marker layer always visible
+
+    markerLayer.addTo(map);
 
     if (layer === 'all') {
       restaurantLayer.addTo(map);
       marinaLayer.addTo(map);
-      markerLayer.addTo(map);
     }
 
     if (layer === 'food') {
@@ -1362,9 +1362,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
       marinaLayer.addTo(map);
     }
 
-    if (layer === 'markers') {
-      markerLayer.addTo(map);
-    }
+    
   });
 });
 
