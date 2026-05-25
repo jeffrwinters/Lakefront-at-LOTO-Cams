@@ -214,6 +214,10 @@
   .cam-list {
       max-height: 220px;
       width: 100%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
   }
 
@@ -739,7 +743,7 @@
 
   .lake-stats {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(90px, 1fr));
     gap: 14px;
   }
 
@@ -767,20 +771,29 @@
     color: #ffffff;
   }
 
+  
   @media (max-width: 700px) {
     .lake-stats {
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
 
+    .lake-stat:last-child {
+      grid-column: span 2;
+    }
+
     .lake-stat {
-      padding: 10px;
+      min-height: 92px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .lake-stat-value {
       font-size: 22px;
     }
   }
+
 
 
 
@@ -1338,7 +1351,10 @@ async function loadLakeConditions() {
     const air = Math.round(weatherData.current.temperature_2m);
     const wind = Math.round(weatherData.current.wind_speed_10m);
 
-    // Seasonal estimate for surface temp
+    document.getElementById('airTemp').textContent = air + '°';
+    document.getElementById('windSpeed').textContent = wind + ' mph';
+
+    // seasonal estimate fallback
     const month = new Date().getMonth() + 1;
 
     let waterTemp = 55;
@@ -1353,88 +1369,27 @@ async function loadLakeConditions() {
     else waterTemp = 58;
 
     document.getElementById('waterTemp').textContent = waterTemp + '°';
-    document.getElementById('airTemp').textContent = air + '°';
-    document.getElementById('windSpeed').textContent = wind + ' mph';
 
-    // Attempt direct Ameren scrape through public proxy
-    try {
-      const proxy =
-        'https://api.allorigins.win/raw?url=' +
-        encodeURIComponent('https://www.ameren.com/property/lake-of-the-ozarks/reports');
+    // stable defaults for GitHub Pages
+    document.getElementById('lakeLevel').textContent = '659 ft';
 
-      const res = await fetch(proxy);
-      const text = await res.text();
+    const discharge = 32;
+    const trend = '↑';
 
-      const levelMatch = text.match(/Lake Level[^0-9]*([0-9]+\.[0-9]+)/i);
-      const dischargeMatch = text.match(/Discharge[^0-9]*([0-9,]+)/i);
-      const waterMatch = text.match(/Surface Water Temperature[^0-9]*([0-9]+)/i);
-
-      if (levelMatch) {
-        document.getElementById('lakeLevel').textContent =
-          levelMatch[1] + ' ft';
-      }
-
-      if (dischargeMatch) {
-        const dischargeEl = document.getElementById('discharge');
-
-        const dischargeNum =
-          parseInt(dischargeMatch[1].replace(/,/g, ''));
-
-        let arrow = '→';
-        let cls = 'trend-flat';
-
-        if (dischargeNum > 40000) {
-          arrow = '↑';
-          cls = 'trend-up';
-        } else if (dischargeNum < 15000) {
-          arrow = '↓';
-          cls = 'trend-down';
-        }
-
-        dischargeEl.innerHTML =
-          `<span class="${cls}">${arrow}</span> ` +
-          Math.round(dischargeNum / 1000) + 'k';
-      }
-
-      if (waterMatch) {
-        document.getElementById('waterTemp').textContent =
-          waterMatch[1] + '°';
-      }
-    } catch (err) {
-      console.log('Ameren scrape unavailable, using fallback estimates');
-      document.getElementById('lakeLevel').textContent = '659 ft';
-      const dischargeEl = document.getElementById('discharge');
-
-      const dischargeVal = 32000;
-
-      // Simulated trend indicator
-      const trend = Math.random();
-
-      let arrow = '→';
-      let cls = 'trend-flat';
-
-      if (trend > 0.66) {
-        arrow = '↑';
-        cls = 'trend-up';
-      } else if (trend < 0.33) {
-        arrow = '↓';
-        cls = 'trend-down';
-      }
-
-      dischargeEl.innerHTML =
-        `<span class="${cls}">${arrow}</span> ` +
-        Math.round(dischargeVal / 1000) + 'k';
-    }
+    document.getElementById('discharge').innerHTML =
+      '<span class="trend-up">' + trend + '</span> ' + discharge + 'k';
 
   } catch (err) {
-    console.error(err);
+    console.error('Lake conditions failed', err);
+
+    document.getElementById('waterTemp').textContent = '72°';
+    document.getElementById('airTemp').textContent = '78°';
+    document.getElementById('windSpeed').textContent = '8 mph';
+    document.getElementById('lakeLevel').textContent = '659 ft';
+    document.getElementById('discharge').innerHTML =
+      '<span class="trend-flat">→</span> 32k';
   }
 }
-}
-
-
-
-
 
 // ─── Keyboard Shortcuts ───────────────────────────────────────────────────────
 document.addEventListener('keydown', (e) => {
