@@ -6,7 +6,7 @@
 <link href="https://cams.lakefrontatloto.com/" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lakefront at LOTO Cams</title>
+<title>Lakefront at LOTO</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 <style>
@@ -89,16 +89,13 @@
 
   .header-title {
     margin: 0;
-    font-size: 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.65rem;
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: 1px;
-    color: #3f63ff;
-    -webkit-text-stroke: 0.35px rgba(255,255,255,0.75);
-    text-shadow:
-      0 0 10px rgba(0,196,255,0.15),
-      0 0 2px rgba(255,255,255,0.12);
-    font-family: 'Bebas Neue', sans-serif;
+    line-height: 1.15;
+    letter-spacing: 0;
+    color: #f4f7ff;
+    text-shadow: 0 0 14px rgba(63,99,255,0.28);
   }
 
   .header-subtitle {
@@ -133,17 +130,15 @@
     background: var(--accent);
     border: 1px solid var(--accent);
     color: #fff;
-    padding: 10px 18px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     transition: all 0.2s;
-    font-size: 15px;
-    font-weight: 700;
-    min-height: 44px;
   }
 
   #castBtn svg {
@@ -1067,19 +1062,18 @@
 <body>
 <header class="app-header">
 <div class="header-left">
-<img alt="Lakefront at LOTO Cams" class="header-logo" src="logo.svg"/>
+<img alt="Lakefront at LOTO" class="header-logo" src="logo.svg"/>
 <div class="header-text">
-<h1 class="header-title">Lakefront at LOTO Cams</h1></div>
+<h1 class="header-title">Lakefront at LOTO</h1></div>
 </div>
 <div class="header-controls">
-<button id="castBtn" title="Cast Auto-Cycle to TV">
+<button aria-label="Cast Auto-Cycle to TV" id="castBtn" title="Cast Auto-Cycle to TV">
 <svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20">
 <path d="M2 18.5C3.93 18.5 5.5 20.07 5.5 22H2V18.5Z" fill="currentColor"></path>
 <path d="M2 14C6.42 14 10 17.58 10 22H7C7 19.24 4.76 17 2 17V14Z" fill="currentColor"></path>
 <path d="M2 9.5C9.18 9.5 15 15.32 15 22H12C12 16.98 7.93 12.9 2.9 12.9H2V9.5Z" fill="currentColor"></path>
 <path d="M21 3H3C1.9 3 1 3.9 1 5V8H3V5H21V19H14V21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3Z" fill="currentColor"></path>
 </svg>
-<span>Cast</span>
 </button>
 </div>
 </header>
@@ -1151,7 +1145,6 @@
 <button class="btn" onclick="selectNone()">☐ None</button>
 </div>
 </div>
-<div class="cam-select-grid" id="camSelectGrid"></div>
 </div>
 <!-- Lake Conditions -->
 <section class="lake-status">
@@ -1260,7 +1253,6 @@ function timerMs() {
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
   buildSidebar();
-  buildCycleSelection();
   updateSelectedCount();
   loadCam(0);
   setupCastListeners();
@@ -1400,13 +1392,6 @@ function updateSelectionUI(idx) {
     sideItem.classList.toggle('in-cycle', inCycle);
 
   }
-  const selectItem = Array.from(document.querySelectorAll('.cam-select-item'))
-    .find(item => Number(item.dataset.idx) === idx);
-  if (selectItem) {
-    selectItem.classList.toggle('selected', inCycle);
-    const check = selectItem.querySelector('.cam-select-check');
-    if (check) check.textContent = inCycle ? '✓' : '';
-  }
 }
 
 function updateSelectedCount() {
@@ -1448,26 +1433,6 @@ function buildSidebar() {
       toggleCamSelection(i);
     });
     list.appendChild(el);
-  });
-}
-
-function buildCycleSelection() {
-  const grid = document.getElementById('camSelectGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  CAMS.forEach((cam, i) => {
-    const el = document.createElement('div');
-    el.className = 'cam-select-item selected';
-    el.dataset.idx = i;
-    el.innerHTML = `
-      <div class="cam-select-check">✓</div>
-      <div class="cam-select-text">
-        <div class="cam-select-venue">${cam.venue}</div>
-        <div class="cam-select-name">${cam.name}</div>
-      </div>
-    `;
-    el.addEventListener('click', () => toggleCamSelection(i));
-    grid.appendChild(el);
   });
 }
 
