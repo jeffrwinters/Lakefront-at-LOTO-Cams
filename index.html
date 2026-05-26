@@ -3136,9 +3136,15 @@ map.on('locationfound', (e) => {
 
   window.userLocationMarker = L.circleMarker(e.latlng, {
     radius: 8,
-    color: white;
+    color: '#ffffff',
+    fillColor: '#3f63ff',
+    fillOpacity: 1,
+    weight: 2
+  }).addTo(map);
 
-  window.userLocationMarker.bindPopup('You are here').openPopup();
+  window.userLocationMarker
+    .bindPopup('You are here')
+    .openPopup();
 });
 
 map.on('locationerror', () => {
