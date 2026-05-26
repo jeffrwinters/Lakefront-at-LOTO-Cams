@@ -1100,7 +1100,7 @@
 <span class="cam-index" id="camIndex"></span>
 </div>
 <div class="player-actions">
-<button class="btn" id="cycleBtn" onclick="toggleCycle()">▶ Auto-Cycle</button>
+<button class="btn" id="cycleBtn" onclick="toggleCycle()">▶ Cycle Cams</button>
 </div>
 </div>
 <div class="player-frame">
@@ -1139,7 +1139,12 @@
 <!-- Cycle Settings Panel -->
 <div class="cycle-panel">
 <div class="cycle-panel-header">
-<div class="panel-title">Cycle Settings — <span id="selectedCount">0</span> cams selected</div>
+<div>
+<div class="panel-title">Camera Cycle Settings — <span id="selectedCount">0</span> cams selected</div>
+<div style="margin-top:6px;font-size:13px;color:var(--muted);">
+Select the cams to include in the cycle from the All Cams list above.
+</div>
+</div>
 <div class="cycle-controls">
 <!-- Timer slider -->
 <div class="time-input-wrap">
@@ -1147,7 +1152,7 @@
 <input class="time-slider" id="timeSlider" max="300" min="5" oninput="updateTimeDisplay()" step="5" type="range" value="30"/>
 <span class="time-display" id="timeDisplay">30s</span>
 </div>
-<button class="btn" id="cycleBtnPanel" onclick="toggleCycle()">▶ Start Cycle</button>
+<button class="btn" id="cycleBtnPanel" onclick="toggleCycle()">▶ Cycle Cams</button>
 <button class="btn" onclick="selectAll()">☑ All</button>
 <button class="btn" onclick="selectNone()">☐ None</button>
 </div>
@@ -1562,9 +1567,9 @@ function stopCycle() {
   clearTimeout(timerTimeout);
   timerTimeout = null;
   document.getElementById('cycleBtn').classList.remove('active');
-  document.getElementById('cycleBtn').textContent = '▶ Auto-Cycle';
+  document.getElementById('cycleBtn').textContent = '▶ Cycle Cams';
   document.getElementById('cycleBtnPanel').classList.remove('active');
-  document.getElementById('cycleBtnPanel').textContent = '▶ Start Cycle';
+  document.getElementById('cycleBtnPanel').textContent = '▶ Cycle Cams';
   document.getElementById('cycleStatus').textContent = 'Off';
   document.getElementById('timerBar').style.width = '0%';
 }
@@ -1646,8 +1651,8 @@ function buildSidebar() {
     el.dataset.idx = i;
     el.innerHTML = `
       <div class="cam-item-switch"></div>
-      <span class="cam-item-num">${i + 1}</span>
-      <span class="cam-item-name">${cam.venue}<br><span class="cam-item-sub">${cam.name}</span></span>
+      
+      <span class="cam-item-name">${cam.venue}<br><span class="cam-item-sub">${cam.name.replace(/^.*? — /, '')}</span></span>
     `;
     el.addEventListener('click', (e) => {
       // Right-click or long-press area toggles selection; left click loads cam
@@ -3136,7 +3141,11 @@ map.on('locationfound', (e) => {
 
   window.userLocationMarker = L.circleMarker(e.latlng, {
     radius: 8,
-    color: white;
+    color: 'white',
+    fillColor: 'white',
+    fillOpacity: 0.9,
+    weight: 2
+  }).addTo(map);
 
   window.userLocationMarker.bindPopup('You are here').openPopup();
 });
