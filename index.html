@@ -6,7 +6,7 @@
 <link href="https://cams.lakefrontatloto.com/" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lakefront at LOTO</title>
+<title>Lakefront at LOTO Cams</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 <style>
@@ -89,13 +89,16 @@
 
   .header-title {
     margin: 0;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.65rem;
+    font-size: 2rem;
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: 0;
-    color: #f4f7ff;
-    text-shadow: 0 0 14px rgba(63,99,255,0.28);
+    line-height: 1.1;
+    letter-spacing: 1px;
+    color: #3f63ff;
+    -webkit-text-stroke: 0.35px rgba(255,255,255,0.75);
+    text-shadow:
+      0 0 10px rgba(0,196,255,0.15),
+      0 0 2px rgba(255,255,255,0.12);
+    font-family: 'Bebas Neue', sans-serif;
   }
 
   .header-subtitle {
@@ -130,15 +133,17 @@
     background: var(--accent);
     border: 1px solid var(--accent);
     color: #fff;
-    width: 44px;
-    height: 44px;
-    padding: 0;
+    padding: 10px 18px;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
     transition: all 0.2s;
+    font-size: 15px;
+    font-weight: 700;
+    min-height: 44px;
   }
 
   #castBtn svg {
@@ -1058,22 +1063,24 @@
 .leaflet-popup-tip {
   background:#101933;
 }
-</style></head>
+</style>  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
 <body>
 <header class="app-header">
 <div class="header-left">
-<img alt="Lakefront at LOTO" class="header-logo" src="logo.png"/>
+<img alt="Lakefront at LOTO Cams" class="header-logo" src="logo.svg"/>
 <div class="header-text">
-<h1 class="header-title">Lakefront at LOTO</h1></div>
+<h1 class="header-title">Lakefront at LOTO Cams</h1></div>
 </div>
 <div class="header-controls">
-<button aria-label="Cast Auto-Cycle to TV" id="castBtn" title="Cast Auto-Cycle to TV">
+<button id="castBtn" title="Cast Auto-Cycle to TV">
 <svg aria-hidden="true" fill="none" height="20" viewbox="0 0 24 24" width="20">
 <path d="M2 18.5C3.93 18.5 5.5 20.07 5.5 22H2V18.5Z" fill="currentColor"></path>
 <path d="M2 14C6.42 14 10 17.58 10 22H7C7 19.24 4.76 17 2 17V14Z" fill="currentColor"></path>
 <path d="M2 9.5C9.18 9.5 15 15.32 15 22H12C12 16.98 7.93 12.9 2.9 12.9H2V9.5Z" fill="currentColor"></path>
 <path d="M21 3H3C1.9 3 1 3.9 1 5V8H3V5H21V19H14V21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3Z" fill="currentColor"></path>
 </svg>
+<span>Cast</span>
 </button>
 </div>
 </header>
@@ -1203,36 +1210,36 @@
 <script>
 // ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
 const CAMS = [
-  { name: "Game Room",            venue: "54 Southbound",              channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
-  { name: "Docks",               venue: "Alhonna",             channel: "spydernetwork6",  slug: "backwater-jacks-dock" },
-  { name: "Pool",           venue: "Alhonna",             channel: "spydernetwork61", slug: "lake-billiards" },
-  { name: "Pool",                  venue: "Alohona",                    channel: "spydernetwork65", slug: "outlaws-mens-outpost" },
-  { name: "Level Five",           venue: "Backwater Jacks",            channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
-  { name: "Pool",                 venue: "Backwater Jacks",            channel: "spydernetwork3",  slug: "backwater-jacks-pool" },
-  { name: "Dock", venue: "Bridgeview Marina", channel: "spydernetwork69", slug: "the-hatch" },
-  { name: "Cam 1",                  venue: "Dock Glide",                 channel: "spydernetwork60", slug: "dock-glide" },
-  { name: "Cam 1",      venue: "Dock Glide",           channel: "spydernetwork21", slug: "fish-and-company-stage" },
-  { name: "Docks 1",       venue: "Dog Days",              channel: "spydernetwork44", slug: "marty-byrds-outside" },
-  { name: "Pool",                 venue: "Dog Days",                   channel: "spydernetwork31", slug: "dog-days-pool" },
-  { name: "Stage",                venue: "Dog Days",                   channel: "spydernetwork32", slug: "dog-days-stage" },
-  { name: "Stage",                venue: "Dog Days",                  channel: "spydernetwork27", slug: "neon-taco-docks" },
-  { name: "Pool",                 venue: "Encore Lakeside Grill",      channel: "spydernetwork9",  slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Sky Bar",             venue: "Encore Lakeside Grill",      channel: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Stage",                venue: "Encore Lakeside Grill",      channel: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Stage",                venue: "Fish & Co",          channel: "spydernetwork35", slug: "tucker-shuckers-north" },
-  { name: "Dock",               venue: "Fish and Company",           channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
-  { name: "Floor",                  venue: "Lake & Land Trading",        channel: "spydernetwork56", slug: "double-ds-roadhouse" },
-  { name: "Inside",               venue: "Marty Byrde's",                  channel: "spydernetwork25", slug: "neon-taco-bar" },
-  { name: "Marty Byrde's",       venue: "Marty Byrde's",           channel: "spydernetwork24", slug: "fish-and-company" },
-  { name: "Patio",               venue: "Michael's Steak Chalet",            channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
-  { name: "Docks",               venue: "MM17",                       channel: "spydernetwork34", slug: "dog-days-dock" },
-  { name: "Marina",               venue: "Neon Taco - Bar",          channel: "spydernetwork20", slug: "bridgeview-marina" },
-  { name: "Bar",                  venue: "Paradise",                   channel: "spydernetwork28", slug: "paradise-restaurant-bar" },
-  { name: "Paradise Docks 2",     venue: "Paradise",              channel: "spydernetwork45", slug: "marty-byrds" },
-  { name: "View 2",               venue: "Paradise",                   channel: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
-  { name: "Shoreland",               venue: "Spyder on the Strip",        channel: "spydernetwork33", slug: "dog-days-dock-1" },
-  { name: "Bridge",               venue: "Topsider",            channel: "spydernetwork37", slug: "wicked-willies-bar" },
-  { name: "Dining",               venue: "Wicked Willie's",          channel: "spydernetwork36", slug: "tucker-shuckers-south" }
+  { name: "Game Room",            venue: "54 Southbound",              provider: "twitch", source: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
+  { name: "Docks",               venue: "Alhonna",             provider: "twitch", source: "spydernetwork6",  slug: "backwater-jacks-dock" },
+  { name: "Pool",           venue: "Alhonna",             provider: "twitch", source: "spydernetwork61", slug: "lake-billiards" },
+  { name: "Pool",                  venue: "Alohona",                    provider: "twitch", source: "spydernetwork65", slug: "outlaws-mens-outpost" },
+  { name: "Level Five",           venue: "Backwater Jacks",            provider: "twitch", source: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
+  { name: "Pool",                 venue: "Backwater Jacks",            provider: "twitch", source: "spydernetwork3",  slug: "backwater-jacks-pool" },
+  { name: "Dock", venue: "Bridgeview Marina", provider: "twitch", source: "spydernetwork69", slug: "the-hatch" },
+  { name: "Cam 1",                  venue: "Dock Glide",                 provider: "twitch", source: "spydernetwork60", slug: "dock-glide" },
+  { name: "Cam 1",      venue: "Dock Glide",           provider: "twitch", source: "spydernetwork21", slug: "fish-and-company-stage" },
+  { name: "Docks 1",       venue: "Dog Days",              provider: "twitch", source: "spydernetwork44", slug: "marty-byrds-outside" },
+  { name: "Pool",                 venue: "Dog Days",                   provider: "twitch", source: "spydernetwork31", slug: "dog-days-pool" },
+  { name: "Stage",                venue: "Dog Days",                   provider: "twitch", source: "spydernetwork32", slug: "dog-days-stage" },
+  { name: "Stage",                venue: "Dog Days",                  provider: "twitch", source: "spydernetwork27", slug: "neon-taco-docks" },
+  { name: "Pool",                 venue: "Encore Lakeside Grill",      provider: "twitch", source: "spydernetwork9",  slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Sky Bar",             venue: "Encore Lakeside Grill",      provider: "twitch", source: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Stage",                venue: "Encore Lakeside Grill",      provider: "twitch", source: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Stage",                venue: "Fish & Co",          provider: "twitch", source: "spydernetwork35", slug: "tucker-shuckers-north" },
+  { name: "Dock",               venue: "Fish and Company",           provider: "twitch", source: "spydernetwork23", slug: "fish-and-company-dock-1" },
+  { name: "Floor",                  venue: "Lake & Land Trading",        provider: "twitch", source: "spydernetwork56", slug: "double-ds-roadhouse" },
+  { name: "Inside",               venue: "Marty Byrde's",                  provider: "twitch", source: "spydernetwork25", slug: "neon-taco-bar" },
+  { name: "Marty Byrde's",       venue: "Marty Byrde's",           provider: "twitch", source: "spydernetwork24", slug: "fish-and-company" },
+  { name: "Patio",               venue: "Michael's Steak Chalet",            provider: "twitch", source: "spydernetwork38", slug: "wicked-willies-restaurant" },
+  { name: "Docks",               venue: "MM17",                       provider: "twitch", source: "spydernetwork34", slug: "dog-days-dock" },
+  { name: "Marina",               venue: "Neon Taco - Bar",          provider: "twitch", source: "spydernetwork20", slug: "bridgeview-marina" },
+  { name: "Bar",                  venue: "Paradise",                   provider: "twitch", source: "spydernetwork28", slug: "paradise-restaurant-bar" },
+  { name: "Paradise Docks 2",     venue: "Paradise",              provider: "twitch", source: "spydernetwork45", slug: "marty-byrds" },
+  { name: "View 2",               venue: "Paradise",                   provider: "twitch", source: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
+  { name: "Shoreland",               venue: "Spyder on the Strip",        provider: "twitch", source: "spydernetwork33", slug: "dog-days-dock-1" },
+  { name: "Bridge",               venue: "Topsider",            provider: "twitch", source: "spydernetwork37", slug: "wicked-willies-bar" },
+  { name: "Dining",               venue: "Wicked Willie's",          provider: "twitch", source: "spydernetwork36", slug: "tucker-shuckers-south" }
 ];
 
 // ─── State ────────────────────────────────────────────────────────────────────
