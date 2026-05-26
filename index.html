@@ -976,6 +976,54 @@
   height:20px;
 }
 
+
+.place-list-wrap {
+  margin-top: 18px;
+  padding: 18px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.place-list-title {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  font-size: 22px;
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+.place-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.place-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.place-item:hover {
+  border-color: #3f63ff;
+  background: rgba(63,99,255,0.14);
+}
+
+.place-name {
+  font-weight: 700;
+  color: white;
+  font-size: 14px;
+}
+
+.place-desc {
+  margin-top: 6px;
+  color: #b6c2ff;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 </style>
 <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/><style>
 .toolbar {
@@ -1146,7 +1194,14 @@
 <button class="filter-btn" data-layer="food">Food</button>
 <button class="filter-btn" data-layer="fuel">Fuel</button>
 </div>
+
 <div id="lakeMap"></div>
+
+<div class="place-list-wrap">
+  <div class="place-list-title">Bar & Grills</div>
+  <div class="place-list" id="restaurantList"></div>
+</div>
+
 </div>
 </div>
 </main>
@@ -2932,6 +2987,38 @@ async function loadMileMarkers() {
 loadLayer(RESTAURANTS, restaurantLayer, '#ff884d');
 loadLayer(MARINAS, marinaLayer, '#4da3ff');
 loadMileMarkers();
+
+// Interactive restaurant list
+const restaurantList = document.getElementById('restaurantList');
+
+RESTAURANTS.forEach((item) => {
+  const el = document.createElement('div');
+
+  el.className = 'place-item';
+
+  el.innerHTML = `
+    <div class="place-name">${item.name}</div>
+    <div class="place-desc">${item.description || ''}</div>
+  `;
+
+  el.onclick = () => {
+    map.setView([item.lat, item.lng], 15, {
+      animate: true
+    });
+
+    L.popup()
+      .setLatLng([item.lat, item.lng])
+      .setContent(`
+        <div>
+          <h3>${item.name}</h3>
+          <p>${item.description || ''}</p>
+        </div>
+      `)
+      .openOn(map);
+  };
+
+  restaurantList.appendChild(el);
+});
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
