@@ -1151,6 +1151,7 @@
 <button class="btn" onclick="selectNone()">☐ None</button>
 </div>
 </div>
+<div class="cam-select-grid" id="camSelectGrid"></div>
 </div>
 <!-- Lake Conditions -->
 <section class="lake-status">
@@ -1259,6 +1260,7 @@ function timerMs() {
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
   buildSidebar();
+  buildCycleSelection();
   updateSelectedCount();
   loadCam(0);
   setupCastListeners();
@@ -1398,6 +1400,13 @@ function updateSelectionUI(idx) {
     sideItem.classList.toggle('in-cycle', inCycle);
 
   }
+  const selectItem = Array.from(document.querySelectorAll('.cam-select-item'))
+    .find(item => Number(item.dataset.idx) === idx);
+  if (selectItem) {
+    selectItem.classList.toggle('selected', inCycle);
+    const check = selectItem.querySelector('.cam-select-check');
+    if (check) check.textContent = inCycle ? '✓' : '';
+  }
 }
 
 function updateSelectedCount() {
@@ -1439,6 +1448,26 @@ function buildSidebar() {
       toggleCamSelection(i);
     });
     list.appendChild(el);
+  });
+}
+
+function buildCycleSelection() {
+  const grid = document.getElementById('camSelectGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  CAMS.forEach((cam, i) => {
+    const el = document.createElement('div');
+    el.className = 'cam-select-item selected';
+    el.dataset.idx = i;
+    el.innerHTML = `
+      <div class="cam-select-check">✓</div>
+      <div class="cam-select-text">
+        <div class="cam-select-venue">${cam.venue}</div>
+        <div class="cam-select-name">${cam.name}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => toggleCamSelection(i));
+    grid.appendChild(el);
   });
 }
 
