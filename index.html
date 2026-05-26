@@ -1286,7 +1286,7 @@ function loadCam(idx) {
     .map(p => `parent=${p}`)
     .join('&');
 
-  const src = `https://player.twitch.tv/?channel=${cam.channel}&${parentParams}&autoplay=true&muted=false`;
+  const src = `https://player.twitch.tv/?channel=${cam.source}&${parentParams}&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
@@ -1523,7 +1523,7 @@ function setupCastListeners() {
 
 function castCam(cam) {
   if (!castSession) return;
-  const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.channel}`, 'video/mp4');
+  const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.source}`, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
   mediaInfo.metadata.title = `${cam.venue} — ${cam.name}`;
   mediaInfo.metadata.subtitle = 'SpyderNetwork • Lake of the Ozarks LIVE';
@@ -1588,7 +1588,7 @@ function filterCams() {
     const cam = CAMS[i];
 
     const text =
-      `${cam.venue} ${cam.name} ${cam.channel}`.toLowerCase();
+      `${cam.venue} ${cam.name} ${cam.source}`.toLowerCase();
 
     el.style.display = text.includes(val) ? 'flex' : 'none';
   });
