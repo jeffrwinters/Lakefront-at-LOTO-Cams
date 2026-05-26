@@ -403,14 +403,16 @@
   .cam-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
   .cam-item {
-    padding: 8px 10px;
+    padding: 10px 12px;
     border-radius: 8px;
     cursor: pointer;
     border: 1px solid transparent;
     transition: all 0.15s;
-    display: flex;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
     align-items: center;
-    gap: 8px;
   }
   .cam-item:hover { background: rgba(49,87,255,0.18); border-color: white; }
   .cam-item.active { background: rgba(49,87,255,0.25); border-color: white; }
@@ -449,11 +451,38 @@
     background: #fff;
   }
 
-  .cam-item-num { font-size: 10px; color: white; width: 18px; text-align: right; flex-shrink: 0; }
+  .cam-item-name {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: white;
+  }
 
-  .cam-item-name { font-size: 12px; font-weight: 500; line-height: 1.3; flex: 1; }
-  .cam-item.active .cam-item-name { color: white; }
-  .cam-item-sub { font-size: 10px; color: white; font-weight: 300; }
+  .cam-item.active .cam-item-name {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: white;
+  }
+
+  .cam-item-sub {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 11px;
+    color: rgba(255,255,255,0.72);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  .cam-item-switch {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
 
   /* ── Cycle Settings Panel ── */
   .cycle-panel {
@@ -1474,6 +1503,14 @@ function timerMs() {
   return parseInt(document.getElementById('timeSlider').value) * 1000;
 }
 
+
+function cleanCameraName(cam) {
+  return cam.name
+    .replace(cam.venue + ' — ', '')
+    .replace(cam.venue + ' - ', '')
+    .trim();
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 function init() {
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
@@ -1490,7 +1527,7 @@ function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
   const cam = CAMS[currentIdx];
 
-  document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
+  document.getElementById('camName').textContent = `${cam.venue}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
   const allowedParents = [
@@ -1646,8 +1683,8 @@ function buildSidebar() {
     el.dataset.idx = i;
     el.innerHTML = `
       <div class="cam-item-switch"></div>
-      <span class="cam-item-num">${i + 1}</span>
-      <span class="cam-item-name">${cam.venue}<br><span class="cam-item-sub">${cam.name}</span></span>
+      <span class="cam-item-name">${cam.venue}</span>
+      <span class="cam-item-sub">${cleanCameraName(cam)}</span>
     `;
     el.addEventListener('click', (e) => {
       // Right-click or long-press area toggles selection; left click loads cam
@@ -1743,7 +1780,7 @@ function castCam(cam) {
   if (!castSession) return;
   const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.source}`, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
-  mediaInfo.metadata.title = `${cam.venue} — ${cam.name}`;
+  mediaInfo.metadata.title = `${cam.venue}`;
   mediaInfo.metadata.subtitle = 'SpyderNetwork • Lake of the Ozarks LIVE';
   castSession.loadMedia(new chrome.cast.media.LoadRequest(mediaInfo)).catch(() => {
     showToast('Stream sent to TV');
