@@ -6,7 +6,7 @@
 <link href="https://cams.lakefrontatloto.com/" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lakefront at LOTO</title>
+<title>Lakefront at LOTO Cams</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 <style>
@@ -28,7 +28,7 @@
 
   body {
     background: var(--bg);
-    color: white;
+    color: var(--text);
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
@@ -89,20 +89,21 @@
 
   .header-title {
     margin: 0;
-    font-size: 1.9rem;
-    font-weight: 400;
+    font-size: 2rem;
+    font-weight: 700;
     line-height: 1.1;
-    letter-spacing: 1.8px;
-    color: #ffffff;
+    letter-spacing: 1px;
+    color: #3f63ff;
+    -webkit-text-stroke: 0.35px rgba(255,255,255,0.75);
     text-shadow:
-      0 0 8px rgba(0,196,255,0.10),
-      0 0 1px rgba(255,255,255,0.10);
-    font-family: 'DM Sans', sans-serif;
+      0 0 10px rgba(0,196,255,0.15),
+      0 0 2px rgba(255,255,255,0.12);
+    font-family: 'Bebas Neue', sans-serif;
   }
 
   .header-subtitle {
     margin-top: 6px;
-    color: white;
+    color: #6da8ff;
     font-size: 1rem;
     letter-spacing: 1px;
   }
@@ -131,7 +132,7 @@
   #castBtn {
     background: var(--accent);
     border: 1px solid var(--accent);
-    color: white;
+    color: #fff;
     padding: 10px 18px;
     border-radius: 10px;
     cursor: pointer;
@@ -148,8 +149,8 @@
   #castBtn svg {
     flex-shrink: 0;
   }
-  #castBtn:hover { border-color: white; color: white; }
-  #castBtn.casting { border-color: white; color: white; background: rgba(0,196,255,0.1); }
+  #castBtn:hover { border-color: #3f63ff; color: #3f63ff; }
+  #castBtn.casting { border-color: #3f63ff; color: #3f63ff; background: rgba(0,196,255,0.1); }
 
   main {
     position: relative;
@@ -191,7 +192,7 @@
     width: 100%;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
-    color: white;
+    color: var(--text);
     border-radius: 10px;
     padding: 10px 12px;
     font-size: 13px;
@@ -200,12 +201,12 @@
   }
 
   .cam-search:focus {
-    border-color: white;
+    border-color: #3f63ff;
     box-shadow: 0 0 0 2px rgba(63,99,255,0.15);
   }
 
   .cam-search::placeholder {
-    color: white;
+    color: var(--muted);
   }
 
 
@@ -256,20 +257,20 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 17px;
     letter-spacing: 1px;
-    color: white;
+    color: var(--text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .cam-index { font-size: 11px; color: white; font-weight: 300; flex-shrink: 0; }
+  .cam-index { font-size: 11px; color: var(--muted); font-weight: 300; flex-shrink: 0; }
 
   .player-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .btn {
     background: var(--card);
     border: 1px solid var(--border);
-    color: white;
+    color: var(--text);
     padding: 7px 14px;
     border-radius: 7px;
     font-family: 'DM Sans', sans-serif;
@@ -280,11 +281,11 @@
     display: flex; align-items: center; gap: 6px;
     white-space: nowrap;
   }
-  .btn:hover { border-color: white; color: white; }
-  .btn.active { background: rgba(0,196,255,0.15); border-color: white; color: white; }
-  .btn.accent { background: var(--accent); color: white; border-color: white; font-weight: 700; }
+  .btn:hover { border-color: #3f63ff; color: #3f63ff; }
+  .btn.active { background: rgba(0,196,255,0.15); border-color: #3f63ff; color: #3f63ff; }
+  .btn.accent { background: var(--accent); color: #000; border-color: #3f63ff; font-weight: 700; }
   .btn.accent:hover { background: #00e0ff; }
-  .btn.danger { background: rgba(255,59,59,0.15); border-color: white; color: white; }
+  .btn.danger { background: rgba(255,59,59,0.15); border-color: rgba(255,59,59,0.5); color: #ff6b6b; }
 
   .player-frame {
     position: relative;
@@ -315,7 +316,7 @@
   .nav-btn {
     background: var(--card);
     border: 1px solid var(--border);
-    color: white;
+    color: var(--text);
     width: 36px; height: 36px;
     border-radius: 8px;
     cursor: pointer;
@@ -323,7 +324,7 @@
     display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
   }
-  .nav-btn:hover { border-color: white; color: white; }
+  .nav-btn:hover { border-color: #3f63ff; color: #3f63ff; }
 
   .timer-bar-wrap {
     flex: 1;
@@ -340,7 +341,7 @@
     border-radius: 2px;
   }
 
-  .auto-cycle-label { font-size: 11px; color: white; white-space: nowrap; }
+  .auto-cycle-label { font-size: 11px; color: var(--muted); white-space: nowrap; }
 
   /* ── Sidebar ── */
   .sidebar {
@@ -357,7 +358,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 14px;
     letter-spacing: 2px;
-    color: white;
+    color: var(--muted);
     padding: 0 4px 8px;
     border-bottom: 1px solid var(--border);
     margin-bottom: 4px;
@@ -372,7 +373,7 @@
     width: 100%;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
-    color: white;
+    color: var(--text);
     border-radius: 10px;
     padding: 10px 12px;
     font-size: 13px;
@@ -381,12 +382,12 @@
   }
 
   .cam-search:focus {
-    border-color: white;
+    border-color: #3f63ff;
     box-shadow: 0 0 0 2px rgba(63,99,255,0.15);
   }
 
   .cam-search::placeholder {
-    color: white;
+    color: var(--muted);
   }
 
 
@@ -414,8 +415,8 @@
     column-gap: 10px;
     align-items: center;
   }
-  .cam-item:hover { background: rgba(49,87,255,0.18); border-color: white; }
-  .cam-item.active { background: rgba(49,87,255,0.25); border-color: white; }
+  .cam-item:hover { background: rgba(49,87,255,0.18); border-color: #3f63ff; }
+  .cam-item.active { background: rgba(49,87,255,0.25); border-color: #3f63ff; }
 
    .cam-item-switch {
     position: relative;
@@ -442,7 +443,7 @@
 
   .cam-item.in-cycle .cam-item-switch {
     background: rgba(49,87,255,0.45);
-    border-color: white;
+    border-color: #4f72ff;
     box-shadow: 0 0 10px rgba(49,87,255,0.25);
   }
 
@@ -450,6 +451,8 @@
     left: 17px;
     background: #fff;
   }
+
+  
 
   .cam-item-name {
     grid-column: 2;
@@ -459,7 +462,6 @@
     line-height: 1.1;
     color: white;
   }
-
   .cam-item.active .cam-item-name {
     grid-column: 2;
     grid-row: 1;
@@ -468,7 +470,6 @@
     line-height: 1.1;
     color: white;
   }
-
   .cam-item-sub {
     grid-column: 2;
     grid-row: 2;
@@ -477,11 +478,6 @@
     font-weight: 400;
     line-height: 1.2;
     margin-top: 2px;
-  }
-
-  .cam-item-switch {
-    grid-column: 1;
-    grid-row: 1 / span 2;
   }
 
   /* ── Cycle Settings Panel ── */
@@ -506,10 +502,10 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 18px;
     letter-spacing: 2px;
-    color: white;
+    color: var(--text);
   }
 
-  .panel-title span { color: white; }
+  .panel-title span { color: #3f63ff; }
 
   .cycle-controls {
     display: flex;
@@ -532,7 +528,7 @@
 
   .time-input-wrap label {
     font-size: 11px;
-    color: white;
+    color: var(--muted);
     white-space: nowrap;
   }
 
@@ -559,18 +555,18 @@
   .time-display {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 18px;
-    color: white;
+    color: #3f63ff;
     min-width: 52px;
     text-align: center;
   }
 
   .cycle-queue-label {
     font-size: 11px;
-    color: white;
+    color: var(--muted);
     margin-bottom: 10px;
   }
 
-  .cycle-queue-label span { color: white; font-weight: 600; }
+  .cycle-queue-label span { color: #3f63ff; font-weight: 600; }
 
   /* Quick-select venue buttons */
   .venue-filters {
@@ -583,7 +579,7 @@
   .venue-tag {
     background: var(--card);
     border: 1px solid var(--border);
-    color: white;
+    color: var(--muted);
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 11px;
@@ -591,8 +587,8 @@
     transition: all 0.15s;
     white-space: nowrap;
   }
-  .venue-tag:hover { border-color: white; color: white; }
-  .venue-tag.all-on { background: rgba(0,196,255,0.15); border-color: white; color: white; }
+  .venue-tag:hover { border-color: #3f63ff; color: #3f63ff; }
+  .venue-tag.all-on { background: rgba(0,196,255,0.15); border-color: #3f63ff; color: #3f63ff; }
 
   /* Cam selection grid inside panel */
   .cam-select-grid {
@@ -619,9 +615,9 @@
     transition: all 0.15s;
     user-select: none;
   }
-  .cam-select-item:hover { border-color: white; }
+  .cam-select-item:hover { border-color: var(--muted); }
   .cam-select-item.selected {
-    border-color: white;
+    border-color: #3f63ff;
     background: rgba(0,196,255,0.08);
   }
 
@@ -635,13 +631,13 @@
   }
   .cam-select-item.selected .cam-select-check {
     background: var(--accent);
-    border-color: white;
-    color: white;
+    border-color: #3f63ff;
+    color: #000;
   }
 
   .cam-select-text { flex: 1; min-width: 0; }
-  .cam-select-venue { font-size: 10px; color: white; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-  .cam-select-name { font-size: 12px; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cam-select-venue { font-size: 10px; color: var(--accent2); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cam-select-name { font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 
   @media (max-width: 768px) {
@@ -667,7 +663,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 16px;
     letter-spacing: 2px;
-    color: white;
+    color: var(--muted);
     margin-bottom: 14px;
   }
 
@@ -687,19 +683,19 @@
     display: flex; flex-direction: column; gap: 3px;
     position: relative;
   }
-  .cam-card:hover { border-color: white; transform: translateY(-2px); }
-  .cam-card.active { border-color: white; background: rgba(0,196,255,0.07); }
+  .cam-card:hover { border-color: #3f63ff; transform: translateY(-2px); }
+  .cam-card.active { border-color: #3f63ff; background: rgba(0,196,255,0.07); }
   .cam-card.in-cycle::after {
     content: '✓';
     position: absolute;
     top: 6px; right: 8px;
     font-size: 10px;
-    color: white;
+    color: #3f63ff;
   }
 
-  .cam-card-venue { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: white; }
-  .cam-card-name { font-size: 12px; font-weight: 500; color: white; line-height: 1.3; }
-  .cam-card-ch { font-size: 10px; color: white; margin-top: 2px; }
+  .cam-card-venue { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); }
+  .cam-card-name { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .cam-card-ch { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
   /* Cast overlay */
   #castOverlay {
@@ -712,8 +708,8 @@
   }
   #castOverlay.visible { display: flex; }
   .cast-icon { font-size: 48px; }
-  .cast-text { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: white; }
-  .cast-sub { font-size: 13px; color: white; }
+  .cast-text { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #3f63ff; }
+  .cast-sub { font-size: 13px; color: var(--muted); }
 
   /* Toast */
   #toast {
@@ -722,7 +718,7 @@
     transform: translateX(-50%) translateY(80px);
     background: rgba(13,20,48,0.92);
     border: 1px solid var(--accent);
-    color: white;
+    color: var(--text);
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 13px;
@@ -764,7 +760,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 18px;
     letter-spacing: 1.5px;
-    color: white;
+    color: #7aa2ff;
     margin-bottom: 16px;
   }
 
@@ -787,7 +783,7 @@
     font-size: 11px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: white;
+    color: var(--muted);
     margin-bottom: 8px;
   }
 
@@ -795,7 +791,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 28px;
     letter-spacing: 1px;
-    color: white;
+    color: #ffffff;
   }
 
   
@@ -825,15 +821,15 @@
 
 
   .trend-up {
-    color: white;
+    color: #6dff9d;
   }
 
   .trend-down {
-    color: white;
+    color: #ff8b8b;
   }
 
   .trend-flat {
-    color: white;
+    color: #b8c5ff;
   }
 
 
@@ -851,7 +847,7 @@
     border: none;
     border-radius: 50%;
     background: rgba(255,255,255,0.08);
-    color: white;
+    color: var(--muted);
     cursor: pointer;
     display: none;
     align-items: center;
@@ -863,7 +859,7 @@
 
   .clear-search-btn:hover {
     background: rgba(255,255,255,0.14);
-    color: white;
+    color: #fff;
   }
 
 
@@ -871,12 +867,12 @@
   .lake-card-title.panel-title {
     font-size: 18px;
     letter-spacing: 2px;
-    color: white;
+    color: var(--text);
     margin-bottom: 12px;
   }
 
   .sidebar-header.panel-title span {
-    color: white;
+    color: #3f63ff;
   }
 
 
@@ -894,7 +890,7 @@
     position: relative;
     background: transparent;
     border: none;
-    color: white;
+    color: var(--muted);
     padding: 2px 0 12px;
     cursor: pointer;
     transition: all 0.18s ease;
@@ -917,11 +913,11 @@
   }
 
   .main-tab:hover {
-    color: white;
+    color: #fff;
   }
 
   .main-tab.active {
-    color: white;
+    color: #fff;
   }
 
   .main-tab.active::after {
@@ -951,7 +947,7 @@
   }
 
   .map-subtitle {
-    color: white;
+    color: var(--muted);
     font-size: 13px;
     margin-top: 6px;
   }
@@ -995,8 +991,8 @@
 }
 
 .locate-btn:hover {
-  border-color: white;
-  color: white;
+  border-color:#3f63ff;
+  color:#8ea2ff;
 }
 
 .locate-btn svg {
@@ -1016,7 +1012,7 @@
   letter-spacing: 1px;
   font-size: 22px;
   margin-bottom: 14px;
-  color: white;
+  color: #fff;
 }
 
 .place-list {
@@ -1035,7 +1031,7 @@
 }
 
 .place-item:hover {
-  border-color: white;
+  border-color: #3f63ff;
   background: rgba(63,99,255,0.14);
 }
 
@@ -1047,7 +1043,7 @@
 
 .place-desc {
   margin-top: 6px;
-  color: white;
+  color: #b6c2ff;
   font-size: 12px;
   line-height: 1.35;
 }
@@ -1064,7 +1060,7 @@
 
 .filter-btn {
   background: rgba(255,255,255,0.05);
-  color: white;
+  color:white;
   border:1px solid rgba(255,255,255,0.1);
   border-radius:999px;
   padding:10px 16px;
@@ -1074,7 +1070,7 @@
 
 .filter-btn.active {
   background: rgba(63,99,255,0.25);
-  border-color: white;
+  border-color:#3f63ff;
 }
 
 #lakeMap {
@@ -1084,22 +1080,20 @@
 
 .leaflet-popup-content-wrapper {
   background:#101933;
-  color: white;
+  color:white;
   border-radius:14px;
 }
 
 .leaflet-popup-tip {
   background:#101933;
 }
-</style>  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <link rel="icon" type="image/png" href="favicon.png">
-</head>
+</style></head>
 <body>
 <header class="app-header">
 <div class="header-left">
-<img alt="Lakefront at LOTO Cams" class="header-logo" src="logo.png"/>
+<img alt="Lakefront at LOTO Cams" class="header-logo" src="logo.svg"/>
 <div class="header-text">
-<h1 class="header-title">Lakefront at LOTO</h1></div>
+<h1 class="header-title">Lakefront at LOTO Cams</h1></div>
 </div>
 <div class="header-controls">
 <button id="castBtn" title="Cast Auto-Cycle to TV">
@@ -1109,7 +1103,7 @@
 <path d="M2 9.5C9.18 9.5 15 15.32 15 22H12C12 16.98 7.93 12.9 2.9 12.9H2V9.5Z" fill="currentColor"></path>
 <path d="M21 3H3C1.9 3 1 3.9 1 5V8H3V5H21V19H14V21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3Z" fill="currentColor"></path>
 </svg>
-
+<span>Cast</span>
 </button>
 </div>
 </header>
@@ -1239,254 +1233,35 @@
 <script>
 // ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
 const CAMS = [
-  {
-    "name": "Alhonna \u2014 Pool",
-    "venue": "Alhonna",
-    "provider": "twitch",
-    "source": "spydernetwork61",
-    "slug": "lake-billiards",
-    "status": "active"
-  },
-  {
-    "name": "Alohona \u2014 Pool",
-    "venue": "Alhonna",
-    "provider": "twitch",
-    "source": "spydernetwork65",
-    "slug": "outlaws-mens-outpost",
-    "status": "active"
-  },
-  {
-    "name": "Dock Glide \u2014 Cam 1",
-    "venue": "Alhonna",
-    "provider": "twitch",
-    "source": "spydernetwork60",
-    "slug": "dock-glide",
-    "status": "active"
-  },
-  {
-    "name": "Backwater Jacks \u2014 Pool",
-    "venue": "Backwater Jacks",
-    "provider": "twitch",
-    "source": "spydernetwork3",
-    "slug": "backwater-jacks-pool",
-    "status": "active"
-  },
-  {
-    "name": "Bridgeview Marina \u2014 Dock",
-    "venue": "Bridgeview Marina",
-    "provider": "twitch",
-    "source": "spydernetwork69",
-    "slug": "the-hatch",
-    "status": "active"
-  },
-  {
-    "name": "Dock Glide \u2014 Cam 1",
-    "venue": "Dock Glide",
-    "provider": "twitch",
-    "source": "spydernetwork21",
-    "slug": "fish-and-company-stage",
-    "status": "active"
-  },
-  {
-    "name": "Dog Days \u2014 Pool",
-    "venue": "Dog Days",
-    "provider": "twitch",
-    "source": "spydernetwork31",
-    "slug": "dog-days-pool",
-    "status": "active"
-  },
-  {
-    "name": "Dog Days \u2014 Stage",
-    "venue": "Dog Days",
-    "provider": "twitch",
-    "source": "spydernetwork27",
-    "slug": "neon-taco-docks",
-    "status": "active"
-  },
-  {
-    "name": "Paradise \u2014 Bar",
-    "venue": "Dog Days",
-    "provider": "twitch",
-    "source": "spydernetwork28",
-    "slug": "paradise-restaurant-bar",
-    "status": "active"
-  },
-  {
-    "name": "Paradise \u2014 View 2",
-    "venue": "Dog Days",
-    "provider": "twitch",
-    "source": "spydernetwork29",
-    "slug": "paradise-restaurant-bar-2",
-    "status": "active"
-  },
-  {
-    "name": "Encore Lakeside Grill \u2014 Pool",
-    "venue": "Encore Lakeside Grill",
-    "provider": "twitch",
-    "source": "spydernetwork9",
-    "slug": "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "name": "Encore Lakeside Grill \u2014 Sky Bar",
-    "venue": "Encore Lakeside Grill",
-    "provider": "twitch",
-    "source": "spydernetwork8",
-    "slug": "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "name": "Encore Lakeside Grill \u2014 Stage",
-    "venue": "Encore Lakeside Grill",
-    "provider": "twitch",
-    "source": "spydernetwork10",
-    "slug": "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "name": "Fish & Co \u2014 Stage",
-    "venue": "Fish & Co",
-    "provider": "twitch",
-    "source": "spydernetwork35",
-    "slug": "tucker-shuckers-north",
-    "status": "active"
-  },
-  {
-    "name": "Fish and Company \u2014 Dock",
-    "venue": "Fish and Company",
-    "provider": "twitch",
-    "source": "spydernetwork23",
-    "slug": "fish-and-company-dock-1",
-    "status": "active"
-  },
-  {
-    "name": "Southeast",
-    "venue": "JB Hooks",
-    "provider": "ipcamlive.com",
-    "source": "https://g1.ipcamlive.com/player/player.php?alias=jbhooksleft",
-    "slug": "",
-    "status": "active"
-  },
-  {
-    "name": "West",
-    "venue": "JB Hooks",
-    "provider": "ipcamlive.com",
-    "source": "https://g1.ipcamlive.com/player/player.php?alias=jbhooksbridge",
-    "slug": "",
-    "status": "active"
-  },
-  {
-    "name": "Lake & Land Trading \u2014 Floor",
-    "venue": "Lake & Land Trading",
-    "provider": "twitch",
-    "source": "spydernetwork56",
-    "slug": "double-ds-roadhouse",
-    "status": "active"
-  },
-  {
-    "name": "Alhonna \u2014 Docks",
-    "venue": "Lake Billiards",
-    "provider": "twitch",
-    "source": "spydernetwork6",
-    "slug": "backwater-jacks-dock",
-    "status": "active"
-  },
-  {
-    "name": "Backwater Jacks \u2014 Level Five",
-    "venue": "Level Five",
-    "provider": "twitch",
-    "source": "spydernetwork66",
-    "slug": "backwater-jacks-level-five-lake-ozarks",
-    "status": "active"
-  },
-  {
-    "name": "Marty Byrde's \u2014 Inside",
-    "venue": "Marty Byrde's",
-    "provider": "twitch",
-    "source": "spydernetwork25",
-    "slug": "neon-taco-bar",
-    "status": "active"
-  },
-  {
-    "name": "Marty Byrde's \u2014 Marty Byrde's",
-    "venue": "Marty Byrde's",
-    "provider": "twitch",
-    "source": "spydernetwork24",
-    "slug": "fish-and-company",
-    "status": "active"
-  },
-  {
-    "name": "Michael's Steak Chalet \u2014 Patio",
-    "venue": "Michael's Steak Chalet",
-    "provider": "twitch",
-    "source": "spydernetwork38",
-    "slug": "wicked-willies-restaurant",
-    "status": "active"
-  },
-  {
-    "name": "MM17 \u2014 Docks",
-    "venue": "MM17",
-    "provider": "twitch",
-    "source": "spydernetwork34",
-    "slug": "dog-days-dock",
-    "status": "active"
-  },
-  {
-    "name": "Neon Taco - Bar \u2014 Marina",
-    "venue": "Neon Taco - Bar",
-    "provider": "twitch",
-    "source": "spydernetwork20",
-    "slug": "bridgeview-marina",
-    "status": "active"
-  },
-  {
-    "name": "Dog Days \u2014 Docks 1",
-    "venue": "Paradise",
-    "provider": "twitch",
-    "source": "spydernetwork44",
-    "slug": "marty-byrds-outside",
-    "status": "active"
-  },
-  {
-    "name": "Paradise \u2014 Paradise Docks 2",
-    "venue": "Paradise",
-    "provider": "twitch",
-    "source": "spydernetwork45",
-    "slug": "marty-byrds",
-    "status": "active"
-  },
-  {
-    "name": "Spyder on the Strip \u2014 Shoreland",
-    "venue": "Spyder on the Strip",
-    "provider": "twitch",
-    "source": "spydernetwork33",
-    "slug": "dog-days-dock-1",
-    "status": "active"
-  },
-  {
-    "name": "Topsider \u2014 Bridge",
-    "venue": "Topsider",
-    "provider": "twitch",
-    "source": "spydernetwork37",
-    "slug": "wicked-willies-bar",
-    "status": "active"
-  },
-  {
-    "name": "Dog Days \u2014 Stage",
-    "venue": "Tuckers",
-    "provider": "twitch",
-    "source": "spydernetwork32",
-    "slug": "dog-days-stage",
-    "status": "active"
-  },
-  {
-    "name": "Wicked Willie's \u2014 Dining",
-    "venue": "Wicked Willie's",
-    "provider": "twitch",
-    "source": "spydernetwork36",
-    "slug": "tucker-shuckers-south",
-    "status": "active"
-  }
+  { name: "Outside Pool", venue: "Alhonna", channel: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
+  { name: "Inside Pool", venue: "Alhonna", channel: "spydernetwork6", slug: "backwater-jacks-dock" },
+  { name: "Bar", venue: "Alhonna", channel: "spydernetwork61", slug: "lake-billiards" },
+  { name: "Pool", venue: "Backwater Jacks", channel: "spydernetwork65", slug: "outlaws-mens-outpost" },
+  { name: "Dock", venue: "Bridgeview Marina", channel: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
+  { name: "Cam 1", venue: "Dock Glide", channel: "spydernetwork3", slug: "backwater-jacks-pool" },
+  { name: "Pool", venue: "Dog Days", channel: "spydernetwork69", slug: "the-hatch" },
+  { name: "Stage", venue: "Dog Days", channel: "spydernetwork60", slug: "dock-glide" },
+  { name: "Docks 1", venue: "Dog Days", channel: "spydernetwork21", slug: "fish-and-company-stage" },
+  { name: "Docs 2", venue: "Dog Days", channel: "spydernetwork44", slug: "marty-byrds-outside" },
+  { name: "Pool 1", venue: "Encore Lakeside Grill", channel: "spydernetwork31", slug: "dog-days-pool" },
+  { name: "Pool 2", venue: "Encore Lakeside Grill", channel: "spydernetwork32", slug: "dog-days-stage" },
+  { name: "Stage", venue: "Encore Lakeside Grill", channel: "spydernetwork27", slug: "neon-taco-docks" },
+  { name: "Stage", venue: "Fish & Co", channel: "spydernetwork9", slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Dock", venue: "Fish and Company", channel: "spydernetwork8", slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Floor", venue: "Lake & Land Trading", channel: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
+  { name: "Dining", venue: "Lake Billiards", channel: "spydernetwork35", slug: "tucker-shuckers-north" },
+  { name: "Pancam", venue: "Level Five", channel: "spydernetwork23", slug: "fish-and-company-dock-1" },
+  { name: "Docks", venue: "MM17", channel: "spydernetwork56", slug: "double-ds-roadhouse" },
+  { name: "Inside", venue: "Marty Byrde's", channel: "spydernetwork25", slug: "neon-taco-bar" },
+  { name: "Street View", venue: "Marty Byrde's", channel: "spydernetwork24", slug: "fish-and-company" },
+  { name: "Patio", venue: "Michael's Steak Chalet", channel: "spydernetwork38", slug: "wicked-willies-restaurant" },
+  { name: "Deck", venue: "Neon Taco - Bar", channel: "spydernetwork34", slug: "dog-days-dock" },
+  { name: "Docks 1", venue: "Paradise", channel: "spydernetwork20", slug: "bridgeview-marina" },
+  { name: "Docks 2", venue: "Paradise", channel: "spydernetwork28", slug: "paradise-restaurant-bar" },
+  { name: "Shoreland", venue: "Spyder on the Strip", channel: "spydernetwork45", slug: "marty-byrds" },
+  { name: "Bridge", venue: "Topsider", channel: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
+  { name: "Top Deck", venue: "Tuckers", channel: "spydernetwork33", slug: "dog-days-dock-1" },
+  { name: "Dining", venue: "Wicked Willie's", channel: "spydernetwork37", slug: "wicked-willies-bar" }
 ];
 
 // ─── State ────────────────────────────────────────────────────────────────────
@@ -1501,14 +1276,6 @@ let castSession = null;
 
 function timerMs() {
   return parseInt(document.getElementById('timeSlider').value) * 1000;
-}
-
-
-function cleanCameraName(cam) {
-  return cam.name
-    .replace(cam.venue + ' — ', '')
-    .replace(cam.venue + ' - ', '')
-    .trim();
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
@@ -1527,7 +1294,7 @@ function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
   const cam = CAMS[currentIdx];
 
-  document.getElementById('camName').textContent = `${cam.venue}`;
+  document.getElementById('camName').textContent = `${cam.venue} — ${cam.name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
 
   const allowedParents = [
@@ -1541,7 +1308,7 @@ function loadCam(idx) {
     .map(p => `parent=${p}`)
     .join('&');
 
-  const src = `https://player.twitch.tv/?channel=${cam.source}&${parentParams}&autoplay=true&muted=false`;
+  const src = `https://player.twitch.tv/?channel=${cam.channel}&${parentParams}&autoplay=true&muted=false`;
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
@@ -1683,8 +1450,8 @@ function buildSidebar() {
     el.dataset.idx = i;
     el.innerHTML = `
       <div class="cam-item-switch"></div>
-      <span class="cam-item-name">${cam.venue}</span>
-      <span class="cam-item-sub">${cleanCameraName(cam)}</span>
+      
+      <span class="cam-item-name">${cam.venue}</span><span class="cam-item-sub">${cam.name}</span>
     `;
     el.addEventListener('click', (e) => {
       // Right-click or long-press area toggles selection; left click loads cam
@@ -1778,9 +1545,9 @@ function setupCastListeners() {
 
 function castCam(cam) {
   if (!castSession) return;
-  const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.source}`, 'video/mp4');
+  const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.channel}`, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
-  mediaInfo.metadata.title = `${cam.venue}`;
+  mediaInfo.metadata.title = `${cam.venue} — ${cam.name}`;
   mediaInfo.metadata.subtitle = 'SpyderNetwork • Lake of the Ozarks LIVE';
   castSession.loadMedia(new chrome.cast.media.LoadRequest(mediaInfo)).catch(() => {
     showToast('Stream sent to TV');
@@ -1843,7 +1610,7 @@ function filterCams() {
     const cam = CAMS[i];
 
     const text =
-      `${cam.venue} ${cam.name} ${cam.source}`.toLowerCase();
+      `${cam.venue} ${cam.name} ${cam.channel}`.toLowerCase();
 
     el.style.display = text.includes(val) ? 'flex' : 'none';
   });
@@ -3173,15 +2940,13 @@ map.on('locationfound', (e) => {
 
   window.userLocationMarker = L.circleMarker(e.latlng, {
     radius: 8,
-    color: '#ffffff',
-    fillColor: '#3f63ff',
+    color: '#3f63ff',
+    fillColor: '#8ea2ff',
     fillOpacity: 1,
-    weight: 2
+    weight: 3
   }).addTo(map);
 
-  window.userLocationMarker
-    .bindPopup('You are here')
-    .openPopup();
+  window.userLocationMarker.bindPopup('You are here').openPopup();
 });
 
 map.on('locationerror', () => {
@@ -3230,7 +2995,7 @@ async function loadMileMarkers() {
         icon: L.divIcon({
           className: '',
           html: `<div style="
-            color: white;
+            color: rgba(30,30,30,0.82);
             font-size: 11px;
             font-weight: 700;
           ">${item.name}</div>`
