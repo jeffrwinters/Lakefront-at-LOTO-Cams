@@ -1064,6 +1064,7 @@
   background:#101933;
 }
 </style>  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 <header class="app-header">
@@ -1210,36 +1211,246 @@
 <script>
 // ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
 const CAMS = [
-  { name: "Game Room",            venue: "54 Southbound",              provider: "twitch", source: "spydernetwork57", slug: "double-ds-roadhouse-gameroom" },
-  { name: "Docks",               venue: "Alhonna",             provider: "twitch", source: "spydernetwork6",  slug: "backwater-jacks-dock" },
-  { name: "Pool",           venue: "Alhonna",             provider: "twitch", source: "spydernetwork61", slug: "lake-billiards" },
-  { name: "Pool",                  venue: "Alohona",                    provider: "twitch", source: "spydernetwork65", slug: "outlaws-mens-outpost" },
-  { name: "Level Five",           venue: "Backwater Jacks",            provider: "twitch", source: "spydernetwork66", slug: "backwater-jacks-level-five-lake-ozarks" },
-  { name: "Pool",                 venue: "Backwater Jacks",            provider: "twitch", source: "spydernetwork3",  slug: "backwater-jacks-pool" },
-  { name: "Dock", venue: "Bridgeview Marina", provider: "twitch", source: "spydernetwork69", slug: "the-hatch" },
-  { name: "Cam 1",                  venue: "Dock Glide",                 provider: "twitch", source: "spydernetwork60", slug: "dock-glide" },
-  { name: "Cam 1",      venue: "Dock Glide",           provider: "twitch", source: "spydernetwork21", slug: "fish-and-company-stage" },
-  { name: "Docks 1",       venue: "Dog Days",              provider: "twitch", source: "spydernetwork44", slug: "marty-byrds-outside" },
-  { name: "Pool",                 venue: "Dog Days",                   provider: "twitch", source: "spydernetwork31", slug: "dog-days-pool" },
-  { name: "Stage",                venue: "Dog Days",                   provider: "twitch", source: "spydernetwork32", slug: "dog-days-stage" },
-  { name: "Stage",                venue: "Dog Days",                  provider: "twitch", source: "spydernetwork27", slug: "neon-taco-docks" },
-  { name: "Pool",                 venue: "Encore Lakeside Grill",      provider: "twitch", source: "spydernetwork9",  slug: "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Sky Bar",             venue: "Encore Lakeside Grill",      provider: "twitch", source: "spydernetwork8",  slug: "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Stage",                venue: "Encore Lakeside Grill",      provider: "twitch", source: "spydernetwork10", slug: "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks" },
-  { name: "Stage",                venue: "Fish & Co",          provider: "twitch", source: "spydernetwork35", slug: "tucker-shuckers-north" },
-  { name: "Dock",               venue: "Fish and Company",           provider: "twitch", source: "spydernetwork23", slug: "fish-and-company-dock-1" },
-  { name: "Floor",                  venue: "Lake & Land Trading",        provider: "twitch", source: "spydernetwork56", slug: "double-ds-roadhouse" },
-  { name: "Inside",               venue: "Marty Byrde's",                  provider: "twitch", source: "spydernetwork25", slug: "neon-taco-bar" },
-  { name: "Marty Byrde's",       venue: "Marty Byrde's",           provider: "twitch", source: "spydernetwork24", slug: "fish-and-company" },
-  { name: "Patio",               venue: "Michael's Steak Chalet",            provider: "twitch", source: "spydernetwork38", slug: "wicked-willies-restaurant" },
-  { name: "Docks",               venue: "MM17",                       provider: "twitch", source: "spydernetwork34", slug: "dog-days-dock" },
-  { name: "Marina",               venue: "Neon Taco - Bar",          provider: "twitch", source: "spydernetwork20", slug: "bridgeview-marina" },
-  { name: "Bar",                  venue: "Paradise",                   provider: "twitch", source: "spydernetwork28", slug: "paradise-restaurant-bar" },
-  { name: "Paradise Docks 2",     venue: "Paradise",              provider: "twitch", source: "spydernetwork45", slug: "marty-byrds" },
-  { name: "View 2",               venue: "Paradise",                   provider: "twitch", source: "spydernetwork29", slug: "paradise-restaurant-bar-2" },
-  { name: "Shoreland",               venue: "Spyder on the Strip",        provider: "twitch", source: "spydernetwork33", slug: "dog-days-dock-1" },
-  { name: "Bridge",               venue: "Topsider",            provider: "twitch", source: "spydernetwork37", slug: "wicked-willies-bar" },
-  { name: "Dining",               venue: "Wicked Willie's",          provider: "twitch", source: "spydernetwork36", slug: "tucker-shuckers-south" }
+  {
+    "name": "Game Room",
+    "venue": "54 Southbound",
+    "provider": "twitch",
+    "source": "spydernetwork57",
+    "slug": "double-ds-roadhouse-gameroom",
+    "status": "active"
+  },
+  {
+    "name": "Docks",
+    "venue": "Alhonna",
+    "provider": "twitch",
+    "source": "spydernetwork6",
+    "slug": "backwater-jacks-dock",
+    "status": "active"
+  },
+  {
+    "name": "Pool",
+    "venue": "Alhonna",
+    "provider": "twitch",
+    "source": "spydernetwork61",
+    "slug": "lake-billiards",
+    "status": "active"
+  },
+  {
+    "name": "Pool",
+    "venue": "Alohona",
+    "provider": "twitch",
+    "source": "spydernetwork65",
+    "slug": "outlaws-mens-outpost",
+    "status": "active"
+  },
+  {
+    "name": "Level Five",
+    "venue": "Backwater Jacks",
+    "provider": "twitch",
+    "source": "spydernetwork66",
+    "slug": "backwater-jacks-level-five-lake-ozarks",
+    "status": "active"
+  },
+  {
+    "name": "Pool",
+    "venue": "Backwater Jacks",
+    "provider": "twitch",
+    "source": "spydernetwork3",
+    "slug": "backwater-jacks-pool",
+    "status": "active"
+  },
+  {
+    "name": "Dock",
+    "venue": "Bridgeview Marina",
+    "provider": "twitch",
+    "source": "spydernetwork69",
+    "slug": "the-hatch",
+    "status": "active"
+  },
+  {
+    "name": "Cam 1",
+    "venue": "Dock Glide",
+    "provider": "twitch",
+    "source": "spydernetwork60",
+    "slug": "dock-glide",
+    "status": "active"
+  },
+  {
+    "name": "Cam 1",
+    "venue": "Dock Glide",
+    "provider": "twitch",
+    "source": "spydernetwork21",
+    "slug": "fish-and-company-stage",
+    "status": "active"
+  },
+  {
+    "name": "Docks 1",
+    "venue": "Dog Days",
+    "provider": "twitch",
+    "source": "spydernetwork44",
+    "slug": "marty-byrds-outside",
+    "status": "active"
+  },
+  {
+    "name": "Pool",
+    "venue": "Dog Days",
+    "provider": "twitch",
+    "source": "spydernetwork31",
+    "slug": "dog-days-pool",
+    "status": "active"
+  },
+  {
+    "name": "Stage",
+    "venue": "Dog Days",
+    "provider": "twitch",
+    "source": "spydernetwork32",
+    "slug": "dog-days-stage",
+    "status": "active"
+  },
+  {
+    "name": "Stage",
+    "venue": "Dog Days",
+    "provider": "twitch",
+    "source": "spydernetwork27",
+    "slug": "neon-taco-docks",
+    "status": "active"
+  },
+  {
+    "name": "Pool",
+    "venue": "Encore Lakeside Grill",
+    "provider": "twitch",
+    "source": "spydernetwork9",
+    "slug": "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks",
+    "status": "active"
+  },
+  {
+    "name": "Sky Bar",
+    "venue": "Encore Lakeside Grill",
+    "provider": "twitch",
+    "source": "spydernetwork8",
+    "slug": "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks",
+    "status": "active"
+  },
+  {
+    "name": "Stage",
+    "venue": "Encore Lakeside Grill",
+    "provider": "twitch",
+    "source": "spydernetwork10",
+    "slug": "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks",
+    "status": "active"
+  },
+  {
+    "name": "Stage",
+    "venue": "Fish & Co",
+    "provider": "twitch",
+    "source": "spydernetwork35",
+    "slug": "tucker-shuckers-north",
+    "status": "active"
+  },
+  {
+    "name": "Dock",
+    "venue": "Fish and Company",
+    "provider": "twitch",
+    "source": "spydernetwork23",
+    "slug": "fish-and-company-dock-1",
+    "status": "active"
+  },
+  {
+    "name": "Floor",
+    "venue": "Lake & Land Trading",
+    "provider": "twitch",
+    "source": "spydernetwork56",
+    "slug": "double-ds-roadhouse",
+    "status": "active"
+  },
+  {
+    "name": "Inside",
+    "venue": "Marty Byrde's",
+    "provider": "twitch",
+    "source": "spydernetwork25",
+    "slug": "neon-taco-bar",
+    "status": "active"
+  },
+  {
+    "name": "Marty Byrde's",
+    "venue": "Marty Byrde's",
+    "provider": "twitch",
+    "source": "spydernetwork24",
+    "slug": "fish-and-company",
+    "status": "active"
+  },
+  {
+    "name": "Patio",
+    "venue": "Michael's Steak Chalet",
+    "provider": "twitch",
+    "source": "spydernetwork38",
+    "slug": "wicked-willies-restaurant",
+    "status": "active"
+  },
+  {
+    "name": "Docks",
+    "venue": "MM17",
+    "provider": "twitch",
+    "source": "spydernetwork34",
+    "slug": "dog-days-dock",
+    "status": "active"
+  },
+  {
+    "name": "Marina",
+    "venue": "Neon Taco - Bar",
+    "provider": "twitch",
+    "source": "spydernetwork20",
+    "slug": "bridgeview-marina",
+    "status": "active"
+  },
+  {
+    "name": "Bar",
+    "venue": "Paradise",
+    "provider": "twitch",
+    "source": "spydernetwork28",
+    "slug": "paradise-restaurant-bar",
+    "status": "active"
+  },
+  {
+    "name": "Paradise Docks 2",
+    "venue": "Paradise",
+    "provider": "twitch",
+    "source": "spydernetwork45",
+    "slug": "marty-byrds",
+    "status": "active"
+  },
+  {
+    "name": "View 2",
+    "venue": "Paradise",
+    "provider": "twitch",
+    "source": "spydernetwork29",
+    "slug": "paradise-restaurant-bar-2",
+    "status": "active"
+  },
+  {
+    "name": "Shoreland",
+    "venue": "Spyder on the Strip",
+    "provider": "twitch",
+    "source": "spydernetwork33",
+    "slug": "dog-days-dock-1",
+    "status": "active"
+  },
+  {
+    "name": "Bridge",
+    "venue": "Topsider",
+    "provider": "twitch",
+    "source": "spydernetwork37",
+    "slug": "wicked-willies-bar",
+    "status": "active"
+  },
+  {
+    "name": "Dining",
+    "venue": "Wicked Willie's",
+    "provider": "twitch",
+    "source": "spydernetwork36",
+    "slug": "tucker-shuckers-south",
+    "status": "active"
+  }
 ];
 
 // ─── State ────────────────────────────────────────────────────────────────────
