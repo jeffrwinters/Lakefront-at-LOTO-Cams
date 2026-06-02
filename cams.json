@@ -43,16 +43,6 @@
     "last_checked": "6/2/2026, 10:01:27 AM"
   },
   {
-    "venue": "Dock Glide",
-    "camera_name": "Cam 1",
-    "provider": "twitch",
-    "source": "spydernetwork21",
-    "slug": "fish-and-company-stage",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
-  },
-  {
     "venue": "Fish & Co",
     "camera_name": "Dock",
     "provider": "twitch",
@@ -66,7 +56,7 @@
     "venue": "Fish & Co",
     "camera_name": "PWC Dock",
     "provider": "twitch",
-    "source": "spydernetwork28",
+    "source": "spydernetwork26",
     "slug": "fish-and-company",
     "status": "active",
     "favorite": false
@@ -88,16 +78,6 @@
     "provider": "twitch",
     "source": "spydernetwork35",
     "slug": "tucker-shuckers-north",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
-  },
-  {
-    "venue": "54 Southbound",
-    "camera_name": "Game Room",
-    "provider": "twitch",
-    "source": "spydernetwork57",
-    "slug": "double-ds-roadhouse-gameroom",
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:28 AM"
@@ -250,51 +230,11 @@
     "last_checked": "6/2/2026, 10:01:29 AM"
   },
   {
-    "venue": "Lake Billiards",
-    "camera_name": "Dining",
-    "provider": "twitch",
-    "source": "spydernetwork6",
-    "slug": "backwater-jacks-dock",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
     "venue": "MM17",
     "camera_name": "Docks",
     "provider": "twitch",
     "source": "spydernetwork34",
     "slug": "dog-days-dock",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
-    "venue": "Lake & Land Trading",
-    "camera_name": "Floor",
-    "provider": "twitch",
-    "source": "spydernetwork56",
-    "slug": "double-ds-roadhouse",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
-    "venue": "Marty Byrde's",
-    "camera_name": "Inside",
-    "provider": "twitch",
-    "source": "spydernetwork25",
-    "slug": "neon-taco-bar",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
-    "venue": "Marty Byrde's",
-    "camera_name": "Street View",
-    "provider": "twitch",
-    "source": "spydernetwork24",
-    "slug": "fish-and-company",
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:29 AM"
@@ -330,11 +270,61 @@
     "last_checked": "6/2/2026, 10:01:29 AM"
   },
   {
+    "venue": "Dock Glide",
+    "camera_name": "Cam 1",
+    "provider": "twitch",
+    "source": "spydernetwork21",
+    "slug": "fish-and-company-stage",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:27 AM"
+  },
+  {
+    "venue": "Marty Byrde's",
+    "camera_name": "Inside",
+    "provider": "twitch",
+    "source": "spydernetwork25",
+    "slug": "neon-taco-bar",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
+    "venue": "Marty Byrde's",
+    "camera_name": "Street View",
+    "provider": "twitch",
+    "source": "spydernetwork24",
+    "slug": "fish-and-company",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
     "venue": "Spyder on the Strip",
     "camera_name": "Shoreland",
     "provider": "twitch",
     "source": "spydernetwork33",
     "slug": "dog-days-dock-1",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
+    "venue": "Lake Billiards",
+    "camera_name": "Dining",
+    "provider": "twitch",
+    "source": "spydernetwork6",
+    "slug": "backwater-jacks-dock",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
+    "venue": "Lake & Land Trading",
+    "camera_name": "Floor",
+    "provider": "twitch",
+    "source": "spydernetwork56",
+    "slug": "double-ds-roadhouse",
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:29 AM"
@@ -420,5 +410,15 @@
     "slug": "double-ds-roadhouse",
     "status": "active",
     "favorite": false
+  },
+  {
+    "venue": "54 Southbound",
+    "camera_name": "Southbound",
+    "provider": "twitch",
+    "source": "spydernetwork57",
+    "slug": "double-ds-roadhouse-gameroom",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:28 AM"
   }
 ]
