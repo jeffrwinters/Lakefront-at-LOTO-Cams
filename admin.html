@@ -62,7 +62,8 @@ padding:0 20px 12px 20px;
 <button onclick="checkAll()">Check All Cameras</button>
 <button onclick="showFailed()">Show Failed</button><button onclick="toggleFavorites()">Favorites</button>
 <button onclick="disableFailed()">Disable Failed</button>
-<button onclick="download()">Download cams.json</button>
+<button onclick="saveChanges()">Save Changes</button>
+<span id="saveStatus" class="small">Ready</span>
 <progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
 </div>
 
@@ -73,6 +74,53 @@ let cams=[];
 let failedOnly=false;
 let favoritesOnly=false;
 let dragIndex=null;
+const API_URL='https://lakefront-admin-api.jeff-r-winters.workers.dev';
+
+async function getAdminPassword(){
+  let pw=sessionStorage.getItem('adminPassword');
+  if(!pw){
+    pw=prompt('Admin Password');
+    if(!pw) throw new Error('Password required');
+    sessionStorage.setItem('adminPassword',pw);
+  }
+  return pw;
+}
+
+function setSaveStatus(text){
+  const el=document.getElementById('saveStatus');
+  if(el) el.textContent=text;
+}
+
+function markDirty(){
+  setSaveStatus('Unsaved Changes');
+}
+
+async function saveChanges(){
+  try{
+    setSaveStatus('Saving...');
+    const password=await getAdminPassword();
+
+    const response=await fetch(`${API_URL}/save`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({password,cams})
+    });
+
+    const result=await response.json();
+
+    if(!response.ok){
+      throw new Error(result.error || 'Save failed');
+    }
+
+    setSaveStatus('✓ Saved');
+  }catch(err){
+    console.error(err);
+    sessionStorage.removeItem('adminPassword');
+    setSaveStatus('✗ Save Failed');
+    alert(err.message);
+  }
+}
+
 
 async function load(){
  const r=await fetch(`cams.json?v=${Date.now()}`, { cache: 'no-store' });
@@ -107,28 +155,29 @@ document.getElementById('stats').innerHTML=`
       const moved=cams.splice(dragIndex,1)[0];
       cams.splice(i,0,moved);
       dragIndex=null;
+      markDirty();
       render();
    };
 
    row.innerHTML=`
    <button title="Top" onclick="moveTop(${i})">⇑</button><button title="Move Up" onclick="moveUp(${i})">↑</button><button title="Move Down" onclick="moveDown(${i})">↓</button><button title="Bottom" onclick="moveBottom(${i})">⇓</button>
 
-   <input value="${c.venue||''}" onchange="cams[${i}].venue=this.value">
-   <input value="${c.camera_name||''}" onchange="cams[${i}].camera_name=this.value">
-   <select onchange="cams[${i}].provider=this.value">
+   <input value="${c.venue||''}" onchange="cams[${i}].venue=this.value;markDirty()">
+   <input value="${c.camera_name||''}" onchange="cams[${i}].camera_name=this.value;markDirty()">
+   <select onchange="cams[${i}].provider=this.value;markDirty()">
       <option ${c.provider==='twitch'?'selected':''}>twitch</option>
       <option value="ipcamlive" ${c.provider==='ipcamlive' || c.provider==='ipcamlive.com'?'selected':''}>IPCamLive</option>
       <option ${c.provider==='hls'?'selected':''}>hls</option>
    </select>
    <input value="${c.source||''}" size="20"
       placeholder="${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')?'Camera Alias':'Twitch Channel'}"
-      onchange="cams[${i}].source=this.value">
+      onchange="cams[${i}].source=this.value;markDirty()">
 
    ${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')
       ? ''
-      : `<input value="${c.slug||''}" placeholder="Slug" onchange="cams[${i}].slug=this.value">`}
+      : `<input value="${c.slug||''}" placeholder="Slug" onchange="cams[${i}].slug=this.value;markDirty()">`}
 
-   <select onchange="cams[${i}].status=this.value">
+   <select onchange="cams[${i}].status=this.value;markDirty()">
       <option value="active" ${c.status==='active'?'selected':''}>active</option>
       <option value="disabled" ${c.status==='disabled'?'selected':''}>disabled</option>
    </select>
@@ -143,6 +192,7 @@ document.getElementById('stats').innerHTML=`
 }
 
 function addCamera(){
+ markDirty();
  cams.push({
   venue:'',
   camera_name:'',
@@ -158,12 +208,14 @@ function addCamera(){
 function delCamera(i){
  if(confirm('Delete camera?')){
    cams.splice(i,1);
+   markDirty();
    render();
  }
 }
 
 function toggleFav(i){
  cams[i].favorite=!cams[i].favorite;
+ markDirty();
  render();
 }
 
@@ -231,23 +283,27 @@ function moveTop(i){
  if(i<1) return;
  const c=cams.splice(i,1)[0];
  cams.unshift(c);
+ markDirty();
  render();
 }
 function moveBottom(i){
  if(i>=cams.length-1) return;
  const c=cams.splice(i,1)[0];
  cams.push(c);
+ markDirty();
  render();
 }
 function moveUp(i){
 
  if(i<1) return;
  [cams[i-1],cams[i]]=[cams[i],cams[i-1]];
+ markDirty();
  render();
 }
 function moveDown(i){
  if(i>=cams.length-1) return;
  [cams[i+1],cams[i]]=[cams[i],cams[i+1]];
+ markDirty();
  render();
 }
 window.addEventListener('scroll',()=>{
