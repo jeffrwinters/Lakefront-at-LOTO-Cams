@@ -29,7 +29,7 @@
     "slug": "the-hatch",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
+    "last_checked": "6/2/2026, 1:41:26 PM"
   },
   {
     "venue": "Margarittaville",
@@ -41,6 +41,15 @@
     "favorite": false,
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:27 AM"
+  },
+  {
+    "venue": "The Hatch",
+    "camera_name": "Gas Dock",
+    "provider": "twitch",
+    "source": "spydernetwork14",
+    "slug": "the-hatch",
+    "status": "active",
+    "favorite": false
   },
   {
     "venue": "Fish & Co",
