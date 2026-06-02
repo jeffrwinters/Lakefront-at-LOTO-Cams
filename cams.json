@@ -67,7 +67,7 @@
     "provider": "twitch",
     "source": "spydernetwork26",
     "slug": "fish-and-company",
-    "status": "active",
+    "status": "disabled",
     "favorite": false
   },
   {
@@ -426,7 +426,7 @@
     "provider": "twitch",
     "source": "spydernetwork60",
     "slug": "double-ds-roadhouse",
-    "status": "active",
+    "status": "disabled",
     "favorite": false
   },
   {
