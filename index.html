@@ -1263,10 +1263,6 @@ async function refreshCamsIfChanged() {
       )
     );
 
-// Preserve sidebar scroll position
-const camList = document.getElementById('camList');
-const scrollTop = camList.scrollTop;
-
 // Preserve sidebar state
 const camList = document.getElementById('camList');
 const scrollTop = camList.scrollTop;
@@ -1782,8 +1778,8 @@ function filterCams() {
   document.querySelectorAll('.cam-item').forEach((el, i) => {
     const cam = CAMS[i];
 
-    const text =
-      `${cam.venue} ${cam.name} ${cam.source}`.toLowerCase();
+   const text =
+  `${cam.venue} ${cam.camera_name} ${cam.source}`.toLowerCase();
 
     el.style.display = text.includes(val) ? 'flex' : 'none';
   });
