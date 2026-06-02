@@ -3036,8 +3036,7 @@ async function loadLayer(data, layer, color, radius=7) {
 
 
 async function loadMileMarkers() {
-  const response = Promise.resolve({ json: async () => MILEMARKERS });
-  const data = await response.json();
+  const data = MILEMARKERS;
 
   data.forEach(item => {
     const label = L.marker(
