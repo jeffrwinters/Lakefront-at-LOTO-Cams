@@ -25,6 +25,7 @@ body.scrolled .header p{opacity:0;max-height:0;overflow:hidden;margin:0}
 .toolbar{position:sticky;top:72px;background:#132046;padding:12px;border-radius:0 0 14px 14px;display:flex;gap:8px;margin-top:-4px;flex-wrap:wrap;align-items:center;margin-bottom:16px;z-index:245;box-shadow:0 14px 30px rgba(0,0,0,.55),0 3px 0 #3550a8}
 button,input,select{padding:10px;border-radius:10px;border:1px solid #3550a8}
 button{background:var(--panel2);color:white;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
 input,select{background:#0f1730;color:white}
 #stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
 .stat{background:var(--panel);padding:14px;border-radius:14px;text-align:center}
@@ -62,7 +63,7 @@ padding:0 20px 12px 20px;
 <button onclick="checkAll()">Check All Cameras</button>
 <button onclick="showFailed()">Show Failed</button><button onclick="toggleFavorites()">Favorites</button>
 <button onclick="disableFailed()">Disable Failed</button>
-<button onclick="saveChanges()">Save Changes</button>
+<button id="saveBtn" onclick="saveChanges()">Save Changes</button>
 <span id="saveStatus" class="small">Ready</span>
 <progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
 </div>
@@ -96,8 +97,12 @@ function markDirty(){
 }
 
 async function saveChanges(){
+  const btn=document.getElementById('saveBtn');
+
   try{
+    btn.disabled=true;
     setSaveStatus('Saving...');
+
     const password=await getAdminPassword();
 
     const response=await fetch(`${API_URL}/save`,{
@@ -112,12 +117,32 @@ async function saveChanges(){
       throw new Error(result.error || 'Save failed');
     }
 
-    setSaveStatus('✓ Saved');
+    const ts=new Date().toLocaleTimeString([],{
+      hour:'numeric',
+      minute:'2-digit'
+    });
+
+    const shortSha=(result.commit || '').substring(0,7);
+
+    setSaveStatus(`✓ Saved ${ts} (${shortSha})`);
+
   }catch(err){
+
     console.error(err);
-    sessionStorage.removeItem('adminPassword');
+
+    if(
+      err.message.includes('Unauthorized') ||
+      err.message.includes('401')
+    ){
+      sessionStorage.removeItem('adminPassword');
+    }
+
     setSaveStatus('✗ Save Failed');
+
     alert(err.message);
+
+  }finally{
+    btn.disabled=false;
   }
 }
 
