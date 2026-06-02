@@ -1224,242 +1224,17 @@ Select the cams to include in the cycle from the All Cams list above.
 <div id="toast"></div>
 <script>
 // ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
-const CAMS = [
-  {
-    "venue": "Alhonna",
-    "camera_name": "Outside Pool",
-    "provider": "twitch",
-    "source": "spydernetwork61",
-    "slug": "lake-billiards",
-    "status": "active"
-  },
-  {
-    "venue": "Alhonna",
-    "camera_name": "Inside Pool",
-    "provider": "twitch",
-    "source": "spydernetwork65",
-    "slug": "outlaws-mens-outpost",
-    "status": "active"
-  },
-  {
-    "venue": "Alhonna",
-    "camera_name": "Bar",
-    "provider": "twitch",
-    "source": "spydernetwork60",
-    "slug": "dock-glide",
-    "status": "active"
-  },
-  {
-    "venue": "Backwater Jacks",
-    "camera_name": "Pool",
-    "provider": "twitch",
-    "source": "spydernetwork3",
-    "slug": "backwater-jacks-pool",
-    "status": "active"
-  },
-  {
-    "venue": "Bridgeview Marina",
-    "camera_name": "Dock",
-    "provider": "twitch",
-    "source": "spydernetwork69",
-    "slug": "the-hatch",
-    "status": "active"
-  },
-  {
-    "venue": "Dock Glide",
-    "camera_name": "Cam 1",
-    "provider": "twitch",
-    "source": "spydernetwork21",
-    "slug": "fish-and-company-stage",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Pool",
-    "provider": "twitch",
-    "source": "spydernetwork31",
-    "slug": "dog-days-pool",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Stage",
-    "provider": "twitch",
-    "source": "spydernetwork27",
-    "slug": "neon-taco-docks",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Docks 1",
-    "provider": "twitch",
-    "source": "spydernetwork28",
-    "slug": "paradise-restaurant-bar",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Docs 2",
-    "provider": "twitch",
-    "source": "spydernetwork29",
-    "slug": "paradise-restaurant-bar-2",
-    "status": "active"
-  },
-  {
-    "venue": "Encore Lakeside Grill",
-    "camera_name": "Pool 1",
-    "provider": "twitch",
-    "source": "spydernetwork9",
-    "slug": "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "venue": "Encore Lakeside Grill",
-    "camera_name": "Pool 2",
-    "provider": "twitch",
-    "source": "spydernetwork8",
-    "slug": "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "venue": "Encore Lakeside Grill",
-    "camera_name": "Stage",
-    "provider": "twitch",
-    "source": "spydernetwork10",
-    "slug": "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "venue": "Fish & Co",
-    "camera_name": "Stage",
-    "provider": "twitch",
-    "source": "spydernetwork35",
-    "slug": "tucker-shuckers-north",
-    "status": "active"
-  },
-  {
-    "venue": "Fish and Company",
-    "camera_name": "Dock",
-    "provider": "twitch",
-    "source": "spydernetwork23",
-    "slug": "fish-and-company-dock-1",
-    "status": "active"
-  },
-  {
-    "venue": "Lake & Land Trading",
-    "camera_name": "Floor",
-    "provider": "twitch",
-    "source": "spydernetwork56",
-    "slug": "double-ds-roadhouse",
-    "status": "active"
-  },
-  {
-    "venue": "Lake Billiards",
-    "camera_name": "Dining",
-    "provider": "twitch",
-    "source": "spydernetwork6",
-    "slug": "backwater-jacks-dock",
-    "status": "active"
-  },
-  {
-    "venue": "Level Five",
-    "camera_name": "Pancam",
-    "provider": "twitch",
-    "source": "spydernetwork66",
-    "slug": "backwater-jacks-level-five-lake-ozarks",
-    "status": "active"
-  },
-  {
-    "venue": "MM17",
-    "camera_name": "Docks",
-    "provider": "twitch",
-    "source": "spydernetwork34",
-    "slug": "dog-days-dock",
-    "status": "active"
-  },
-  {
-    "venue": "Marty Byrde's",
-    "camera_name": "Inside",
-    "provider": "twitch",
-    "source": "spydernetwork25",
-    "slug": "neon-taco-bar",
-    "status": "active"
-  },
-  {
-    "venue": "Marty Byrde's",
-    "camera_name": "Street View",
-    "provider": "twitch",
-    "source": "spydernetwork24",
-    "slug": "fish-and-company",
-    "status": "active"
-  },
-  {
-    "venue": "Michael's Steak Chalet",
-    "camera_name": "Patio",
-    "provider": "twitch",
-    "source": "spydernetwork38",
-    "slug": "wicked-willies-restaurant",
-    "status": "active"
-  },
-  {
-    "venue": "Neon Taco - Bar",
-    "camera_name": "Deck",
-    "provider": "twitch",
-    "source": "spydernetwork20",
-    "slug": "bridgeview-marina",
-    "status": "active"
-  },
-  {
-    "venue": "Paradise",
-    "camera_name": "Docks 1",
-    "provider": "twitch",
-    "source": "spydernetwork44",
-    "slug": "marty-byrds-outside",
-    "status": "active"
-  },
-  {
-    "venue": "Paradise",
-    "camera_name": "Docks 2",
-    "provider": "twitch",
-    "source": "spydernetwork45",
-    "slug": "marty-byrds",
-    "status": "active"
-  },
-  {
-    "venue": "Spyder on the Strip",
-    "camera_name": "Shoreland",
-    "provider": "twitch",
-    "source": "spydernetwork33",
-    "slug": "dog-days-dock-1",
-    "status": "active"
-  },
-  {
-    "venue": "Topsider",
-    "camera_name": "Bridge",
-    "provider": "twitch",
-    "source": "spydernetwork37",
-    "slug": "wicked-willies-bar",
-    "status": "active"
-  },
-  {
-    "venue": "Tuckers",
-    "camera_name": "Top Deck",
-    "provider": "twitch",
-    "source": "spydernetwork32",
-    "slug": "dog-days-stage",
-    "status": "active"
-  },
-  {
-    "venue": "Wicked Willie's",
-    "camera_name": "Dining",
-    "provider": "twitch",
-    "source": "spydernetwork36",
-    "slug": "tucker-shuckers-south",
-    "status": "active"
-  }
-];
 
-// ─── State ────────────────────────────────────────────────────────────────────
+// ─── Camera Data ────────────────────────────────────────────────────────────
+let CAMS = [];
+
+async function loadCamsData() {
+  const response = await fetch('cams.json');
+  const allCams = await response.json();
+
+  CAMS = allCams.filter(cam => cam.status === 'active');
+}
+// ─── State ─────────────────────────────────────────────────────────────
 let currentIdx = 0;
 let cycleQueue = [];       // indices of cams in cycle
 let cycleQueuePos = 0;     // position within cycleQueue
@@ -1473,12 +1248,53 @@ function timerMs() {
   return parseInt(document.getElementById('timeSlider').value) * 1000;
 }
 
+
+// ─── User Preferences Persistence ────────────────────────────────────────────
+const STORAGE_KEYS = {
+  selectedCams: 'loto_selected_cams',
+  cycleInterval: 'loto_cycle_interval'
+};
+
+function savePreferences() {
+  try {
+    localStorage.setItem(STORAGE_KEYS.selectedCams, JSON.stringify([...selectedCams]));
+    localStorage.setItem(STORAGE_KEYS.cycleInterval, document.getElementById('timeSlider').value);
+  } catch (e) {}
+}
+
+function loadPreferences() {
+  try {
+    const savedInterval = localStorage.getItem(STORAGE_KEYS.cycleInterval);
+    if (savedInterval) {
+      document.getElementById('timeSlider').value = savedInterval;
+    }
+
+    const savedCams = localStorage.getItem(STORAGE_KEYS.selectedCams);
+    if (savedCams) {
+      const parsed = JSON.parse(savedCams);
+      selectedCams = new Set(parsed.filter(i => i >= 0 && i < CAMS.length));
+    } else {
+      selectedCams = new Set(CAMS.map((_, i) => i));
+    }
+  } catch (e) {
+    selectedCams = new Set(CAMS.map((_, i) => i));
+  }
+}
+
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
-function init() {
+async function init() {
+  await loadCamsData();
+  loadPreferences();
   document.getElementById('camCount').textContent = CAMS.length + ' cams';
+  const startCam = loadPreferences();
   buildSidebar();
+  updateTimeDisplay();
   updateSelectedCount();
-  loadCam(0);
+  savePreferences();
+  CAMS.forEach((_, i) => updateSelectionUI(i));
+  updateTimeDisplay();
+  loadCam(startCam);
   setupCastListeners();
   loadLakeConditions();
 }
@@ -1487,6 +1303,7 @@ function init() {
 // Multiple Twitch parent domains are included so embeds work before DNS propagation.
 function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
+  localStorage.setItem(STORAGE_KEYS.lastCamera, currentIdx);
   const cam = CAMS[currentIdx];
 
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.camera_name}`;
@@ -1505,7 +1322,21 @@ function loadCam(idx) {
     .map(p => `parent=${p}`)
     .join('&');
 
-  const src = `https://player.twitch.tv/?channel=${cam.source}&${parentParams}&autoplay=true&muted=false`;
+  let src = '';
+
+  switch ((cam.provider || '').toLowerCase()) {
+
+    case 'ipcamlive':
+    case 'ipcamlive.com':
+      src = `https://g1.ipcamlive.com/player/player.php?alias=${cam.source}`;
+      break;
+
+    case 'twitch':
+    default:
+      src = `https://player.twitch.tv/?channel=${cam.source}&${parentParams}&autoplay=true&muted=false`;
+      break;
+  }
+
   document.getElementById('twitchFrame').src = src;
 
   // Update sidebar
@@ -1583,6 +1414,7 @@ function scheduleTick() {
 }
 
 function resetTimerBar() {
+  savePreferences();
   if (isCycling) { clearTimeout(timerTimeout); scheduleTick(); }
   else document.getElementById('timerBar').style.width = '0%';
 }
@@ -1596,9 +1428,11 @@ function animateTimer() {
 
 // ─── Time slider ──────────────────────────────────────────────────────────────
 function updateTimeDisplay() {
+  savePreferences();
   const val = parseInt(document.getElementById('timeSlider').value);
   const disp = val < 60 ? val + 's' : (val / 60) % 1 === 0 ? (val / 60) + 'm' : (val / 60).toFixed(1) + 'm';
   document.getElementById('timeDisplay').textContent = disp;
+  savePreferences();
   if (isCycling) { clearTimeout(timerTimeout); scheduleTick(); }
 }
 
@@ -1608,6 +1442,7 @@ function toggleCamSelection(idx) {
   else selectedCams.add(idx);
   updateSelectionUI(idx);
   updateSelectedCount();
+  savePreferences();
 }
 
 function updateSelectionUI(idx) {
@@ -1628,12 +1463,14 @@ function selectAll() {
   CAMS.forEach((_, i) => selectedCams.add(i));
   CAMS.forEach((_, i) => updateSelectionUI(i));
   updateSelectedCount();
+  savePreferences();
 }
 
 function selectNone() {
   selectedCams.clear();
   CAMS.forEach((_, i) => updateSelectionUI(i));
   updateSelectedCount();
+  savePreferences();
 }
 
 
@@ -1742,6 +1579,11 @@ function setupCastListeners() {
 
 function castCam(cam) {
   if (!castSession) return;
+
+  if ((cam.provider || '').toLowerCase() !== 'twitch') {
+    showToast('Casting currently supported only for Twitch cameras');
+    return;
+  }
   const mediaInfo = new chrome.cast.media.MediaInfo(`https://www.twitch.tv/${cam.source}`, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
   mediaInfo.metadata.title = `${cam.venue} — ${cam.name}`;
@@ -1842,20 +1684,15 @@ async function loadLakeConditions() {
     document.getElementById('windSpeed').textContent = wind + ' mph';
 
     // seasonal estimate fallback
-    const month = new Date().getMonth() + 1;
+try {
+  const waterRes = await fetch(`water_temp.json?v=${Date.now()}`);
+  const waterData = await waterRes.json();
 
-    let waterTemp = 55;
-
-    if (month <= 3) waterTemp = 48;
-    else if (month <= 4) waterTemp = 58;
-    else if (month <= 5) waterTemp = 68;
-    else if (month <= 6) waterTemp = 76;
-    else if (month <= 8) waterTemp = 84;
-    else if (month <= 9) waterTemp = 79;
-    else if (month <= 10) waterTemp = 68;
-    else waterTemp = 58;
-
-    document.getElementById('waterTemp').textContent = waterTemp + '°';
+  document.getElementById('waterTemp').textContent =
+    Math.round(waterData.waterTemp) + '°';
+} catch (e) {
+  document.getElementById('waterTemp').textContent = '--°';
+}
 
     // stable defaults for GitHub Pages
     document.getElementById('lakeLevel').textContent = '659 ft';

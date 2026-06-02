@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lakefront Admin v3</title>
+
+<style>
+:root{
+--bg:#08101f;--panel:#132046;--panel2:#1b2f63;--text:#fff;--muted:#c6d0ee;
+--green:#2ecc71;--red:#ff6b6b;
+}
+body{font-family:Arial,sans-serif;background:linear-gradient(180deg,#08101f,#0b1226);color:white;padding:20px;margin:0}
+.header{display:flex;align-items:center;gap:16px;background:#09152f;padding:16px 20px;border-bottom:2px solid #1b4cff;margin:-20px -20px 20px -20px}
+.header{position:sticky;top:0;z-index:250;transition:all .3s ease}
+.header img{height:56px;transition:all .3s ease}
+.header h1{transition:all .3s ease}
+.header p{transition:all .3s ease}
+body.scrolled .header{padding:8px 16px}
+body.scrolled .header img{height:32px}
+body.scrolled .header h1{font-size:22px}
+body.scrolled .header p{opacity:0;max-height:0;overflow:hidden;margin:0}
+.header h1{margin:0;font-size:32px}
+.header p{margin:4px 0 0;color:var(--muted)}
+.toolbar{position:sticky;top:72px;background:#132046;padding:12px;border-radius:0 0 14px 14px;display:flex;gap:8px;margin-top:-4px;flex-wrap:wrap;align-items:center;margin-bottom:16px;z-index:245;box-shadow:0 14px 30px rgba(0,0,0,.55),0 3px 0 #3550a8}
+button,input,select{padding:10px;border-radius:10px;border:1px solid #3550a8}
+button{background:var(--panel2);color:white;cursor:pointer}
+input,select{background:#0f1730;color:white}
+#stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--panel);padding:14px;border-radius:14px;text-align:center}
+.stat .n{font-size:26px;font-weight:bold}
+.row{background:#101b3c;border:1px solid #3550a8;padding:12px;margin:10px 0;border-radius:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.reachable{border-left:5px solid var(--green)}
+.failed{border-left:5px solid var(--red)}
+.small{font-size:12px;color:#c6d0ee}
+
+.sticky-shell{
+position:sticky;
+top:0;
+z-index:245;
+background:linear-gradient(180deg,#09152f,#132046);
+margin:-20px -20px 16px -20px;
+padding:0 20px 12px 20px;
+}
+</style>
+
+
+</head>
+<body>
+
+<div class="sticky-shell"><div class="header">
+<img src="logo.png" alt="Lakefront at LOTO Logo">
+<div>
+<h1>Lakefront at LOTO</h1>
+<p>Operations Center</p>
+</div>
+</div>
+</div><div id="stats"></div>
+
+<div class="toolbar">
+<button onclick="addCamera()">+ Add Camera</button>
+<button onclick="checkAll()">Check All Cameras</button>
+<button onclick="showFailed()">Show Failed</button><button onclick="toggleFavorites()">Favorites</button>
+<button onclick="disableFailed()">Disable Failed</button>
+<button onclick="download()">Download cams.json</button>
+<progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
+</div>
+
+<div id="list"></div>
+
+<script>
+let cams=[];
+let failedOnly=false;
+let favoritesOnly=false;
+let dragIndex=null;
+
+async function load(){
+ const r=await fetch(`cams.json?v=${Date.now()}`, { cache: 'no-store' });
+ cams=await r.json();
+ render();
+}
+
+function render(){
+const active=cams.filter(c=>c.status==='active').length;
+const failed=cams.filter(c=>c.health==='failed').length;
+const favs=cams.filter(c=>c.favorite).length;
+document.getElementById('stats').innerHTML=`
+<div class="stat"><div class="n">${cams.length}</div><div>Cameras</div></div>
+<div class="stat"><div class="n">${active}</div><div>Active</div></div>
+<div class="stat"><div class="n">${failed}</div><div>Failed</div></div>
+<div class="stat"><div class="n">${favs}</div><div>Favorites</div></div>`;
+
+ const list=document.getElementById('list');
+ list.innerHTML='';
+ cams.forEach((c,i)=>{
+   if(failedOnly && c.health!=='failed') return;
+   if(favoritesOnly && !c.favorite) return;
+
+   const row=document.createElement('div');
+   row.className='row '+(c.health||'');
+   row.draggable=true;
+   row.ondragstart=()=>{dragIndex=i};
+   row.ondragover=(e)=>e.preventDefault();
+   row.ondrop=(e)=>{
+      e.preventDefault();
+      if(dragIndex===null || dragIndex===i) return;
+      const moved=cams.splice(dragIndex,1)[0];
+      cams.splice(i,0,moved);
+      dragIndex=null;
+      render();
+   };
+
+   row.innerHTML=`
+   <button title="Top" onclick="moveTop(${i})">⇑</button><button title="Move Up" onclick="moveUp(${i})">↑</button><button title="Move Down" onclick="moveDown(${i})">↓</button><button title="Bottom" onclick="moveBottom(${i})">⇓</button>
+
+   <input value="${c.venue||''}" onchange="cams[${i}].venue=this.value">
+   <input value="${c.camera_name||''}" onchange="cams[${i}].camera_name=this.value">
+   <select onchange="cams[${i}].provider=this.value">
+      <option ${c.provider==='twitch'?'selected':''}>twitch</option>
+      <option value="ipcamlive" ${c.provider==='ipcamlive' || c.provider==='ipcamlive.com'?'selected':''}>IPCamLive</option>
+      <option ${c.provider==='hls'?'selected':''}>hls</option>
+   </select>
+   <input value="${c.source||''}" size="20"
+      placeholder="${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')?'Camera Alias':'Twitch Channel'}"
+      onchange="cams[${i}].source=this.value">
+
+   ${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')
+      ? ''
+      : `<input value="${c.slug||''}" placeholder="Slug" onchange="cams[${i}].slug=this.value">`}
+
+   <select onchange="cams[${i}].status=this.value">
+      <option value="active" ${c.status==='active'?'selected':''}>active</option>
+      <option value="disabled" ${c.status==='disabled'?'selected':''}>disabled</option>
+   </select>
+   <span style="cursor:grab;font-size:18px">☰</span>
+   <button onclick="toggleFav(${i})">${c.favorite?'⭐':'☆'}</button>
+   <button onclick="checkOne(${i})">Check</button><button onclick="previewCam(${i})">Preview</button>
+   <button onclick="delCamera(${i})">Delete</button>
+   <span class="small">${c.health||'not checked'} ${c.last_checked||''}</span>
+   `;
+   list.appendChild(row);
+ });
+}
+
+function addCamera(){
+ cams.push({
+  venue:'',
+  camera_name:'',
+  provider:'twitch',
+  source:'',
+  slug:'',
+  status:'active',
+  favorite:false
+ });
+ render();
+}
+
+function delCamera(i){
+ if(confirm('Delete camera?')){
+   cams.splice(i,1);
+   render();
+ }
+}
+
+function toggleFav(i){
+ cams[i].favorite=!cams[i].favorite;
+ render();
+}
+
+async function probe(c){
+ try{
+   let url=c.provider==='twitch'
+     ? 'https://www.twitch.tv/'+c.source
+     : c.source;
+   await fetch(url,{mode:'no-cors'});
+   return 'reachable';
+ }catch(e){
+   return 'failed';
+ }
+}
+
+async function checkOne(i){
+ cams[i].health='checking';
+ render();
+ const r=await probe(cams[i]);
+ cams[i].health=r;
+ cams[i].last_checked=new Date().toLocaleString();
+ render();
+}
+
+async function checkAll(){ document.getElementById('progressbar').style.display='inline-block';
+ let done=0;
+ for(let i=0;i<cams.length;i++){
+   document.getElementById('progress').textContent=`${done}/${cams.length}`;
+document.getElementById('progressbar').value=(done/cams.length)*100;
+   await checkOne(i);
+   done++;
+ }
+ document.getElementById('progress').textContent=`${cams.length}/${cams.length} complete`;
+document.getElementById('progressbar').value=100; setTimeout(()=>{document.getElementById('progressbar').style.display='none';document.getElementById('progress').textContent='';},1500);
+}
+
+function showFailed(){
+ failedOnly=!failedOnly;
+ render();
+}
+
+function toggleFavorites(){
+ favoritesOnly=!favoritesOnly;
+ render();
+}
+
+function disableFailed(){
+ cams.forEach(c=>{
+   if(c.health==='failed') c.status='disabled';
+ });
+ render();
+}
+
+function download(){
+ const blob=new Blob([JSON.stringify(cams,null,2)],{type:'application/json'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='cams.json';
+ a.click();
+}
+
+
+
+function moveTop(i){
+ if(i<1) return;
+ const c=cams.splice(i,1)[0];
+ cams.unshift(c);
+ render();
+}
+function moveBottom(i){
+ if(i>=cams.length-1) return;
+ const c=cams.splice(i,1)[0];
+ cams.push(c);
+ render();
+}
+function moveUp(i){
+
+ if(i<1) return;
+ [cams[i-1],cams[i]]=[cams[i],cams[i-1]];
+ render();
+}
+function moveDown(i){
+ if(i>=cams.length-1) return;
+ [cams[i+1],cams[i]]=[cams[i],cams[i+1]];
+ render();
+}
+window.addEventListener('scroll',()=>{
+ document.body.classList.toggle('scrolled', window.scrollY>60);
+});
+
+function previewCam(i){
+ const c=cams[i];
+ let url='';
+ if(c.provider==='twitch'){
+   url='https://www.twitch.tv/'+c.source;
+ } else if(c.provider==='ipcamlive' || c.provider==='ipcamlive.com'){
+   url='https://g1.ipcamlive.com/player/player.php?alias='+c.source;
+ } else {
+   url=c.source;
+ }
+ window.open(url,'_blank');
+}
+
+
+load();
+
+</script>
+</body>
+</html>

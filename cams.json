@@ -1,43 +1,25 @@
 [
   {
-    "venue": "54 Southbound",
-    "camera_name": "Game Room",
-    "provider": "twitch",
-    "source": "spydernetwork57",
-    "slug": "double-ds-roadhouse-gameroom",
-    "status": "disabled"
+    "venue": "JB Hooks",
+    "camera_name": "Southeast",
+    "provider": "ipcamlive",
+    "source": "jbhooksleft",
+    "slug": "",
+    "status": "active",
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/1/2026, 1:10:39 PM"
   },
   {
-    "venue": "Alhonna",
-    "camera_name": "Outside Pool",
-    "provider": "twitch",
-    "source": "spydernetwork61",
-    "slug": "lake-billiards",
-    "status": "active"
-  },
-  {
-    "venue": "Alhonna",
-    "camera_name": "Inside Pool",
-    "provider": "twitch",
-    "source": "spydernetwork65",
-    "slug": "outlaws-mens-outpost",
-    "status": "active"
-  },
-  {
-    "venue": "Alhonna",
-    "camera_name": "Bar",
-    "provider": "twitch",
-    "source": "spydernetwork60",
-    "slug": "dock-glide",
-    "status": "active"
-  },
-  {
-    "venue": "Backwater Jacks",
-    "camera_name": "Pool",
-    "provider": "twitch",
-    "source": "spydernetwork3",
-    "slug": "backwater-jacks-pool",
-    "status": "active"
+    "venue": "JB Hooks",
+    "camera_name": "Bridge",
+    "provider": "ipcamlive.com",
+    "source": "jbhooksbridge",
+    "slug": "",
+    "status": "active",
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/1/2026, 12:08:22 PM"
   },
   {
     "venue": "Bridgeview Marina",
@@ -45,7 +27,9 @@
     "provider": "twitch",
     "source": "spydernetwork69",
     "slug": "the-hatch",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Dock Glide",
@@ -53,63 +37,9 @@
     "provider": "twitch",
     "source": "spydernetwork21",
     "slug": "fish-and-company-stage",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Pool",
-    "provider": "twitch",
-    "source": "spydernetwork31",
-    "slug": "dog-days-pool",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Stage",
-    "provider": "twitch",
-    "source": "spydernetwork27",
-    "slug": "neon-taco-docks",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Docks 1",
-    "provider": "twitch",
-    "source": "spydernetwork28",
-    "slug": "paradise-restaurant-bar",
-    "status": "active"
-  },
-  {
-    "venue": "Dog Days",
-    "camera_name": "Docs 2",
-    "provider": "twitch",
-    "source": "spydernetwork29",
-    "slug": "paradise-restaurant-bar-2",
-    "status": "active"
-  },
-  {
-    "venue": "Encore Lakeside Grill",
-    "camera_name": "Pool 1",
-    "provider": "twitch",
-    "source": "spydernetwork9",
-    "slug": "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "venue": "Encore Lakeside Grill",
-    "camera_name": "Pool 2",
-    "provider": "twitch",
-    "source": "spydernetwork8",
-    "slug": "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
-  },
-  {
-    "venue": "Encore Lakeside Grill",
-    "camera_name": "Stage",
-    "provider": "twitch",
-    "source": "spydernetwork10",
-    "slug": "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Fish & Co",
@@ -117,7 +47,9 @@
     "provider": "twitch",
     "source": "spydernetwork35",
     "slug": "tucker-shuckers-north",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Fish and Company",
@@ -125,7 +57,129 @@
     "provider": "twitch",
     "source": "spydernetwork23",
     "slug": "fish-and-company-dock-1",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "54 Southbound",
+    "camera_name": "Game Room",
+    "provider": "twitch",
+    "source": "spydernetwork57",
+    "slug": "double-ds-roadhouse-gameroom",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:12 AM"
+  },
+  {
+    "venue": "Alhonna",
+    "camera_name": "Inside Pool",
+    "provider": "twitch",
+    "source": "spydernetwork65",
+    "slug": "outlaws-mens-outpost",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:12 AM"
+  },
+  {
+    "venue": "Alhonna",
+    "camera_name": "Outside Pool",
+    "provider": "twitch",
+    "source": "spydernetwork61",
+    "slug": "lake-billiards",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:12 AM"
+  },
+  {
+    "venue": "Alhonna",
+    "camera_name": "Bar",
+    "provider": "twitch",
+    "source": "spydernetwork60",
+    "slug": "dock-glide",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:12 AM"
+  },
+  {
+    "venue": "Backwater Jacks",
+    "camera_name": "Pool",
+    "provider": "twitch",
+    "source": "spydernetwork3",
+    "slug": "backwater-jacks-pool",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:12 AM"
+  },
+  {
+    "venue": "Dog Days",
+    "camera_name": "Pool",
+    "provider": "twitch",
+    "source": "spydernetwork31",
+    "slug": "dog-days-pool",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "Dog Days",
+    "camera_name": "Stage",
+    "provider": "twitch",
+    "source": "spydernetwork27",
+    "slug": "neon-taco-docks",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "Dog Days",
+    "camera_name": "Docks 1",
+    "provider": "twitch",
+    "source": "spydernetwork28",
+    "slug": "paradise-restaurant-bar",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "Dog Days",
+    "camera_name": "Docs 2",
+    "provider": "twitch",
+    "source": "spydernetwork29",
+    "slug": "paradise-restaurant-bar-2",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "Encore Lakeside Grill",
+    "camera_name": "Pool 1",
+    "provider": "twitch",
+    "source": "spydernetwork9",
+    "slug": "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "Encore Lakeside Grill",
+    "camera_name": "Pool 2",
+    "provider": "twitch",
+    "source": "spydernetwork8",
+    "slug": "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
+  },
+  {
+    "venue": "Encore Lakeside Grill",
+    "camera_name": "Stage",
+    "provider": "twitch",
+    "source": "spydernetwork10",
+    "slug": "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks",
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "JB Hooks",
@@ -133,7 +187,9 @@
     "provider": "ipcamlive.com",
     "source": "https://g1.ipcamlive.com/player/player.php?alias=jbhooksleft",
     "slug": "None",
-    "status": "disabled"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "JB Hooks",
@@ -141,7 +197,9 @@
     "provider": "ipcamlive.com",
     "source": "https://g1.ipcamlive.com/player/player.php?alias=jbhooksbridge",
     "slug": "None",
-    "status": "disabled"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Lake & Land Trading",
@@ -149,7 +207,9 @@
     "provider": "twitch",
     "source": "spydernetwork56",
     "slug": "double-ds-roadhouse",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Lake Billiards",
@@ -157,7 +217,9 @@
     "provider": "twitch",
     "source": "spydernetwork6",
     "slug": "backwater-jacks-dock",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Level Five",
@@ -165,7 +227,9 @@
     "provider": "twitch",
     "source": "spydernetwork66",
     "slug": "backwater-jacks-level-five-lake-ozarks",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "MM17",
@@ -173,7 +237,9 @@
     "provider": "twitch",
     "source": "spydernetwork34",
     "slug": "dog-days-dock",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:13 AM"
   },
   {
     "venue": "Marty Byrde's",
@@ -181,7 +247,9 @@
     "provider": "twitch",
     "source": "spydernetwork25",
     "slug": "neon-taco-bar",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Marty Byrde's",
@@ -189,7 +257,9 @@
     "provider": "twitch",
     "source": "spydernetwork24",
     "slug": "fish-and-company",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Michael's Steak Chalet",
@@ -197,7 +267,9 @@
     "provider": "twitch",
     "source": "spydernetwork38",
     "slug": "wicked-willies-restaurant",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Neon Taco - Bar",
@@ -205,7 +277,9 @@
     "provider": "twitch",
     "source": "spydernetwork20",
     "slug": "bridgeview-marina",
-    "status": "active"
+    "status": "disabled",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Paradise",
@@ -213,7 +287,9 @@
     "provider": "twitch",
     "source": "spydernetwork44",
     "slug": "marty-byrds-outside",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Paradise",
@@ -221,7 +297,9 @@
     "provider": "twitch",
     "source": "spydernetwork45",
     "slug": "marty-byrds",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Spyder on the Strip",
@@ -229,7 +307,9 @@
     "provider": "twitch",
     "source": "spydernetwork33",
     "slug": "dog-days-dock-1",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Topsider",
@@ -237,7 +317,9 @@
     "provider": "twitch",
     "source": "spydernetwork37",
     "slug": "wicked-willies-bar",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Tuckers",
@@ -245,7 +327,9 @@
     "provider": "twitch",
     "source": "spydernetwork32",
     "slug": "dog-days-stage",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
   },
   {
     "venue": "Wicked Willie's",
@@ -253,6 +337,26 @@
     "provider": "twitch",
     "source": "spydernetwork36",
     "slug": "tucker-shuckers-south",
-    "status": "active"
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/1/2026, 8:41:14 AM"
+  },
+  {
+    "venue": "Neon Taco",
+    "camera_name": "Docks",
+    "provider": "twitch",
+    "source": "spydernetwork19",
+    "slug": "neon-taco-docks",
+    "status": "active",
+    "favorite": false
+  },
+  {
+    "venue": "Neon Taco",
+    "camera_name": "Stage",
+    "provider": "twitch",
+    "source": "spydernetwork3",
+    "slug": "neon-taco-stage",
+    "status": "active",
+    "favorite": false
   }
 ]
