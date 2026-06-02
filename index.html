@@ -1285,18 +1285,32 @@ function loadPreferences() {
 // ─── Init ─────────────────────────────────────────────────────────────────────
 async function init() {
   await loadCamsData();
+
   loadPreferences();
-  document.getElementById('camCount').textContent = CAMS.length + ' cams';
-  const startCam = loadPreferences();
+
+  document.getElementById('camCount').textContent =
+    CAMS.length + ' cams';
+
   buildSidebar();
+
   updateTimeDisplay();
   updateSelectedCount();
-  savePreferences();
+
   CAMS.forEach((_, i) => updateSelectionUI(i));
-  updateTimeDisplay();
-  loadCam(startCam);
+
+  const startCam =
+    parseInt(localStorage.getItem('loto_last_camera') || '0', 10);
+
+  loadCam(
+    Math.min(
+      Math.max(startCam, 0),
+      Math.max(CAMS.length - 1, 0)
+    )
+  );
+
   setupCastListeners();
-  loadLakeConditions();
+
+  await loadLakeConditions();
 }
 
 // ─── Load Cam ─────────────────────────────────────────────────────────────────
@@ -1304,7 +1318,18 @@ async function init() {
 function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
   localStorage.setItem(STORAGE_KEYS.lastCamera, currentIdx);
-  const cam = CAMS[currentIdx];
+  
+const cam = CAMS[currentIdx];
+
+if (!cam) {
+  console.error('Invalid camera', currentIdx);
+  return;
+}
+const STORAGE_KEYS = {
+  selectedCams: 'loto_selected_cams',
+  cycleInterval: 'loto_cycle_interval',
+  lastCamera: 'loto_last_camera'
+};
 
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.camera_name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
