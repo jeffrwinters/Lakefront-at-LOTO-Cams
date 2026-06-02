@@ -1223,16 +1223,94 @@ Select the cams to include in the cycle from the All Cams list above.
 </main>
 <div id="toast"></div>
 <script>
-// ─── Camera Data (verified from spydernetwork.com) ────────────────────────────
-
 // ─── Camera Data ────────────────────────────────────────────────────────────
-let CAMS = [];
+let camsDataHash = '';
 
 async function loadCamsData() {
-  const response = await fetch('cams.json');
+  const response = await fetch(`cams.json?v=${Date.now()}`);
   const allCams = await response.json();
 
   CAMS = allCams.filter(cam => cam.status === 'active');
+
+  camsDataHash = JSON.stringify(CAMS);
+}
+async function refreshCamsIfChanged() {
+  try {
+    const response = await fetch(`cams.json?v=${Date.now()}`);
+    const allCams = await response.json();
+
+    const activeCams =
+      allCams.filter(cam => cam.status === 'active');
+
+    const newHash = JSON.stringify(activeCams);
+
+    if (newHash === camsDataHash) {
+      return;
+    }
+
+    console.log('cams.json changed');
+
+    const oldCamera = CAMS[currentIdx];
+
+    camsDataHash = newHash;
+    CAMS = activeCams;
+
+    // Remove invalid saved selections
+    selectedCams = new Set(
+      [...selectedCams].filter(
+        idx => idx >= 0 && idx < CAMS.length
+      )
+    );
+
+    // Rebuild sidebar
+    document.getElementById('camList').innerHTML = '';
+    buildSidebar();
+
+    document.getElementById('camCount').textContent =
+      CAMS.length + ' cams';
+
+    updateSelectedCount();
+
+    // Keep user on same camera if possible
+    let newIndex = 0;
+
+    if (oldCamera) {
+      const match = CAMS.findIndex(
+        cam =>
+          cam.provider === oldCamera.provider &&
+          cam.source === oldCamera.source
+      );
+
+      if (match >= 0) {
+        newIndex = match;
+      }
+    }
+
+    loadCam(newIndex);
+
+    // Rebuild cycle queue if currently cycling
+    if (isCycling) {
+      cycleQueue = [...selectedCams]
+        .sort((a, b) => a - b);
+
+      if (cycleQueue.length === 0) {
+        stopCycle();
+        showToast('No selected cameras remain');
+      } else {
+        cycleQueuePos = Math.min(
+          cycleQueuePos,
+          cycleQueue.length - 1
+        );
+      }
+    }
+
+    savePreferences();
+
+    showToast('Camera list updated');
+  }
+  catch (err) {
+    console.error('Camera refresh failed', err);
+  }
 }
 // ─── State ─────────────────────────────────────────────────────────────
 let currentIdx = 0;
@@ -1311,7 +1389,10 @@ async function init() {
   setupCastListeners();
 
   await loadLakeConditions();
-}
+  setInterval(
+  refreshCamsIfChanged,
+  5 * 60 * 1000
+);
 
 // ─── Load Cam ─────────────────────────────────────────────────────────────────
 // Multiple Twitch parent domains are included so embeds work before DNS propagation.
