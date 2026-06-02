@@ -1223,6 +1223,7 @@ Select the cams to include in the cycle from the All Cams list above.
 </main>
 <div id="toast"></div>
 <script>
+let CAMS = []; 
 // ─── Camera Data ────────────────────────────────────────────────────────────
 let camsDataHash = '';
 
@@ -1316,7 +1317,7 @@ async function refreshCamsIfChanged() {
 let currentIdx = 0;
 let cycleQueue = [];       // indices of cams in cycle
 let cycleQueuePos = 0;     // position within cycleQueue
-let selectedCams = new Set(CAMS.map((_, i) => i)); // all selected by default
+let selectedCams = new Set(); // all selected by default
 let timerTimeout = null;
 let timerStart = null;
 let isCycling = false;
