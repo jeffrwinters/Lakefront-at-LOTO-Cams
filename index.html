@@ -1671,47 +1671,47 @@ function clearCamSearch() {
 // ─── Lake Conditions ─────────────────────────────────────────────────────────
 async function loadLakeConditions() {
   try {
+    // Air temp and wind from Open-Meteo
     const weatherUrl =
       'https://api.open-meteo.com/v1/forecast?latitude=38.1986&longitude=-92.6385&current=temperature_2m,wind_speed_10m&temperature_unit=fahrenheit&windspeed_unit=mph';
 
     const weatherRes = await fetch(weatherUrl);
     const weatherData = await weatherRes.json();
 
-    const air = Math.round(weatherData.current.temperature_2m);
-    const wind = Math.round(weatherData.current.wind_speed_10m);
+    document.getElementById('airTemp').textContent =
+      Math.round(weatherData.current.temperature_2m) + '°';
 
-    document.getElementById('airTemp').textContent = air + '°';
-    document.getElementById('windSpeed').textContent = wind + ' mph';
+    document.getElementById('windSpeed').textContent =
+      Math.round(weatherData.current.wind_speed_10m) + ' mph';
 
-    // seasonal estimate fallback
-try {
-  const waterRes = await fetch(`water_temp.json?v=${Date.now()}`);
-  const waterData = await waterRes.json();
+    // Water temp, lake level, discharge from workflow-generated JSON
+    const lakeRes = await fetch(`lake_conditions.json?v=${Date.now()}`);
+    const lakeData = await lakeRes.json();
 
-  document.getElementById('waterTemp').textContent =
-    Math.round(waterData.waterTemp) + '°';
-} catch (e) {
-  document.getElementById('waterTemp').textContent = '--°';
-}
+    document.getElementById('waterTemp').textContent =
+      `${lakeData.waterTemp}°`;
 
-    // stable defaults for GitHub Pages
-    document.getElementById('lakeLevel').textContent = '659 ft';
+    document.getElementById('lakeLevel').textContent =
+      `${Number(lakeData.lakeLevel).toFixed(2)} ft`;
 
-    const discharge = 32;
-    const trend = '↑';
+    const trend =
+      lakeData.trend === 'up'
+        ? '↑'
+        : lakeData.trend === 'down'
+        ? '↓'
+        : '→';
 
     document.getElementById('discharge').innerHTML =
-      '<span class="trend-up">' + trend + '</span> ' + discharge + 'k';
+      `<span class="trend-${lakeData.trend}">${trend}</span> ${lakeData.discharge}k`;
 
   } catch (err) {
     console.error('Lake conditions failed', err);
 
-    document.getElementById('waterTemp').textContent = '72°';
-    document.getElementById('airTemp').textContent = '78°';
-    document.getElementById('windSpeed').textContent = '8 mph';
-    document.getElementById('lakeLevel').textContent = '659 ft';
-    document.getElementById('discharge').innerHTML =
-      '<span class="trend-flat">→</span> 32k';
+    document.getElementById('waterTemp').textContent = '--°';
+    document.getElementById('airTemp').textContent = '--°';
+    document.getElementById('windSpeed').textContent = '-- mph';
+    document.getElementById('lakeLevel').textContent = '--';
+    document.getElementById('discharge').textContent = '--';
   }
 }
 
