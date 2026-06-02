@@ -1263,9 +1263,27 @@ async function refreshCamsIfChanged() {
       )
     );
 
-    // Rebuild sidebar
-    document.getElementById('camList').innerHTML = '';
-    buildSidebar();
+// Preserve sidebar scroll position
+const camList = document.getElementById('camList');
+const scrollTop = camList.scrollTop;
+
+// Preserve sidebar state
+const camList = document.getElementById('camList');
+const scrollTop = camList.scrollTop;
+const searchValue = document.getElementById('camSearch').value;
+
+// Rebuild sidebar
+camList.innerHTML = '';
+buildSidebar();
+
+// Restore sidebar state
+camList.scrollTop = scrollTop;
+
+document.getElementById('camSearch').value = searchValue;
+filterCams();
+
+// Restore scroll position
+camList.scrollTop = scrollTop;
 
     document.getElementById('camCount').textContent =
       CAMS.length + ' cams';
