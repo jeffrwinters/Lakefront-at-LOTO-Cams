@@ -1317,7 +1317,7 @@ async function init() {
 // Multiple Twitch parent domains are included so embeds work before DNS propagation.
 function loadCam(idx) {
   currentIdx = ((idx % CAMS.length) + CAMS.length) % CAMS.length;
-  localStorage.setItem(STORAGE_KEYS.lastCamera, currentIdx);
+  localStorage.setItem('loto_last_camera', currentIdx);
   
 const cam = CAMS[currentIdx];
 
