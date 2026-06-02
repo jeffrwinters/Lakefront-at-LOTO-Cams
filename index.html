@@ -1391,8 +1391,9 @@ async function init() {
   await loadLakeConditions();
   setInterval(
   refreshCamsIfChanged,
-  5 * 60 * 1000
+  60 * 1000
 );
+} 
 
 // ─── Load Cam ─────────────────────────────────────────────────────────────────
 // Multiple Twitch parent domains are included so embeds work before DNS propagation.
@@ -1406,11 +1407,6 @@ if (!cam) {
   console.error('Invalid camera', currentIdx);
   return;
 }
-const STORAGE_KEYS = {
-  selectedCams: 'loto_selected_cams',
-  cycleInterval: 'loto_cycle_interval',
-  lastCamera: 'loto_last_camera'
-};
 
   document.getElementById('camName').textContent = `${cam.venue} — ${cam.camera_name}`;
   document.getElementById('camIndex').textContent = `${currentIdx + 1} / ${CAMS.length}`;
