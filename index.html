@@ -1351,16 +1351,29 @@ const STORAGE_KEYS = {
 
   switch ((cam.provider || '').toLowerCase()) {
 
-    case 'ipcamlive':
-    case 'ipcamlive.com':
-      src = `https://g1.ipcamlive.com/player/player.php?alias=${cam.source}`;
-      break;
+case 'ipcamlive':
+case 'ipcamlive.com':
+  src =
+    `https://g1.ipcamlive.com/player/player.php?alias=${cam.source}` +
+    `&autoplay=1&mute=1`;
+  break;
 
     case 'twitch':
     default:
       src = `https://player.twitch.tv/?channel=${cam.source}&${parentParams}&autoplay=true&muted=false`;
       break;
   }
+  const frame = document.getElementById('twitchFrame');
+
+if ((cam.provider || '').toLowerCase().includes('ipcamlive')) {
+  frame.src = 'about:blank';
+
+  setTimeout(() => {
+    frame.src = src;
+  }, 100);
+} else {
+  frame.src = src;
+}
 
   document.getElementById('twitchFrame').src = src;
 
