@@ -48,7 +48,7 @@
     "provider": "twitch",
     "source": "spydernetwork14",
     "slug": "the-hatch",
-    "status": "disabled",
+    "status": "active",
     "favorite": false
   },
   {
@@ -67,7 +67,7 @@
     "provider": "twitch",
     "source": "spydernetwork26",
     "slug": "fish-and-company",
-    "status": "active",
+    "status": "disabled",
     "favorite": false
   },
   {
