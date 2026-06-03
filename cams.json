@@ -48,7 +48,7 @@
     "provider": "twitch",
     "source": "spydernetwork14",
     "slug": "the-hatch",
-    "status": "active",
+    "status": "disabled",
     "favorite": false,
     "health": "reachable",
     "last_checked": "6/3/2026, 11:36:53 AM"
