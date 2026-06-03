@@ -44,11 +44,11 @@
   },
   {
     "venue": "The Hatch",
-    "camera_name": "Gas Dock",
+    "camera_name": "Docks",
     "provider": "twitch",
     "source": "spydernetwork14",
     "slug": "the-hatch",
-    "status": "active",
+    "status": "disabled",
     "favorite": false
   },
   {
@@ -368,7 +368,7 @@
     "last_checked": "6/2/2026, 10:01:30 AM"
   },
   {
-    "venue": "Neon Taco",
+    "venue": "Neon Taco - Bar",
     "camera_name": "Deck",
     "provider": "twitch",
     "source": "spydernetwork20",
