@@ -69,7 +69,7 @@
     "provider": "twitch",
     "source": "spydernetwork26",
     "slug": "fish-and-company",
-    "status": "disabled",
+    "status": "active",
     "favorite": false,
     "health": "reachable",
     "last_checked": "6/3/2026, 11:36:53 AM"
