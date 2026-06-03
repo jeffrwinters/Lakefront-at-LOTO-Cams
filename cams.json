@@ -8,7 +8,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
+    "last_checked": "6/3/2026, 11:36:52 AM"
   },
   {
     "venue": "JB Hooks",
@@ -19,7 +19,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
+    "last_checked": "6/3/2026, 11:36:52 AM"
   },
   {
     "venue": "Bridgeview Marina",
@@ -29,7 +29,7 @@
     "slug": "the-hatch",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 1:41:26 PM"
+    "last_checked": "6/3/2026, 11:36:52 AM"
   },
   {
     "venue": "Margarittaville",
@@ -40,7 +40,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "The Hatch",
@@ -48,8 +48,10 @@
     "provider": "twitch",
     "source": "spydernetwork14",
     "slug": "the-hatch",
-    "status": "disabled",
-    "favorite": false
+    "status": "active",
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Fish & Co",
@@ -59,7 +61,7 @@
     "slug": "fish-and-company-dock-1",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Fish & Co",
@@ -68,7 +70,9 @@
     "source": "spydernetwork26",
     "slug": "fish-and-company",
     "status": "disabled",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Fish & Co",
@@ -79,7 +83,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Fish & Co",
@@ -89,7 +93,7 @@
     "slug": "tucker-shuckers-north",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Linn Creek Cove",
@@ -98,7 +102,9 @@
     "source": "spydernetwork62",
     "slug": "spydernetwork-dock",
     "status": "active",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Backwater Jack's",
@@ -107,7 +113,9 @@
     "source": "spydernetwork13",
     "slug": "backwater-jacks-dock-1",
     "status": "active",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Backwater Jack's",
@@ -116,7 +124,9 @@
     "source": "spydernetwork12",
     "slug": "backwater-jacks-dock",
     "status": "active",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Backwater Jack's",
@@ -125,7 +135,9 @@
     "source": "spydernetwork5",
     "slug": "backwater-jacks-stage",
     "status": "active",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Backwater Jack's",
@@ -135,7 +147,7 @@
     "slug": "backwater-jacks-pool",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Level Five",
@@ -145,7 +157,7 @@
     "slug": "backwater-jacks-level-five-lake-ozarks",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Dog Days",
@@ -155,7 +167,7 @@
     "slug": "dog-days-pool",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Dog Days",
@@ -165,7 +177,7 @@
     "slug": "neon-taco-docks",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Dog Days",
@@ -175,7 +187,7 @@
     "slug": "paradise-restaurant-bar",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Dog Days",
@@ -185,7 +197,7 @@
     "slug": "paradise-restaurant-bar-2",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Alhonna",
@@ -195,7 +207,7 @@
     "slug": "outlaws-mens-outpost",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Alhonna",
@@ -205,7 +217,7 @@
     "slug": "lake-billiards",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Alhonna",
@@ -215,7 +227,7 @@
     "slug": "dock-glide",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Encore Lakeside Grill",
@@ -225,7 +237,7 @@
     "slug": "encore-lakeside-grill-pool-bar-live-cam-top-bands-lake-of-the-ozarks",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Encore Lakeside Grill",
@@ -235,7 +247,7 @@
     "slug": "encore-lakeside-grill-pool-live-cam-top-bands-lake-of-the-ozarks",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Encore Lakeside Grill",
@@ -245,7 +257,7 @@
     "slug": "encore-lakeside-grill-stage-live-cam-top-bands-lake-of-the-ozarks",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "MM17",
@@ -255,7 +267,7 @@
     "slug": "dog-days-dock",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Paradise",
@@ -265,7 +277,7 @@
     "slug": "marty-byrds-outside",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:53 AM"
   },
   {
     "venue": "Paradise",
@@ -275,7 +287,7 @@
     "slug": "marty-byrds",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Michael's Steak Chalet",
@@ -284,7 +296,9 @@
     "source": "spydernetwork39",
     "slug": "michaels-steak-chalet",
     "status": "active",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Michael's Steak Chalet",
@@ -294,7 +308,7 @@
     "slug": "wicked-willies-restaurant",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Dock Glide",
@@ -304,7 +318,7 @@
     "slug": "fish-and-company-stage",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:27 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Marty Byrde's",
@@ -314,7 +328,7 @@
     "slug": "neon-taco-bar",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Marty Byrde's",
@@ -324,7 +338,7 @@
     "slug": "fish-and-company",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Anna Marie Hopkins",
@@ -334,7 +348,7 @@
     "slug": "dog-days-dock-1",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Lake Billiards",
@@ -344,7 +358,7 @@
     "slug": "backwater-jacks-dock",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Lake & Land Trading",
@@ -354,7 +368,7 @@
     "slug": "double-ds-roadhouse",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Tuckers",
@@ -364,7 +378,7 @@
     "slug": "dog-days-stage",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Wicked Willie's",
@@ -374,7 +388,7 @@
     "slug": "tucker-shuckers-south",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Neon Taco - Bar",
@@ -384,7 +398,7 @@
     "slug": "bridgeview-marina",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Neon Taco",
@@ -395,7 +409,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Neon Taco",
@@ -406,7 +420,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Topsider",
@@ -416,7 +430,7 @@
     "slug": "wicked-willies-bar",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Lucy's",
@@ -427,7 +441,7 @@
     "status": "active",
     "favorite": false,
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:30 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Double D's",
@@ -436,7 +450,9 @@
     "source": "spydernetwork60",
     "slug": "double-ds-roadhouse",
     "status": "disabled",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Camdenton Glass",
@@ -446,7 +462,7 @@
     "slug": "double-ds-roadhouse-gameroom",
     "status": "active",
     "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:28 AM"
+    "last_checked": "6/3/2026, 11:36:54 AM"
   },
   {
     "venue": "Outlaw Mens' Outpost",
@@ -455,6 +471,8 @@
     "source": "spydernetwork55",
     "slug": "outlaws-mens-outpost",
     "status": "active",
-    "favorite": false
+    "favorite": false,
+    "health": "reachable",
+    "last_checked": "6/3/2026, 11:36:54 AM"
   }
 ]
