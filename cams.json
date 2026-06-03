@@ -92,6 +92,15 @@
     "last_checked": "6/2/2026, 10:01:28 AM"
   },
   {
+    "venue": "Linn Creek Cove",
+    "camera_name": "SpyderNetwork",
+    "provider": "twitch",
+    "source": "spydernetwork62",
+    "slug": "spydernetwork-dock",
+    "status": "active",
+    "favorite": false
+  },
+  {
     "venue": "Backwater Jack's",
     "camera_name": "Docks 1",
     "provider": "twitch",
