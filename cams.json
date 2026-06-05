@@ -37,7 +37,7 @@
     "provider": "ipcamlive",
     "source": "margaritaville2",
     "slug": "",
-    "status": "active",
+    "status": "disabled",
     "favorite": false,
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:27 AM"
