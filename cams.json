@@ -298,34 +298,13 @@
     "last_checked": "6/2/2026, 10:01:27 AM"
   },
   {
-    "venue": "Marty Byrde's",
-    "camera_name": "Inside",
+    "venue": "Double D's",
+    "camera_name": "Bar",
     "provider": "twitch",
-    "source": "spydernetwork25",
-    "slug": "neon-taco-bar",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
-    "venue": "Marty Byrde's",
-    "camera_name": "Looking at Roxie's",
-    "provider": "twitch",
-    "source": "spydernetwork24",
-    "slug": "fish-and-company",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
-    "venue": "Anna Marie Hopkins",
-    "camera_name": "Looking at Shoreland",
-    "provider": "twitch",
-    "source": "spydernetwork33",
-    "slug": "dog-days-dock-1",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
+    "source": "spydernetwork60",
+    "slug": "double-ds-roadhouse",
+    "status": "disabled",
+    "favorite": false
   },
   {
     "venue": "Lake Billiards",
@@ -333,16 +312,6 @@
     "provider": "twitch",
     "source": "spydernetwork6",
     "slug": "backwater-jacks-dock",
-    "status": "active",
-    "health": "reachable",
-    "last_checked": "6/2/2026, 10:01:29 AM"
-  },
-  {
-    "venue": "Lake & Land Trading",
-    "camera_name": "Floor",
-    "provider": "twitch",
-    "source": "spydernetwork56",
-    "slug": "double-ds-roadhouse",
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:29 AM"
@@ -421,13 +390,53 @@
     "last_checked": "6/2/2026, 10:01:30 AM"
   },
   {
-    "venue": "Double D's",
-    "camera_name": "Bar",
+    "venue": "Anna Marie Hopkins",
+    "camera_name": "Looking at Shoreland",
     "provider": "twitch",
-    "source": "spydernetwork60",
-    "slug": "double-ds-roadhouse",
-    "status": "disabled",
+    "source": "spydernetwork33",
+    "slug": "dog-days-dock-1",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
+    "venue": "Outlaw Mens' Outpost",
+    "camera_name": "Looking at SNAFU",
+    "provider": "twitch",
+    "source": "spydernetwork55",
+    "slug": "outlaws-mens-outpost",
+    "status": "active",
     "favorite": false
+  },
+  {
+    "venue": "Lake & Land Trading",
+    "camera_name": "Floor",
+    "provider": "twitch",
+    "source": "spydernetwork56",
+    "slug": "double-ds-roadhouse",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
+    "venue": "Marty Byrde's",
+    "camera_name": "Looking at Roxie's",
+    "provider": "twitch",
+    "source": "spydernetwork24",
+    "slug": "fish-and-company",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
+  },
+  {
+    "venue": "Marty Byrde's",
+    "camera_name": "Inside",
+    "provider": "twitch",
+    "source": "spydernetwork25",
+    "slug": "neon-taco-bar",
+    "status": "active",
+    "health": "reachable",
+    "last_checked": "6/2/2026, 10:01:29 AM"
   },
   {
     "venue": "Camdenton Glass",
@@ -438,14 +447,5 @@
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:28 AM"
-  },
-  {
-    "venue": "Outlaw Mens' Outpost",
-    "camera_name": "Looking at SNAFU",
-    "provider": "twitch",
-    "source": "spydernetwork55",
-    "slug": "outlaws-mens-outpost",
-    "status": "active",
-    "favorite": false
   }
 ]
