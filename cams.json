@@ -456,5 +456,14 @@
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:28 AM"
+  },
+  {
+    "venue": "Lazy Gators",
+    "camera_name": "",
+    "provider": "twitch",
+    "source": "",
+    "slug": "",
+    "status": "disabled",
+    "favorite": false
   }
 ]
