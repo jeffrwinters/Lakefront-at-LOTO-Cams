@@ -48,7 +48,7 @@
     "provider": "twitch",
     "source": "spydernetwork14",
     "slug": "the-hatch",
-    "status": "active",
+    "status": "disabled",
     "favorite": false
   },
   {
