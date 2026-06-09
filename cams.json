@@ -465,5 +465,32 @@
     "slug": "",
     "status": "disabled",
     "favorite": false
+  },
+  {
+    "venue": "KRMS",
+    "camera_name": "North",
+    "provider": "twitch",
+    "source": "spydernetwork50",
+    "slug": "krms-radio-north",
+    "status": "active",
+    "favorite": false
+  },
+  {
+    "venue": "KRMS",
+    "camera_name": "East",
+    "provider": "twitch",
+    "source": "spydernetwork51",
+    "slug": "krms-radio-east",
+    "status": "active",
+    "favorite": false
+  },
+  {
+    "venue": "KRMS",
+    "camera_name": "Southeast",
+    "provider": "twitch",
+    "source": "spydernetwork52",
+    "slug": "krms-radio-south-east",
+    "status": "active",
+    "favorite": false
   }
 ]
