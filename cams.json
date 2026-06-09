@@ -337,13 +337,22 @@
   },
   {
     "venue": "Wicked Willie's",
-    "camera_name": "Dining",
+    "camera_name": "Lounge",
     "provider": "twitch",
     "source": "spydernetwork36",
     "slug": "tucker-shuckers-south",
     "status": "active",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:30 AM"
+  },
+  {
+    "venue": "Wicked Willie's",
+    "camera_name": "Bar",
+    "provider": "twitch",
+    "source": "spydernetwork1",
+    "slug": "wicked-willies-bar",
+    "status": "active",
+    "favorite": false
   },
   {
     "venue": "Neon Taco",
