@@ -302,7 +302,7 @@
     "provider": "twitch",
     "source": "spydernetwork21",
     "slug": "fish-and-company-stage",
-    "status": "active",
+    "status": "disabled",
     "health": "reachable",
     "last_checked": "6/2/2026, 10:01:27 AM"
   },
