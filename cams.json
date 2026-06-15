@@ -326,6 +326,33 @@
     "last_checked": "6/2/2026, 10:01:29 AM"
   },
   {
+    "venue": "Lazy Gators",
+    "camera_name": "Docks",
+    "provider": "twitch",
+    "source": "spydernetwork16",
+    "slug": "lazy-gators-dock-1",
+    "status": "active",
+    "favorite": false
+  },
+  {
+    "venue": "Lazy Gators",
+    "camera_name": "Pool",
+    "provider": "twitch",
+    "source": "spydernetwork4",
+    "slug": "lazy-gators-pool",
+    "status": "active",
+    "favorite": false
+  },
+  {
+    "venue": "Lazy Gators",
+    "camera_name": "Stage",
+    "provider": "twitch",
+    "source": "spydernetwork15",
+    "slug": "lazy-gators",
+    "status": "active",
+    "favorite": false
+  },
+  {
     "venue": "Tuckers",
     "camera_name": "Top Deck",
     "provider": "twitch",
