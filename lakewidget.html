@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    text-align:center;
+    background:white;
+}
+.big{
+    font-size:28px;
+    font-weight:bold;
+}
+.label{
+    color:#666;
+    margin-bottom:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="big" id="temp">--</div>
+<div class="label">Water Temperature</div>
+
+<div class="big" id="level">--</div>
+<div class="label">Lake Level</div>
+
+<script>
+fetch('lake_conditions.json')
+.then(r=>r.json())
+.then(data=>{
+    document.getElementById('temp').innerHTML =
+        data.waterTemp + '°F';
+
+    document.getElementById('level').innerHTML =
+        parseFloat(data.lakeLevel).toFixed(2) + ' FT';
+});
+</script>
+
+</body>
+</html>
