@@ -35,6 +35,13 @@ input,select{background:#0f1730;color:white}
 .failed{border-left:5px solid var(--red)}
 .small{font-size:12px;color:#c6d0ee}
 
+.active-filter{
+background:#2ecc71 !important;
+border-color:#2ecc71 !important;
+color:#08101f !important;
+font-weight:bold;
+}
+
 .sticky-shell{
 position:sticky;
 top:0;
@@ -60,8 +67,8 @@ padding:0 20px 12px 20px;
 
 <div class="toolbar">
 <button onclick="addCamera()">+ Add Camera</button>
-<button onclick="toggleFavorites()">Favorites</button>
-<button onclick="toggleDisabled()">Disabled</button>
+<button id="favoritesBtn" onclick="toggleFavorites()">Favorites</button>
+<button id="disabledBtn" onclick="toggleDisabled()">Disabled</button>
 <button id="saveBtn" onclick="saveChanges()">Save Changes</button>
 <span id="saveStatus" class="small">Ready</span>
 <progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
@@ -229,12 +236,7 @@ function addCamera(){
 }
 
 function delCamera(i){
- const name =
-   cams[i].camera_name ||
-   cams[i].venue ||
-   'this camera';
-
- if(confirm(`Delete "${name}"?`)){
+ if(confirm('Delete camera?')){
    cams.splice(i,1);
    markDirty();
    render();
@@ -285,15 +287,22 @@ function showFailed(){
  render();
 }
 
+function updateFilterButtons(){
+ document.getElementById('favoritesBtn')?.classList.toggle('active-filter', favoritesOnly);
+ document.getElementById('disabledBtn')?.classList.toggle('active-filter', disabledOnly);
+}
+
 function toggleFavorites(){
  favoritesOnly=!favoritesOnly;
  if(favoritesOnly) disabledOnly=false;
+ updateFilterButtons();
  render();
 }
 
 function toggleDisabled(){
  disabledOnly=!disabledOnly;
  if(disabledOnly) favoritesOnly=false;
+ updateFilterButtons();
  render();
 }
 
@@ -359,6 +368,7 @@ function previewCam(i){
 }
 
 
+updateFilterButtons();
 load();
 
 </script>
