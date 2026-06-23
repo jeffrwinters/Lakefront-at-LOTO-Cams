@@ -295,7 +295,7 @@
     "provider": "twitch",
     "source": "spydernetwork39",
     "slug": "michaels-steak-chalet",
-    "status": "disabled",
+    "status": "active",
     "favorite": false,
     "health": "reachable",
     "last_checked": "6/15/2026, 3:26:09 PM"
@@ -306,7 +306,7 @@
     "provider": "twitch",
     "source": "spydernetwork38",
     "slug": "wicked-willies-restaurant",
-    "status": "disabled",
+    "status": "active",
     "health": "reachable",
     "last_checked": "6/15/2026, 3:26:09 PM"
   },
