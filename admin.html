@@ -229,7 +229,12 @@ function addCamera(){
 }
 
 function delCamera(i){
- if(confirm('Delete camera?')){
+ const name =
+   cams[i].camera_name ||
+   cams[i].venue ||
+   'this camera';
+
+ if(confirm(`Delete "${name}"?`)){
    cams.splice(i,1);
    markDirty();
    render();
