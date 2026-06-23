@@ -60,9 +60,7 @@ padding:0 20px 12px 20px;
 
 <div class="toolbar">
 <button onclick="addCamera()">+ Add Camera</button>
-<button onclick="checkAll()">Check All Cameras</button>
-<button onclick="showFailed()">Show Failed</button><button onclick="toggleFavorites()">Favorites</button>
-<button onclick="disableFailed()">Disable Failed</button>
+<button onclick="toggleFavorites()">Favorites</button>
 <button id="saveBtn" onclick="saveChanges()">Save Changes</button>
 <span id="saveStatus" class="small">Ready</span>
 <progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
@@ -72,7 +70,6 @@ padding:0 20px 12px 20px;
 
 <script>
 let cams=[];
-let failedOnly=false;
 let favoritesOnly=false;
 let dragIndex=null;
 const API_URL='https://lakefront-admin-api.jeff-r-winters.workers.dev';
@@ -148,25 +145,23 @@ async function saveChanges(){
 
 
 async function load(){
- const r=await fetch(`cams.json?v=${Date.now()}`, { cache: 'no-store' });
- cams=await r.json();
+ const r = await fetch(`${API_URL}/cams`);
+ cams = await r.json();
  render();
 }
 
 function render(){
 const active=cams.filter(c=>c.status==='active').length;
-const failed=cams.filter(c=>c.health==='failed').length;
 const favs=cams.filter(c=>c.favorite).length;
 document.getElementById('stats').innerHTML=`
 <div class="stat"><div class="n">${cams.length}</div><div>Cameras</div></div>
 <div class="stat"><div class="n">${active}</div><div>Active</div></div>
-<div class="stat"><div class="n">${failed}</div><div>Failed</div></div>
+
 <div class="stat"><div class="n">${favs}</div><div>Favorites</div></div>`;
 
  const list=document.getElementById('list');
  list.innerHTML='';
  cams.forEach((c,i)=>{
-   if(failedOnly && c.health!=='failed') return;
    if(favoritesOnly && !c.favorite) return;
 
    const row=document.createElement('div');
@@ -208,9 +203,8 @@ document.getElementById('stats').innerHTML=`
    </select>
    <span style="cursor:grab;font-size:18px">☰</span>
    <button onclick="toggleFav(${i})">${c.favorite?'⭐':'☆'}</button>
-   <button onclick="checkOne(${i})">Check</button><button onclick="previewCam(${i})">Preview</button>
+   <button onclick="previewCam(${i})">Preview</button>
    <button onclick="delCamera(${i})">Delete</button>
-   <span class="small">${c.health||'not checked'} ${c.last_checked||''}</span>
    `;
    list.appendChild(row);
  });
