@@ -61,6 +61,7 @@ padding:0 20px 12px 20px;
 <div class="toolbar">
 <button onclick="addCamera()">+ Add Camera</button>
 <button onclick="toggleFavorites()">Favorites</button>
+<button onclick="toggleDisabled()">Disabled</button>
 <button id="saveBtn" onclick="saveChanges()">Save Changes</button>
 <span id="saveStatus" class="small">Ready</span>
 <progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
@@ -71,6 +72,7 @@ padding:0 20px 12px 20px;
 <script>
 let cams=[];
 let favoritesOnly=false;
+let disabledOnly=false;
 let dragIndex=null;
 const API_URL='https://lakefront-admin-api.jeff-r-winters.workers.dev';
 
@@ -152,17 +154,19 @@ async function load(){
 
 function render(){
 const active=cams.filter(c=>c.status==='active').length;
+const disabled=cams.filter(c=>c.status==='disabled').length;
 const favs=cams.filter(c=>c.favorite).length;
 document.getElementById('stats').innerHTML=`
 <div class="stat"><div class="n">${cams.length}</div><div>Cameras</div></div>
 <div class="stat"><div class="n">${active}</div><div>Active</div></div>
-
+<div class="stat"><div class="n">${disabled}</div><div>Disabled</div></div>
 <div class="stat"><div class="n">${favs}</div><div>Favorites</div></div>`;
 
  const list=document.getElementById('list');
  list.innerHTML='';
  cams.forEach((c,i)=>{
    if(favoritesOnly && !c.favorite) return;
+   if(disabledOnly && c.status !== 'disabled') return;
 
    const row=document.createElement('div');
    row.className='row '+(c.health||'');
@@ -278,6 +282,13 @@ function showFailed(){
 
 function toggleFavorites(){
  favoritesOnly=!favoritesOnly;
+ if(favoritesOnly) disabledOnly=false;
+ render();
+}
+
+function toggleDisabled(){
+ disabledOnly=!disabledOnly;
+ if(disabledOnly) favoritesOnly=false;
  render();
 }
 
