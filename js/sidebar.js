@@ -43,17 +43,76 @@ function selectNone() {
   savePreferences();
 }
 
+function toggleFavorite(idx) {
+  if (favorites.has(idx))
+    favorites.delete(idx);
+  else
+    favorites.add(idx);
+
+  saveFavorites();
+
+  buildSidebar();
+}
+
+function toggleFavoritesFilter() {
+  showFavoritesOnly = !showFavoritesOnly;
+
+  buildSidebar();
+}
+
 function buildSidebar() {
   const list = document.getElementById('camList');
 
+  list.innerHTML = '';
+
+  // Favorites filter button
+  const filterRow = document.createElement('div');
+
+  filterRow.style.marginBottom = '8px';
+
+  filterRow.innerHTML = `
+    <button
+      id="favoritesFilterBtn"
+      class="btn ${showFavoritesOnly ? 'active' : ''}"
+      style="width:100%;"
+    >
+      ★ Favorites Only
+    </button>
+  `;
+
+  list.appendChild(filterRow);
+
+  filterRow
+    .querySelector('button')
+    .addEventListener(
+      'click',
+      toggleFavoritesFilter
+    );
+
   CAMS.forEach((cam, i) => {
+
+    if (
+      showFavoritesOnly &&
+      !favorites.has(i)
+    ) {
+      return;
+    }
+
     const el = document.createElement('div');
 
-    el.className = 'cam-item in-cycle';
+    el.className = selectedCams.has(i)
+      ? 'cam-item in-cycle'
+      : 'cam-item';
+
     el.dataset.idx = i;
 
     el.innerHTML = `
       <div class="cam-item-switch"></div>
+
+      <div class="cam-favorite">
+        ${favorites.has(i) ? '★' : '☆'}
+      </div>
+
       <span class="cam-item-name">
         ${cam.venue}
         <br>
@@ -71,6 +130,12 @@ function buildSidebar() {
       .addEventListener('click', (e) => {
         e.stopPropagation();
         toggleCamSelection(i);
+      });
+
+    el.querySelector('.cam-favorite')
+      .addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleFavorite(i);
       });
 
     list.appendChild(el);
