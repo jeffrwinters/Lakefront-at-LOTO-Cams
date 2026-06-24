@@ -173,18 +173,28 @@
 /* ── Favorites ───────────────────────────── */
 
 .cam-favorite {
-  margin-left: 8px;
-  margin-right: 10px;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
-  font-size: 18px;
+  font-size: 24px;
   color: #ffd54a;
-  flex-shrink: 0;
+
+  border-radius: 6px;
   user-select: none;
-  transition: transform 0.15s ease;
+  flex-shrink: 0;
+
+  transition: all 0.15s ease;
 }
 
 .cam-favorite:hover {
-  transform: scale(1.15);
+  background: rgba(255,255,255,0.08);
+  transform: scale(1.1);
 }
 
 #favoritesFilterBtn {
