@@ -170,7 +170,32 @@
       border-radius: 14px;
       padding: 12px;
     }
+/* ── Favorites ───────────────────────────── */
 
+.cam-favorite {
+  margin-left: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #ffd54a;
+  flex-shrink: 0;
+  user-select: none;
+  transition: transform 0.15s ease;
+}
+
+.cam-favorite:hover {
+  transform: scale(1.15);
+}
+
+#favoritesFilterBtn {
+  margin-bottom: 8px;
+}
+
+#favoritesFilterBtn.active {
+  background: #ffd54a;
+  border-color: #ffd54a;
+  color: #000;
+}
   
   .cam-search-wrap {
     padding: 6px 4px 10px;
