@@ -198,7 +198,7 @@
 }
 
 #favoritesFilterBtn {
-  margin-bottom: 8px;
+  width: 100%;
 }
 
 #favoritesFilterBtn.active {
@@ -206,7 +206,7 @@
   border-color: #ffd54a;
   color: #000;
 }
-  
+ 
   .cam-search-wrap {
     padding: 6px 4px 10px;
   }
