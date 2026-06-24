@@ -7,15 +7,16 @@ async function loadLakeConditions() {
     document.getElementById('waterTemp').textContent =
       `${lakeData.waterTemp}°`;
 
-    document.getElementById('lakeLevel').textContent =
-      `${Number(lakeData.lakeLevel).toFixed(2)} ft`;
+const trend =
+  lakeData.trend === 'up' ? '↑' :
+  lakeData.trend === 'down' ? '↓' : '→';
 
-    const trend =
-      lakeData.trend === 'up' ? '↑' :
-      lakeData.trend === 'down' ? '↓' : '→';
+document.getElementById('lakeLevel').innerHTML =
+  `<span class="trend-${lakeData.trend}">${trend}</span> ${Number(lakeData.lakeLevel).toFixed(2)} ft`;
 
-    document.getElementById('discharge').innerHTML =
-      `<span class="trend-${lakeData.trend}">${trend}</span> ${lakeData.discharge}k`;
+document.getElementById('discharge').textContent =
+  `${lakeData.discharge}k`;
+    
   } catch (err) {
     console.error('Lake JSON failed', err);
   }
