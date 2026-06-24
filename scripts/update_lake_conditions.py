@@ -10,18 +10,39 @@ AMEREN_URL = "https://www.ameren.com/reliability/generation/hydro/reports/osage/
 
 
 def get_water_temp():
-    html = requests.get(KRMS_URL, timeout=30).text
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/137.0 Safari/537.36"
+        )
+    }
 
-    m = re.search(
-        r"Water Temperature.*?<b>\s*([0-9.]+)",
-        html,
-        re.I | re.S,
-    )
+    try:
+        response = requests.get(
+            KRMS_URL,
+            headers=headers,
+            timeout=30
+        )
 
-    if not m:
-        raise Exception("Could not find water temperature")
+        response.raise_for_status()
 
-    return round(float(m.group(1)))
+        html = response.text
+
+        m = re.search(
+            r"Water Temperature.*?<b>\s*([0-9.]+)",
+            html,
+            re.I | re.S,
+        )
+
+        if not m:
+            raise Exception("Could not find water temperature")
+
+        return round(float(m.group(1)))
+
+    except Exception as e:
+        print(f"WARNING: Water temperature lookup failed: {e}")
+        return None
 
 
 def get_ameren_data():
@@ -67,9 +88,21 @@ def calculate_trend(current_level):
         return "flat"
 
 
-water_temp = get_water_temp()
 lake_level, discharge = get_ameren_data()
 trend = calculate_trend(lake_level)
+
+water_temp = get_water_temp()
+
+if water_temp is None:
+    try:
+        with open("lake_conditions.json", "r", encoding="utf-8") as f:
+            previous = json.load(f)
+
+        water_temp = previous.get("waterTemp")
+        print(f"Using previous water temperature: {water_temp}")
+
+    except Exception:
+        water_temp = "--"
 
 data = {
     "updated": datetime.now(timezone.utc).isoformat(),
