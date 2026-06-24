@@ -1,7 +1,31 @@
 const STORAGE_KEYS = {
   selectedCams: 'loto_selected_cams',
-  cycleInterval: 'loto_cycle_interval'
+  cycleInterval: 'loto_cycle_interval',
+  favorites: 'loto_favorites'
 };
+
+let favorites = new Set();
+let showFavoritesOnly = false;
+
+function loadFavorites() {
+  try {
+    const saved =
+      localStorage.getItem(STORAGE_KEYS.favorites);
+
+    favorites = new Set(
+      JSON.parse(saved || '[]')
+    );
+  } catch {
+    favorites = new Set();
+  }
+}
+
+function saveFavorites() {
+  localStorage.setItem(
+    STORAGE_KEYS.favorites,
+    JSON.stringify([...favorites])
+  );
+}
 
 function savePreferences() {
   try {
@@ -19,6 +43,7 @@ function savePreferences() {
 
 function loadPreferences() {
   try {
+    loadFavorites();
     const savedInterval =
       localStorage.getItem(STORAGE_KEYS.cycleInterval);
 
