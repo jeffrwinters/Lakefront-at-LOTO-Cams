@@ -68,7 +68,21 @@ function buildSidebar() {
   // Favorites filter button
   const filterRow = document.createElement('div');
 
-  filterRow.style.marginBottom = '8px';
+filterRow.style.position = 'sticky';
+filterRow.style.top = '0';
+filterRow.style.zIndex = '5';
+filterRow.style.background = 'var(--surface)';
+filterRow.style.paddingBottom = '8px';
+
+  #favoritesFilterBtn {
+  width: 100%;
+}
+
+#favoritesFilterBtn.active {
+  background: #ffd54a;
+  border-color: #ffd54a;
+  color: #000;
+}
 
   filterRow.innerHTML = `
     <button
