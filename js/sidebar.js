@@ -39,6 +39,22 @@ function ensureSidebarStyles() {
       color: white !important;
     }
 
+    /* Mobile fix: the sidebar was capped at 260px with overflow hidden,
+       which clipped the camera list after the first visible camera. */
+    @media (max-width: 900px) {
+      .sidebar {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      .sidebar .cam-list {
+        max-height: 55vh !important;
+        min-height: 220px;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
     @media (max-width: 360px) {
       .sidebar-cycle-controls .btn,
       #cycleSelectedBtn,
@@ -125,13 +141,11 @@ function buildSidebar() {
   // Favorites filter button
   const filterRow = document.createElement('div');
 
-filterRow.style.position = 'sticky';
-filterRow.style.top = '0';
-filterRow.style.zIndex = '5';
-filterRow.style.background = 'var(--surface)';
-filterRow.style.paddingBottom = '8px';
-
-
+  filterRow.style.position = 'sticky';
+  filterRow.style.top = '0';
+  filterRow.style.zIndex = '5';
+  filterRow.style.background = 'var(--surface)';
+  filterRow.style.paddingBottom = '8px';
 
   filterRow.innerHTML = `
     <button
