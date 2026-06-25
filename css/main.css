@@ -170,6 +170,23 @@
       border-radius: 14px;
       padding: 12px;
     }
+  /* ── Sidebar Cycle Controls ───────────────────────── */
+
+.sidebar-cycle-controls {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+}
+
+#cycleSelectedBtn,
+#cycleFavoritesBtn {
+    flex: 1;
+    width: auto;
+}
+  .sidebar-cycle-controls .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+}
 /* ── Favorites ───────────────────────────── */
 
 .cam-favorite {
