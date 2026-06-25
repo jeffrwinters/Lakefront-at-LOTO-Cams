@@ -1,3 +1,58 @@
+function ensureSidebarStyles() {
+  if (document.getElementById('sidebarDynamicStyles')) return;
+
+  const style = document.createElement('style');
+  style.id = 'sidebarDynamicStyles';
+  style.textContent = `
+    .sidebar-cycle-controls {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 8px;
+      padding: 8px 0 10px !important;
+      width: 100%;
+    }
+
+    .sidebar-cycle-controls .btn,
+    #cycleSelectedBtn,
+    #cycleFavoritesBtn,
+    #cycleFavoritesBtn.btn.accent {
+      width: 100% !important;
+      min-width: 0;
+      justify-content: center;
+      padding: 9px 8px !important;
+      border-radius: 8px;
+      background: rgba(49,87,255,0.18) !important;
+      border: 1px solid var(--border) !important;
+      color: white !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .sidebar-cycle-controls .btn:hover,
+    #cycleSelectedBtn:hover,
+    #cycleFavoritesBtn:hover,
+    #cycleFavoritesBtn.btn.accent:hover {
+      background: rgba(49,87,255,0.32) !important;
+      border-color: white !important;
+      color: white !important;
+    }
+
+    @media (max-width: 360px) {
+      .sidebar-cycle-controls .btn,
+      #cycleSelectedBtn,
+      #cycleFavoritesBtn,
+      #cycleFavoritesBtn.btn.accent {
+        font-size: 11px !important;
+        padding-inline: 6px !important;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
 function toggleCamSelection(idx) {
   if (selectedCams.has(idx)) selectedCams.delete(idx);
   else selectedCams.add(idx);
@@ -61,6 +116,8 @@ function toggleFavoritesFilter() {
 }
 
 function buildSidebar() {
+  ensureSidebarStyles();
+
   const list = document.getElementById('camList');
 
   list.innerHTML = '';
