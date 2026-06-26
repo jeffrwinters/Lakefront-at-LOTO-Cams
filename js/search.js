@@ -9,8 +9,14 @@ function filterCams() {
 
   clearBtn.style.display = val ? 'flex' : 'none';
 
-  document.querySelectorAll('.cam-item').forEach((el, i) => {
-    const cam = CAMS[i];
+  document.querySelectorAll('.cam-item').forEach((el) => {
+    const idx = parseInt(el.dataset.idx, 10);
+    const cam = CAMS[idx];
+
+    if (!cam) {
+      el.style.display = 'none';
+      return;
+    }
 
     const text =
       `${cam.venue} ${cam.camera_name} ${cam.source}`.toLowerCase();
