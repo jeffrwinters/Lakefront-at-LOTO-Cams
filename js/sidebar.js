@@ -115,14 +115,38 @@ function selectNone() {
 }
 
 function toggleFavorite(idx) {
-  if (favorites.has(idx))
+  const wasFavorite = favorites.has(idx);
+
+  if (wasFavorite)
     favorites.delete(idx);
   else
     favorites.add(idx);
 
   saveFavorites();
 
-  buildSidebar();
+  const sideItem =
+    document.querySelector(`.cam-item[data-idx="${idx}"]`);
+
+  const star = sideItem
+    ? sideItem.querySelector('.cam-favorite')
+    : null;
+
+  if (star) {
+    star.textContent = favorites.has(idx) ? '★' : '☆';
+  }
+
+  // Do not rebuild the whole sidebar just to fill a star. Rebuilding resets
+  // the current search/filter view and can make the row disappear or jump.
+  // If the user removes a favorite while Favorites Only is active, rebuild so
+  // it properly drops out of that filtered list.
+  if (showFavoritesOnly && wasFavorite) {
+    buildSidebar();
+
+    const input = document.getElementById('camSearch');
+    if (input && input.value) {
+      filterCams();
+    }
+  }
 }
 
 function toggleFavoritesFilter() {
@@ -217,4 +241,9 @@ function buildSidebar() {
 
     list.appendChild(el);
   });
+
+  const input = document.getElementById('camSearch');
+  if (input && input.value) {
+    filterCams();
+  }
 }
