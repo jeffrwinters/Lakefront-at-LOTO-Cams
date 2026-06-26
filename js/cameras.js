@@ -197,9 +197,11 @@ if ((cam.provider || '').toLowerCase().includes('ipcamlive')) {
 
   document.getElementById('twitchFrame').src = src;
 
-  // Update sidebar
-  document.querySelectorAll('.cam-item').forEach((el, i) => {
-    el.classList.toggle('active', i === currentIdx);
+  // Update sidebar. Use each row's real camera index because the visible
+  // row order changes when Favorites Only or search filtering is active.
+  document.querySelectorAll('.cam-item').forEach((el) => {
+    const rowIdx = parseInt(el.dataset.idx, 10);
+    el.classList.toggle('active', rowIdx === currentIdx);
     // removed automatic sidebar scroll behavior
   });
 
