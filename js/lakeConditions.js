@@ -18,18 +18,19 @@ function ensureLakeConditionStyles() {
     .sunrise-arrow { color: #6dff9b; }
     .sunset-arrow { color: #ffb86b; }
     .moon-stat { grid-column: 1 / -1; padding: 18px 22px; }
-    .moon-widget { display: grid; grid-template-columns: auto minmax(180px, 1fr) auto; align-items: center; justify-content: center; gap: 24px; margin-top: 4px; width: 100%; }
-    .moon-disk { width: 92px; height: 92px; flex: 0 0 92px; border: 1px solid rgba(220,230,255,0.65); border-radius: 50%; background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.92) 0 2px, transparent 3px), radial-gradient(circle at 62% 44%, rgba(180,190,205,0.7) 0 5px, transparent 7px), radial-gradient(circle at 43% 62%, rgba(160,170,185,0.65) 0 4px, transparent 6px), radial-gradient(circle at 58% 70%, rgba(255,255,255,0.72) 0 3px, transparent 5px), radial-gradient(circle at 50% 50%, #f3f6fb 0%, #c8d0dc 48%, #8f9bab 100%); box-shadow: 0 0 0 10px rgba(220,230,255,0.05), inset 0 0 18px rgba(0,0,0,0.22); overflow: hidden; position: relative; }
+    .moon-stat > .lake-stat-label { text-align: center; margin-bottom: 16px; }
+    .moon-widget { display: grid; grid-template-columns: 120px minmax(220px, 1fr) 180px; align-items: center; justify-content: center; gap: 22px; margin: 4px auto 0; max-width: 780px; width: 100%; padding: 0 20px; }
+    .moon-disk { justify-self: center; width: 92px; height: 92px; flex: 0 0 92px; border: 1px solid rgba(220,230,255,0.65); border-radius: 50%; background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.92) 0 2px, transparent 3px), radial-gradient(circle at 62% 44%, rgba(180,190,205,0.7) 0 5px, transparent 7px), radial-gradient(circle at 43% 62%, rgba(160,170,185,0.65) 0 4px, transparent 6px), radial-gradient(circle at 58% 70%, rgba(255,255,255,0.72) 0 3px, transparent 5px), radial-gradient(circle at 50% 50%, #f3f6fb 0%, #c8d0dc 48%, #8f9bab 100%); box-shadow: 0 0 0 10px rgba(220,230,255,0.05), inset 0 0 18px rgba(0,0,0,0.22); overflow: hidden; position: relative; }
     .moon-disk::after { content: ''; position: absolute; inset: -2px; border-radius: 50%; background: rgba(2,8,18,0.82); transform: translateX(var(--moon-shadow-x, 0%)) scaleX(var(--moon-shadow-scale, 1)); transform-origin: center; opacity: var(--moon-shadow-opacity, 0); }
-    .moon-details { text-align: left; line-height: 1.15; }
-    .moon-phase-name { color: #fff; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-    .moon-light { color: var(--muted); font-size: 16px; margin-bottom: 12px; white-space: nowrap; }
+    .moon-details { text-align: left; line-height: 1.12; }
+    .moon-phase-name { color: #fff; font-size: 24px; font-weight: 700; margin-bottom: 7px; }
+    .moon-light { color: var(--muted); font-size: 16px; margin-bottom: 10px; white-space: nowrap; }
     .moon-next-label, .moon-time-label { color: var(--muted); font-size: 13px; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
     .moon-next-date, .moon-time-value { color: #dce6ff; font-size: 20px; font-weight: 700; white-space: nowrap; }
-    .moon-times { border-left: 1px solid rgba(220,230,255,0.16); display: grid; gap: 14px; min-width: 92px; padding-left: 22px; text-align: left; }
+    .moon-times { border-left: 1px solid rgba(220,230,255,0.16); display: grid; gap: 14px; width: 180px; padding-left: 22px; text-align: left; }
     .moon-time-value { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; color: #fff; }
     @media (min-width: 701px) { .lake-stats { grid-template-columns: repeat(3, minmax(120px, 1fr)); } }
-    @media (max-width: 640px) { .moon-stat { padding: 18px 14px; } .moon-widget { grid-template-columns: auto 1fr; gap: 14px; } .moon-disk { width: 76px; height: 76px; flex-basis: 76px; } .moon-phase-name { font-size: 21px; } .moon-light { font-size: 15px; } .moon-times { border-left: 0; border-top: 1px solid rgba(220,230,255,0.16); grid-column: 1 / -1; grid-template-columns: repeat(2, 1fr); padding-left: 0; padding-top: 14px; text-align: center; } }
+    @media (max-width: 640px) { .moon-stat { padding: 18px 14px; } .moon-widget { grid-template-columns: auto 1fr; gap: 14px; max-width: none; padding: 0; } .moon-disk { width: 76px; height: 76px; flex-basis: 76px; } .moon-phase-name { font-size: 21px; } .moon-light { font-size: 15px; } .moon-times { border-left: 0; border-top: 1px solid rgba(220,230,255,0.16); grid-column: 1 / -1; grid-template-columns: repeat(2, 1fr); width: 100%; padding-left: 0; padding-top: 14px; text-align: center; } }
   `;
   document.head.appendChild(style);
 }
