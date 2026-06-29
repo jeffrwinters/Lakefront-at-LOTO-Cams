@@ -46,12 +46,93 @@ function ensureLakeConditionStyles() {
       display: inline-block;
     }
 
-    #moonPhase {
-      display: inline-flex;
-      align-items: baseline;
+    .moon-stat {
+      min-width: 220px;
+    }
+
+    .moon-widget {
+      display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .moon-disk {
+      width: 76px;
+      height: 76px;
+      flex: 0 0 76px;
+      border: 1px solid rgba(220,230,255,0.65);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 32%, rgba(255,255,255,0.92) 0 2px, transparent 3px),
+        radial-gradient(circle at 62% 44%, rgba(180,190,205,0.7) 0 5px, transparent 7px),
+        radial-gradient(circle at 43% 62%, rgba(160,170,185,0.65) 0 4px, transparent 6px),
+        radial-gradient(circle at 58% 70%, rgba(255,255,255,0.72) 0 3px, transparent 5px),
+        radial-gradient(circle at 50% 50%, #f3f6fb 0%, #c8d0dc 48%, #8f9bab 100%);
+      box-shadow: 0 0 0 8px rgba(220,230,255,0.05), inset 0 0 18px rgba(0,0,0,0.22);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .moon-disk::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: rgba(2,8,18,0.82);
+      transform: translateX(var(--moon-shadow-x, 0%)) scaleX(var(--moon-shadow-scale, 1));
+      transform-origin: center;
+      opacity: var(--moon-shadow-opacity, 0);
+    }
+
+    .moon-details {
+      text-align: left;
+      line-height: 1.15;
+    }
+
+    .moon-phase-name {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .moon-light {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
       white-space: nowrap;
+    }
+
+    .moon-next-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .moon-next-date {
+      color: #dce6ff;
+      font-size: 16px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .moon-widget {
+        gap: 10px;
+      }
+
+      .moon-disk {
+        width: 58px;
+        height: 58px;
+        flex-basis: 58px;
+      }
+
+      .moon-phase-name {
+        font-size: 17px;
+      }
     }
   `;
   document.head.appendChild(style);
@@ -64,8 +145,8 @@ function ensureMoonPhaseStat() {
   if (!lakeStats) return;
 
   const moonStat = document.createElement('div');
-  moonStat.className = 'lake-stat';
-  moonStat.innerHTML = '<div class="lake-stat-label">Moon</div><div class="lake-stat-value" id="moonPhase">--</div>';
+  moonStat.className = 'lake-stat moon-stat';
+  moonStat.innerHTML = '<div class="lake-stat-label">Moon</div><div class="moon-widget" id="moonPhase"><div class="moon-disk" id="moonDisk"></div><div class="moon-details"><div class="moon-phase-name" id="moonPhaseName">--</div><div class="moon-light" id="moonLight">Moonlight --</div><div class="moon-next-label">Next Full Moon</div><div class="moon-next-date" id="nextFullMoon">--</div></div></div>';
   lakeStats.appendChild(moonStat);
 }
 
@@ -86,17 +167,60 @@ function getMoonPhase(date = new Date()) {
   const daysSinceNewMoon = (date - knownNewMoon) / 86400000;
   const moonAge = ((daysSinceNewMoon % lunarCycleDays) + lunarCycleDays) % lunarCycleDays;
   const phaseIndex = Math.floor((moonAge / lunarCycleDays) * phases.length + 0.5) % phases.length;
+  const illumination = (1 - Math.cos((2 * Math.PI * moonAge) / lunarCycleDays)) / 2;
+  const waxing = moonAge < lunarCycleDays / 2;
 
-  return phases[phaseIndex];
+  return {
+    name: phases[phaseIndex],
+    age: moonAge,
+    illumination,
+    waxing,
+    cycleDays: lunarCycleDays
+  };
+}
+
+function getNextFullMoon(date = new Date()) {
+  const phase = getMoonPhase(date);
+  const fullMoonAge = phase.cycleDays / 2;
+  const daysUntilFull = phase.age <= fullMoonAge
+    ? fullMoonAge - phase.age
+    : phase.cycleDays - phase.age + fullMoonAge;
+
+  return new Date(date.getTime() + daysUntilFull * 86400000);
+}
+
+function formatMoonDate(date) {
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric'
+  });
 }
 
 function renderMoonPhase() {
   ensureMoonPhaseStat();
 
-  const moonPhaseEl = document.getElementById('moonPhase');
-  if (!moonPhaseEl) return;
+  const moonWidgetEl = document.getElementById('moonPhase');
+  const moonDiskEl = document.getElementById('moonDisk');
+  const phaseNameEl = document.getElementById('moonPhaseName');
+  const moonLightEl = document.getElementById('moonLight');
+  const nextFullMoonEl = document.getElementById('nextFullMoon');
 
-  moonPhaseEl.textContent = getMoonPhase();
+  if (!moonWidgetEl || !moonDiskEl || !phaseNameEl || !moonLightEl || !nextFullMoonEl) return;
+
+  const phase = getMoonPhase();
+  const lightPercent = Math.round(phase.illumination * 100);
+  const shadowOpacity = 1 - phase.illumination;
+  const shadowScale = 0.25 + Math.abs(0.5 - phase.illumination) * 1.7;
+  const shadowX = phase.waxing ? '-36%' : '36%';
+
+  moonDiskEl.style.setProperty('--moon-shadow-opacity', shadowOpacity.toFixed(2));
+  moonDiskEl.style.setProperty('--moon-shadow-scale', shadowScale.toFixed(2));
+  moonDiskEl.style.setProperty('--moon-shadow-x', shadowX);
+
+  phaseNameEl.textContent = phase.name;
+  moonLightEl.textContent = `Moonlight ${lightPercent}%`;
+  nextFullMoonEl.textContent = formatMoonDate(getNextFullMoon());
+  moonWidgetEl.setAttribute('aria-label', `Moon phase: ${phase.name}. Moonlight ${lightPercent} percent. Next full moon ${nextFullMoonEl.textContent}.`);
 }
 
 async function loadLakeConditions() {
