@@ -45,12 +45,63 @@ function ensureLakeConditionStyles() {
     .lake-level-value {
       display: inline-block;
     }
+
+    #moonPhase {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
   `;
   document.head.appendChild(style);
 }
 
+function ensureMoonPhaseStat() {
+  if (document.getElementById('moonPhase')) return;
+
+  const lakeStats = document.querySelector('.lake-stats');
+  if (!lakeStats) return;
+
+  const moonStat = document.createElement('div');
+  moonStat.className = 'lake-stat';
+  moonStat.innerHTML = '<div class="lake-stat-label">Moon</div><div class="lake-stat-value" id="moonPhase">--</div>';
+  lakeStats.appendChild(moonStat);
+}
+
+function getMoonPhase(date = new Date()) {
+  const phases = [
+    'New Moon',
+    'Waxing Crescent',
+    'First Quarter',
+    'Waxing Gibbous',
+    'Full Moon',
+    'Waning Gibbous',
+    'Last Quarter',
+    'Waning Crescent'
+  ];
+
+  const knownNewMoon = new Date('2000-01-06T18:14:00Z');
+  const lunarCycleDays = 29.530588853;
+  const daysSinceNewMoon = (date - knownNewMoon) / 86400000;
+  const moonAge = ((daysSinceNewMoon % lunarCycleDays) + lunarCycleDays) % lunarCycleDays;
+  const phaseIndex = Math.floor((moonAge / lunarCycleDays) * phases.length + 0.5) % phases.length;
+
+  return phases[phaseIndex];
+}
+
+function renderMoonPhase() {
+  ensureMoonPhaseStat();
+
+  const moonPhaseEl = document.getElementById('moonPhase');
+  if (!moonPhaseEl) return;
+
+  moonPhaseEl.textContent = getMoonPhase();
+}
+
 async function loadLakeConditions() {
   ensureLakeConditionStyles();
+  renderMoonPhase();
 
   try {
     const lakeRes = await fetch(`lake_conditions.json?v=${Date.now()}`);
