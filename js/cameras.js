@@ -103,6 +103,42 @@ camList.scrollTop = scrollTop;
   }
 }
 
+// ─── Spyder Network Link ─────────────────────────────────────────────────────
+function addSpyderNetworkLink() {
+  const playerWrap = document.querySelector('.player-wrap');
+
+  if (!playerWrap || document.getElementById('spyderNetworkLink')) {
+    return;
+  }
+
+  const linkBox = document.createElement('div');
+  linkBox.id = 'spyderNetworkLink';
+  linkBox.style.cssText = `
+    margin: 12px auto 0;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #ddd;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    max-width: 900px;
+  `;
+
+  linkBox.innerHTML = `
+    Looking for more live Lake of the Ozarks cameras?<br>
+    Check out our friends at
+    <a href="https://spydernetwork.com"
+       target="_blank"
+       rel="noopener noreferrer"
+       style="color:#ff9800;font-weight:600;text-decoration:none;">
+      SpyderNetwork.com
+    </a>
+    for dozens of additional live camera views.
+  `;
+
+  playerWrap.insertAdjacentElement('afterend', linkBox);
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 async function init() {
   await loadCamsData();
@@ -118,6 +154,8 @@ async function init() {
   updateSelectedCount();
 
   CAMS.forEach((_, i) => updateSelectionUI(i));
+
+  addSpyderNetworkLink();
 
   const startCam =
     parseInt(localStorage.getItem('loto_last_camera') || '0', 10);
