@@ -114,29 +114,27 @@ function addSpyderNetworkLink() {
   const linkBox = document.createElement('div');
   linkBox.id = 'spyderNetworkLink';
   linkBox.style.cssText = `
-    margin: 12px auto 0;
-    padding: 10px 14px;
+    margin: 8px 10px 10px;
+    padding: 8px 10px;
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
+    line-height: 1.35;
     color: #ddd;
     background: rgba(255,255,255,0.05);
     border-radius: 8px;
-    max-width: 900px;
   `;
 
   linkBox.innerHTML = `
-    Looking for more live Lake of the Ozarks cameras?<br>
-    Check out our friends at
+    Looking for more live Lake of the Ozarks cameras?
     <a href="https://spydernetwork.com"
        target="_blank"
        rel="noopener noreferrer"
        style="color:#ff9800;font-weight:600;text-decoration:none;">
-      SpyderNetwork.com
+      Visit SpyderNetwork.com
     </a>
-    for dozens of additional live camera views.
   `;
 
-  playerWrap.insertAdjacentElement('afterend', linkBox);
+  playerWrap.insertAdjacentElement('beforeend', linkBox);
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
