@@ -69,8 +69,10 @@ padding:0 20px 12px 20px;
 <button onclick="addCamera()">+ Add Camera</button>
 <button id="favoritesBtn" onclick="toggleFavorites()">Favorites</button>
 <button id="disabledBtn" onclick="toggleDisabled()">Disabled</button>
+<button onclick="load(true)">Refresh Cameras</button>
 <button id="saveBtn" onclick="saveChanges()">Save Changes</button>
 <span id="saveStatus" class="small">Ready</span>
+<span id="loadStatus" class="small">Loading cameras...</span>
 <progress id="progressbar" value="0" max="100" style="width:200px;display:none"></progress> <span id="progress"></span>
 </div>
 
@@ -81,6 +83,8 @@ let cams=[];
 let favoritesOnly=false;
 let disabledOnly=false;
 let dragIndex=null;
+let camsDataHash='';
+let isDirty=false;
 const API_URL='https://lakefront-admin-api.jeff-r-winters.workers.dev';
 
 async function getAdminPassword(){
@@ -98,7 +102,13 @@ function setSaveStatus(text){
   if(el) el.textContent=text;
 }
 
+function setLoadStatus(text){
+  const el=document.getElementById('loadStatus');
+  if(el) el.textContent=text;
+}
+
 function markDirty(){
+  isDirty=true;
   setSaveStatus('Unsaved Changes');
 }
 
@@ -130,6 +140,8 @@ async function saveChanges(){
 
     const shortSha=(result.commit || '').substring(0,7);
 
+    isDirty=false;
+    camsDataHash=JSON.stringify(cams);
     setSaveStatus(`✓ Saved ${ts} (${shortSha})`);
 
   }catch(err){
@@ -152,11 +164,83 @@ async function saveChanges(){
   }
 }
 
+async function fetchCamsFromWorker(){
+ const r = await fetch(`${API_URL}/cams?v=${Date.now()}`);
+ if(!r.ok) throw new Error(`Worker /cams returned ${r.status}`);
+ const data = await r.json();
+ if(!Array.isArray(data)) throw new Error('Worker /cams did not return a camera array');
+ return {data, source:'Worker'};
+}
 
-async function load(){
+async function fetchCamsFromJson(){
  const r = await fetch(`cams.json?v=${Date.now()}`);
- cams = await r.json();
- render();
+ if(!r.ok) throw new Error(`cams.json returned ${r.status}`);
+ const data = await r.json();
+ if(!Array.isArray(data)) throw new Error('cams.json did not return a camera array');
+ return {data, source:'cams.json'};
+}
+
+async function load(manual=false){
+ try{
+   setLoadStatus('Loading cameras...');
+
+   let result;
+   try{
+     result = await fetchCamsFromWorker();
+   }catch(workerErr){
+     console.warn('Worker camera load failed; falling back to cams.json', workerErr);
+     result = await fetchCamsFromJson();
+   }
+
+   cams = result.data;
+   camsDataHash = JSON.stringify(cams);
+   isDirty=false;
+   render();
+
+   const ts=new Date().toLocaleTimeString([],{
+     hour:'numeric',
+     minute:'2-digit'
+   });
+   setLoadStatus(`Loaded ${cams.length} cameras from ${result.source} at ${ts}`);
+
+ }catch(err){
+   console.error('Camera load failed', err);
+   setLoadStatus('Camera load failed');
+   if(manual) alert(err.message);
+ }
+}
+
+async function refreshCamsIfChanged(){
+ if(isDirty){
+   setLoadStatus('Auto-refresh paused: unsaved changes');
+   return;
+ }
+
+ try{
+   let result;
+   try{
+     result = await fetchCamsFromWorker();
+   }catch(workerErr){
+     result = await fetchCamsFromJson();
+   }
+
+   const newHash=JSON.stringify(result.data);
+   if(newHash===camsDataHash) return;
+
+   cams=result.data;
+   camsDataHash=newHash;
+   render();
+
+   const ts=new Date().toLocaleTimeString([],{
+     hour:'numeric',
+     minute:'2-digit'
+   });
+   setLoadStatus(`Camera list updated from ${result.source} at ${ts}`);
+
+ }catch(err){
+   console.error('Auto-refresh failed', err);
+   setLoadStatus('Auto-refresh failed');
+ }
 }
 
 function render(){
@@ -375,6 +459,7 @@ function previewCam(i){
 
 updateFilterButtons();
 load();
+setInterval(refreshCamsIfChanged, 5 * 60 * 1000);
 
 </script>
 </body>
