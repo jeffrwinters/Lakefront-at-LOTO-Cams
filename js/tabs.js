@@ -49,11 +49,11 @@ function showMainTab(tab) {
     clickCount++;
     clearTimeout(resetTimer);
 
-    if (clickCount >= 3) {
-      clickCount = 0;
-      window.open(ADMIN_URL, '_blank');
-      return;
-    }
+  if (clickCount >= 3) {
+    clickCount = 0;
+    window.location.href = ADMIN_URL;
+    return;
+  }
 
     resetTimer = setTimeout(() => {
       clickCount = 0;
