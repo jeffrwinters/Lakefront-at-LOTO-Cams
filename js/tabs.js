@@ -30,26 +30,37 @@ function showMainTab(tab) {
 
 // ─── Hidden Admin Shortcut ───────────────────────────────────────────────────
 (function setupHiddenAdminShortcut() {
-  const logo = document.querySelector('.header-logo');
-  if (!logo) return;
-
+  const ADMIN_URL = 'https://jeffrwinters.github.io/Lakefront-at-LOTO-Cams-v2/';
   let clickCount = 0;
   let resetTimer = null;
 
-  logo.style.cursor = 'default';
+  function markLogoClickable() {
+    const logo = document.querySelector('.header-logo');
+    if (logo) {
+      logo.style.pointerEvents = 'auto';
+      logo.style.cursor = 'default';
+    }
+  }
 
-  logo.addEventListener('click', () => {
+  function handlePossibleLogoClick(event) {
+    const target = event.target;
+    if (!target || !target.closest || !target.closest('.header-logo')) return;
+
     clickCount++;
     clearTimeout(resetTimer);
 
     if (clickCount >= 3) {
-      window.open('https://jeffrwinters.github.io/Lakefront-at-LOTO-Cams-v2/', '_blank', 'noopener,noreferrer');
       clickCount = 0;
+      window.open(ADMIN_URL, '_blank');
       return;
     }
 
     resetTimer = setTimeout(() => {
       clickCount = 0;
-    }, 3000);
-  });
+    }, 2500);
+  }
+
+  markLogoClickable();
+  document.addEventListener('DOMContentLoaded', markLogoClickable);
+  document.addEventListener('click', handlePossibleLogoClick, true);
 })();
