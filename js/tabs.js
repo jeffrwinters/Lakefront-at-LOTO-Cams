@@ -27,3 +27,29 @@ function showMainTab(tab) {
     camsBtn.classList.add('active');
   }
 }
+
+// ─── Hidden Admin Shortcut ───────────────────────────────────────────────────
+(function setupHiddenAdminShortcut() {
+  const logo = document.querySelector('.header-logo');
+  if (!logo) return;
+
+  let clickCount = 0;
+  let resetTimer = null;
+
+  logo.style.cursor = 'default';
+
+  logo.addEventListener('click', () => {
+    clickCount++;
+    clearTimeout(resetTimer);
+
+    if (clickCount >= 3) {
+      window.open('https://jeffrwinters.github.io/Lakefront-at-LOTO-Cams-v2/', '_blank', 'noopener,noreferrer');
+      clickCount = 0;
+      return;
+    }
+
+    resetTimer = setTimeout(() => {
+      clickCount = 0;
+    }, 3000);
+  });
+})();
