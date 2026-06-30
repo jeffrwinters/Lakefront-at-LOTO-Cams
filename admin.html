@@ -34,25 +34,9 @@ input,select{background:#0f1730;color:white}
 .reachable{border-left:5px solid var(--green)}
 .failed{border-left:5px solid var(--red)}
 .small{font-size:12px;color:#c6d0ee}
-
-.active-filter{
-background:#2ecc71 !important;
-border-color:#2ecc71 !important;
-color:#08101f !important;
-font-weight:bold;
-}
-
-.sticky-shell{
-position:sticky;
-top:0;
-z-index:245;
-background:linear-gradient(180deg,#09152f,#132046);
-margin:-20px -20px 16px -20px;
-padding:0 20px 12px 20px;
-}
+.active-filter{background:#2ecc71!important;border-color:#2ecc71!important;color:#08101f!important;font-weight:bold}
+.sticky-shell{position:sticky;top:0;z-index:245;background:linear-gradient(180deg,#09152f,#132046);margin:-20px -20px 16px -20px;padding:0 20px 12px 20px}
 </style>
-
-
 </head>
 <body>
 
@@ -62,13 +46,15 @@ padding:0 20px 12px 20px;
 <h1>Lakefront at LOTO</h1>
 <p>Operations Center</p>
 </div>
-</div>
-</div><div id="stats"></div>
+</div></div>
+
+<div id="stats"></div>
 
 <div class="toolbar">
 <button onclick="addCamera()">+ Add Camera</button>
 <button id="favoritesBtn" onclick="toggleFavorites()">Favorites</button>
 <button id="disabledBtn" onclick="toggleDisabled()">Disabled</button>
+<button id="hideSpyderBtn" onclick="toggleHideSpyder()">Hide Spyder Cams</button>
 <button onclick="load(true)">Refresh Cameras</button>
 <button id="saveBtn" onclick="saveChanges()">Save Changes</button>
 <span id="saveStatus" class="small">Ready</span>
@@ -82,6 +68,7 @@ padding:0 20px 12px 20px;
 let cams=[];
 let favoritesOnly=false;
 let disabledOnly=false;
+let hideSpyder=false;
 let dragIndex=null;
 let camsDataHash='';
 let isDirty=false;
@@ -114,95 +101,66 @@ function markDirty(){
 
 async function saveChanges(){
   const btn=document.getElementById('saveBtn');
-
   try{
     btn.disabled=true;
     setSaveStatus('Saving...');
-
     const password=await getAdminPassword();
-
     const response=await fetch(`${API_URL}/save`,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({password,cams})
     });
-
     const result=await response.json();
-
-    if(!response.ok){
-      throw new Error(result.error || 'Save failed');
-    }
-
-    const ts=new Date().toLocaleTimeString([],{
-      hour:'numeric',
-      minute:'2-digit'
-    });
-
+    if(!response.ok) throw new Error(result.error || 'Save failed');
+    const ts=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
     const shortSha=(result.commit || '').substring(0,7);
-
     isDirty=false;
     camsDataHash=JSON.stringify(cams);
     setSaveStatus(`✓ Saved ${ts} (${shortSha})`);
-
   }catch(err){
-
     console.error(err);
-
-    if(
-      err.message.includes('Unauthorized') ||
-      err.message.includes('401')
-    ){
+    if(err.message.includes('Unauthorized') || err.message.includes('401')){
       sessionStorage.removeItem('adminPassword');
     }
-
     setSaveStatus('✗ Save Failed');
-
     alert(err.message);
-
   }finally{
     btn.disabled=false;
   }
 }
 
 async function fetchCamsFromWorker(){
- const r = await fetch(`${API_URL}/cams?v=${Date.now()}`);
+ const r=await fetch(`${API_URL}/cams?v=${Date.now()}`);
  if(!r.ok) throw new Error(`Worker /cams returned ${r.status}`);
- const data = await r.json();
+ const data=await r.json();
  if(!Array.isArray(data)) throw new Error('Worker /cams did not return a camera array');
- return {data, source:'Worker'};
+ return {data,source:'Worker'};
 }
 
 async function fetchCamsFromJson(){
- const r = await fetch(`cams.json?v=${Date.now()}`);
+ const r=await fetch(`cams.json?v=${Date.now()}`);
  if(!r.ok) throw new Error(`cams.json returned ${r.status}`);
- const data = await r.json();
+ const data=await r.json();
  if(!Array.isArray(data)) throw new Error('cams.json did not return a camera array');
- return {data, source:'cams.json'};
+ return {data,source:'cams.json'};
 }
 
 async function load(manual=false){
  try{
    setLoadStatus('Loading cameras...');
-
    let result;
    try{
-     result = await fetchCamsFromWorker();
+     result=await fetchCamsFromWorker();
    }catch(workerErr){
      console.warn('Worker camera load failed; falling back to cams.json', workerErr);
-     result = await fetchCamsFromJson();
+     result=await fetchCamsFromJson();
    }
-
-   cams = result.data;
-   camsDataHash = JSON.stringify(cams);
+   cams=result.data;
+   camsDataHash=JSON.stringify(cams);
    isDirty=false;
    render();
-
-   const ts=new Date().toLocaleTimeString([],{
-     hour:'numeric',
-     minute:'2-digit'
-   });
+   const ts=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
    setLoadStatus(`Loaded ${cams.length} cameras from ${result.source} at ${ts}`);
-
  }catch(err){
    console.error('Camera load failed', err);
    setLoadStatus('Camera load failed');
@@ -215,50 +173,65 @@ async function refreshCamsIfChanged(){
    setLoadStatus('Auto-refresh paused: unsaved changes');
    return;
  }
-
  try{
    let result;
-   try{
-     result = await fetchCamsFromWorker();
-   }catch(workerErr){
-     result = await fetchCamsFromJson();
-   }
-
+   try{ result=await fetchCamsFromWorker(); }
+   catch(workerErr){ result=await fetchCamsFromJson(); }
    const newHash=JSON.stringify(result.data);
    if(newHash===camsDataHash) return;
-
    cams=result.data;
    camsDataHash=newHash;
    render();
-
-   const ts=new Date().toLocaleTimeString([],{
-     hour:'numeric',
-     minute:'2-digit'
-   });
+   const ts=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
    setLoadStatus(`Camera list updated from ${result.source} at ${ts}`);
-
  }catch(err){
    console.error('Auto-refresh failed', err);
    setLoadStatus('Auto-refresh failed');
  }
 }
 
+function isSpyderCam(c){
+ const provider=(c.provider || '').toLowerCase();
+ const source=(c.source || '').toLowerCase();
+ const slug=(c.slug || '').toLowerCase();
+ const venue=(c.venue || '').toLowerCase();
+ const name=(c.camera_name || '').toLowerCase();
+ return source.startsWith('spydernetwork') ||
+        slug.includes('spydernetwork') ||
+        venue.includes('spyder') ||
+        name.includes('spyder') ||
+        (provider==='twitch' && c.status==='disabled' && !source);
+}
+
+function visibleCams(){
+ return cams.filter(c=>{
+   if(favoritesOnly && !c.favorite) return false;
+   if(disabledOnly && c.status !== 'disabled') return false;
+   if(hideSpyder && isSpyderCam(c)) return false;
+   return true;
+ });
+}
+
 function render(){
-const active=cams.filter(c=>c.status==='active').length;
-const disabled=cams.filter(c=>c.status==='disabled').length;
-const favs=cams.filter(c=>c.favorite).length;
-document.getElementById('stats').innerHTML=`
-<div class="stat"><div class="n">${cams.length}</div><div>Cameras</div></div>
-<div class="stat"><div class="n">${active}</div><div>Active</div></div>
-<div class="stat"><div class="n">${disabled}</div><div>Disabled</div></div>
-<div class="stat"><div class="n">${favs}</div><div>Favorites</div></div>`;
+ const active=cams.filter(c=>c.status==='active').length;
+ const disabled=cams.filter(c=>c.status==='disabled').length;
+ const favs=cams.filter(c=>c.favorite).length;
+ const spyder=cams.filter(isSpyderCam).length;
+ const visible=visibleCams().length;
+ document.getElementById('stats').innerHTML=`
+ <div class="stat"><div class="n">${cams.length}</div><div>Cameras</div></div>
+ <div class="stat"><div class="n">${active}</div><div>Active</div></div>
+ <div class="stat"><div class="n">${disabled}</div><div>Disabled</div></div>
+ <div class="stat"><div class="n">${favs}</div><div>Favorites</div></div>
+ <div class="stat"><div class="n">${spyder}</div><div>Spyder</div></div>
+ <div class="stat"><div class="n">${visible}</div><div>Visible</div></div>`;
 
  const list=document.getElementById('list');
  list.innerHTML='';
  cams.forEach((c,i)=>{
    if(favoritesOnly && !c.favorite) return;
    if(disabledOnly && c.status !== 'disabled') return;
-
+   if(hideSpyder && isSpyderCam(c)) return;
    const row=document.createElement('div');
    row.className='row '+(c.health||'');
    row.draggable=true;
@@ -273,10 +246,8 @@ document.getElementById('stats').innerHTML=`
       markDirty();
       render();
    };
-
    row.innerHTML=`
    <button title="Top" onclick="moveTop(${i})">⇑</button><button title="Move Up" onclick="moveUp(${i})">↑</button><button title="Move Down" onclick="moveDown(${i})">↓</button><button title="Bottom" onclick="moveBottom(${i})">⇓</button>
-
    <input value="${c.venue||''}" onchange="cams[${i}].venue=this.value;markDirty()">
    <input value="${c.camera_name||''}" onchange="cams[${i}].camera_name=this.value;markDirty()">
    <select onchange="cams[${i}].provider=this.value;markDirty()">
@@ -284,14 +255,8 @@ document.getElementById('stats').innerHTML=`
       <option value="ipcamlive" ${c.provider==='ipcamlive' || c.provider==='ipcamlive.com'?'selected':''}>IPCamLive</option>
       <option ${c.provider==='hls'?'selected':''}>hls</option>
    </select>
-   <input value="${c.source||''}" size="20"
-      placeholder="${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')?'Camera Alias':'Twitch Channel'}"
-      onchange="cams[${i}].source=this.value;markDirty()">
-
-   ${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')
-      ? ''
-      : `<input value="${c.slug||''}" placeholder="Slug" onchange="cams[${i}].slug=this.value;markDirty()">`}
-
+   <input value="${c.source||''}" size="20" placeholder="${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com')?'Camera Alias':'Twitch Channel'}" onchange="cams[${i}].source=this.value;markDirty()">
+   ${(c.provider==='ipcamlive'||c.provider==='ipcamlive.com') ? '' : `<input value="${c.slug||''}" placeholder="Slug" onchange="cams[${i}].slug=this.value;markDirty()">`}
    <select onchange="cams[${i}].status=this.value;markDirty()">
       <option value="active" ${c.status==='active'?'selected':''}>active</option>
       <option value="disabled" ${c.status==='disabled'?'selected':''}>disabled</option>
@@ -299,32 +264,19 @@ document.getElementById('stats').innerHTML=`
    <span style="cursor:grab;font-size:18px">☰</span>
    <button onclick="toggleFav(${i})">${c.favorite?'⭐':'☆'}</button>
    <button onclick="previewCam(${i})">Preview</button>
-   <button onclick="delCamera(${i})">Delete</button>
-   `;
+   <button onclick="delCamera(${i})">Delete</button>`;
    list.appendChild(row);
  });
 }
 
 function addCamera(){
  markDirty();
- cams.push({
-  venue:'',
-  camera_name:'',
-  provider:'twitch',
-  source:'',
-  slug:'',
-  status:'active',
-  favorite:false
- });
+ cams.push({venue:'',camera_name:'',provider:'twitch',source:'',slug:'',status:'active',favorite:false});
  render();
 }
 
 function delCamera(i){
- const name =
-   cams[i].camera_name ||
-   cams[i].venue ||
-   'this camera';
-
+ const name=cams[i].camera_name || cams[i].venue || 'this camera';
  if(confirm(`Delete "${name}"?`)){
    cams.splice(i,1);
    markDirty();
@@ -332,53 +284,42 @@ function delCamera(i){
  }
 }
 
-function toggleFav(i){
- cams[i].favorite=!cams[i].favorite;
- markDirty();
- render();
-}
+function toggleFav(i){ cams[i].favorite=!cams[i].favorite; markDirty(); render(); }
 
 async function probe(c){
  try{
-   let url=c.provider==='twitch'
-     ? 'https://www.twitch.tv/'+c.source
-     : c.source;
+   let url=c.provider==='twitch' ? 'https://www.twitch.tv/'+c.source : c.source;
    await fetch(url,{mode:'no-cors'});
    return 'reachable';
- }catch(e){
-   return 'failed';
- }
+ }catch(e){ return 'failed'; }
 }
 
 async function checkOne(i){
- cams[i].health='checking';
- render();
+ cams[i].health='checking'; render();
  const r=await probe(cams[i]);
  cams[i].health=r;
  cams[i].last_checked=new Date().toLocaleString();
  render();
 }
 
-async function checkAll(){ document.getElementById('progressbar').style.display='inline-block';
+async function checkAll(){
+ document.getElementById('progressbar').style.display='inline-block';
  let done=0;
  for(let i=0;i<cams.length;i++){
    document.getElementById('progress').textContent=`${done}/${cams.length}`;
-document.getElementById('progressbar').value=(done/cams.length)*100;
+   document.getElementById('progressbar').value=(done/cams.length)*100;
    await checkOne(i);
    done++;
  }
  document.getElementById('progress').textContent=`${cams.length}/${cams.length} complete`;
-document.getElementById('progressbar').value=100; setTimeout(()=>{document.getElementById('progressbar').style.display='none';document.getElementById('progress').textContent='';},1500);
-}
-
-function showFailed(){
- failedOnly=!failedOnly;
- render();
+ document.getElementById('progressbar').value=100;
+ setTimeout(()=>{document.getElementById('progressbar').style.display='none';document.getElementById('progress').textContent='';},1500);
 }
 
 function updateFilterButtons(){
  document.getElementById('favoritesBtn')?.classList.toggle('active-filter', favoritesOnly);
  document.getElementById('disabledBtn')?.classList.toggle('active-filter', disabledOnly);
+ document.getElementById('hideSpyderBtn')?.classList.toggle('active-filter', hideSpyder);
 }
 
 function toggleFavorites(){
@@ -395,72 +336,32 @@ function toggleDisabled(){
  render();
 }
 
-function disableFailed(){
- cams.forEach(c=>{
-   if(c.health==='failed') c.status='disabled';
- });
+function toggleHideSpyder(){
+ hideSpyder=!hideSpyder;
+ updateFilterButtons();
  render();
 }
 
-function download(){
- const blob=new Blob([JSON.stringify(cams,null,2)],{type:'application/json'});
- const a=document.createElement('a');
- a.href=URL.createObjectURL(blob);
- a.download='cams.json';
- a.click();
-}
-
-
-
-function moveTop(i){
- if(i<1) return;
- const c=cams.splice(i,1)[0];
- cams.unshift(c);
- markDirty();
- render();
-}
-function moveBottom(i){
- if(i>=cams.length-1) return;
- const c=cams.splice(i,1)[0];
- cams.push(c);
- markDirty();
- render();
-}
-function moveUp(i){
-
- if(i<1) return;
- [cams[i-1],cams[i]]=[cams[i],cams[i-1]];
- markDirty();
- render();
-}
-function moveDown(i){
- if(i>=cams.length-1) return;
- [cams[i+1],cams[i]]=[cams[i],cams[i+1]];
- markDirty();
- render();
-}
-window.addEventListener('scroll',()=>{
- document.body.classList.toggle('scrolled', window.scrollY>60);
-});
+function disableFailed(){ cams.forEach(c=>{ if(c.health==='failed') c.status='disabled'; }); render(); }
+function download(){ const blob=new Blob([JSON.stringify(cams,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='cams.json'; a.click(); }
+function moveTop(i){ if(i<1) return; const c=cams.splice(i,1)[0]; cams.unshift(c); markDirty(); render(); }
+function moveBottom(i){ if(i>=cams.length-1) return; const c=cams.splice(i,1)[0]; cams.push(c); markDirty(); render(); }
+function moveUp(i){ if(i<1) return; [cams[i-1],cams[i]]=[cams[i],cams[i-1]]; markDirty(); render(); }
+function moveDown(i){ if(i>=cams.length-1) return; [cams[i+1],cams[i]]=[cams[i],cams[i+1]]; markDirty(); render(); }
+window.addEventListener('scroll',()=>{ document.body.classList.toggle('scrolled', window.scrollY>60); });
 
 function previewCam(i){
  const c=cams[i];
  let url='';
- if(c.provider==='twitch'){
-   url='https://www.twitch.tv/'+c.source;
- } else if(c.provider==='ipcamlive' || c.provider==='ipcamlive.com'){
-   url='https://g1.ipcamlive.com/player/player.php?alias='+c.source;
- } else {
-   url=c.source;
- }
+ if(c.provider==='twitch') url='https://www.twitch.tv/'+c.source;
+ else if(c.provider==='ipcamlive' || c.provider==='ipcamlive.com') url='https://g1.ipcamlive.com/player/player.php?alias='+c.source;
+ else url=c.source;
  window.open(url,'_blank');
 }
-
 
 updateFilterButtons();
 load();
 setInterval(refreshCamsIfChanged, 5 * 60 * 1000);
-
 </script>
 </body>
 </html>
