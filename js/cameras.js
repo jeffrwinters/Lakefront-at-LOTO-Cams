@@ -168,10 +168,16 @@ async function init() {
   setupCastListeners();
 
   await loadLakeConditions();
+
   setInterval(
-  refreshCamsIfChanged,
-  60 * 1000
-);
+    refreshCamsIfChanged,
+    60 * 1000
+  );
+
+  setInterval(
+    loadLakeConditions,
+    15 * 60 * 1000
+  );
 } 
 
 // ─── Load Cam ─────────────────────────────────────────────────────────────────
