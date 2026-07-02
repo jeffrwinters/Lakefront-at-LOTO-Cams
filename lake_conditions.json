@@ -1,7 +1,7 @@
 {
-  "updated": "2026-07-01T13:33:49.077367+00:00",
-  "waterTemp": 83,
-  "lakeLevel": 659.74,
+  "updated": "2026-07-02T12:57:03.898260+00:00",
+  "waterTemp": 85,
+  "lakeLevel": 659.59,
   "discharge": 35,
-  "trend": "flat"
+  "trend": "down"
 }
