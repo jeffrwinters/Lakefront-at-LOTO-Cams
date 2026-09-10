@@ -3,6 +3,11 @@ name: Update Lake Conditions
 on:
   workflow_dispatch:
 
+  pull_request:
+    paths:
+      - 'scripts/update_lake_conditions.py'
+      - '.github/workflows/update-lake-conditions.yml'
+
   schedule:
     - cron: '0 11 * * *'
     - cron: '0 23 * * *'
@@ -23,15 +28,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: |
-          pip install requests playwright
-          playwright install --with-deps chromium
+        run: pip install requests
 
       - name: Update lake conditions
-        run: |
-          python scripts/update_lake_conditions.py
+        run: python scripts/update_lake_conditions.py
 
       - name: Commit changes
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
