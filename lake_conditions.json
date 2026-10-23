@@ -1,9 +1,9 @@
 {
-  "updated": "2026-10-22T23:16:23.114115+00:00",
-  "waterTemp": 74,
-  "lakeLevel": 657.6,
+  "updated": "2026-10-23T11:09:59.938732+00:00",
+  "waterTemp": 73,
+  "lakeLevel": 657.7,
   "discharge": 1,
-  "trend": "down",
+  "trend": "up",
   "sources": {
     "waterTemp": "krms",
     "lakeLevel": "noaa-nwps",
