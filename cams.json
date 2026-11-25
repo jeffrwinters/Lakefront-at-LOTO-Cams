@@ -32,7 +32,7 @@
     "provider": "twitch",
     "source": "",
     "slug": "the-hatch",
-    "status": "active",
+    "status": "disabled",
     "favorite": false
   },
   {
